@@ -17,7 +17,7 @@ class ScaffoldConf(conf.Configuration):
     def get_buildpack_path(self):
         return os.path.join(DERRICK_BASE_PATH, "buildpacks")
 
-    def update_cluster_certs(self, cluster_id, cert_info):
+    def update_cluster_cert(self, cluster_id, cert_info):
         ca = cert_info.get('ca')
         cert = cert_info.get('cert')
         key = cert_info.get('key')

@@ -18,7 +18,7 @@ def convert(platform=None):
     try:
         module.compile()
     except NotCompletelyConvertedException:
-        pass
+        exit(-1)
     except Exception, e:
         log.red("Unknown Exception occured,because of %s" % e.message)
 
@@ -38,7 +38,6 @@ def verify_platform(platform=None, path=None):
 
 def detect(path=None):
     buildpack_modules = load_buildpacks()
-
 
 
 def load_buildpacks(platform=None):

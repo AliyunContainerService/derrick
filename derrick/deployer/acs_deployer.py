@@ -7,8 +7,10 @@ import time
 import os
 import chalk as log
 from derrick.conf.derrick_conf import ScaffoldConf
+from derrick.buildpacks.exception import NotFoundAccessKeyInfoInConf
 
 DEFAULT_REGION_ENDPOINT = "cn-hangzhou"
+
 
 class AcsDeployer():
     def __init__(self):
@@ -16,6 +18,8 @@ class AcsDeployer():
         scaffold_conf = sf.get_scaffold_conf()
         accessKeyId = scaffold_conf.get("AccessKeyId")
         accessKeySecret = scaffold_conf.get("AccessKeySecret")
+        if accessKeyId == None or accessKeySecret == None:
+            raise NotFoundAccessKeyInfoInConf
         self.sf = sf
         self.cc = ClusterController(accessKeyId, accessKeySecret)
 
@@ -73,8 +77,6 @@ class AcsDeployer():
         else:
             log.red("Failed to deploy application,because of %s" % response.text)
 
-    def delete_application(self, applicationConf):
-        pass
 
 
 
