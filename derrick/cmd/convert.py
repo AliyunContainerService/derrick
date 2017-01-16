@@ -16,9 +16,8 @@ def convert(platform=None):
 
     module = load_buildpacks(platform=platform)
     try:
-        module.compile()
-    except NotCompletelyConvertedException:
-        exit(-1)
+        compile = module.get("compile")
+        compile.compile(path)
     except Exception, e:
         log.red("Unknown Exception occured,because of %s" % e.message)
 
@@ -46,11 +45,12 @@ def load_buildpacks(platform=None):
     buildpack_modules = []
 
     if platform != None:
-        buildpack_module_name = os.path.join("buildpack", "-", platform)
+        buildpack_module_name = "buildpack-" + platform
         module_path = os.path.join(buildpack_path, buildpack_module_name)
         module = {
             "name": buildpack_module_name,
-            "module": imp.load_module(buildpack_module_name, module_path),
+            "detect": imp.load_source(buildpack_module_name + "-detect", os.path.join(module_path, "detect.py")),
+            "compile": imp.load_source(buildpack_module_name + "-compile", os.path.join(module_path, "compile.py")),
         }
         return module
     else:
@@ -61,7 +61,8 @@ def load_buildpacks(platform=None):
                 module_path = os.path.join(buildpack_path, module_name)
                 module = {
                     "name": module_name,
-                    "module": imp.load_module(module_name, module_path),
+                    "detect": imp.load_source(module_name + "-detect", os.path.join(module_path, "detect.py")),
+                    "compile": imp.load_source(module_name + "-compile", os.path.join(module_path, "compile.py")),
                 }
                 buildpack_modules.append(module)
 

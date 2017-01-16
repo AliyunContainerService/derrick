@@ -5,9 +5,12 @@ from derrick.buildpacks.exception import NotFoundAccessKeyInfoInConf
 import inquirer
 import local
 import chalk as log
+import traceback
+import os
 
 
 def deploy():
+    cwd = os.getcwd()
     deployer = AcsDeployer()
     cluster_list = deployer.get_cluster_list()
     ques = [
@@ -20,7 +23,7 @@ def deploy():
     ApplicationConf.update_application_conf(answer)
     # Reload application conf
     application_conf = ApplicationConf.parse_application_conf()
-    if application_conf.get("application_name"):
+    if application_conf.get("application_name") == None:
         ques = [
             inquirer.Text('application_name', message="Please input application name to deploy"),
         ]
@@ -28,6 +31,9 @@ def deploy():
         ApplicationConf.update_application_conf(answers)
         application_conf = ApplicationConf.parse_application_conf()
     local.publish()
+
+    if os.path.exists(cwd, "docker-compose.yml") != True:
+        local.construct_compose_file()
     try:
         # publish latest image to hub
         deployer.deploy_application(application_conf)
@@ -41,4 +47,5 @@ def deploy():
         sf.init_scaffold_conf(answers)
         deployer.deploy_application(application_conf)
     except Exception, e:
+        traceback.print_exc()
         log.red("Failed to deploy application to aliyun container service,because of %s" % e.message)

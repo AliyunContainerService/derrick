@@ -5,6 +5,7 @@ import chalk as log
 import derrick.utils.file as fileUtil
 
 DERRICK_BASE_PATH = os.path.join(os.path.expanduser("~"), ".derrick")
+DERRICK_CLUSTER_BASE_PATH = os.path.join(DERRICK_BASE_PATH, "clusters")
 DERRICK_CONF_PATH = os.path.join(DERRICK_BASE_PATH, "derrick.json")
 
 
@@ -12,7 +13,7 @@ class ScaffoldConf(conf.Configuration):
     path = DERRICK_CONF_PATH
 
     def get_cluster_cert_path(self, cluster_id):
-        return os.path.join(DERRICK_BASE_PATH, cluster_id, "certs")
+        return os.path.join(DERRICK_CLUSTER_BASE_PATH, cluster_id, "certs")
 
     def get_buildpack_path(self):
         return os.path.join(DERRICK_BASE_PATH, "buildpacks")
@@ -26,7 +27,7 @@ class ScaffoldConf(conf.Configuration):
         if os.path.exists(dir_path) == True:
             pass
         else:
-            os.mkdir(dir_path)
+            os.system("mkdir -p %s" % dir_path)
 
         try:
             ca_file = open(os.path.join(dir_path, "ca.pem"), "wa")

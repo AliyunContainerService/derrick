@@ -1,9 +1,16 @@
-import chalk as log
+"""
+    2017.01.16
+    Simple implement some custom exception
+"""
 
 
 class NotCompletelyConvertedException(Exception):
-    log.red("Not completely converted.But something works well.")
+    pass
 
 
 class NotFoundAccessKeyInfoInConf(Exception):
-    log.red("Not Found AccessKeyId or AccessKeySecret in derrick config path")
+    pass
+
+
+class NotFoundRemoteRepo(Exception):
+    pass

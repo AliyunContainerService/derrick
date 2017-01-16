@@ -24,6 +24,7 @@ DERRICK_SLOGAN = """
 
 DERRICK_HELP = """
 Usage:
+    derrick install <platform-git-repo>
     derrick init [<platform>]
     derrick test
     derrick publish
@@ -63,8 +64,12 @@ class Cli:
             if arguments.get(key) == True and exists == True:
                 handler(arguments=arguments)
 
+    def install(self, arguments=None):
+        platform = arguments.get("<platform-git-repo>")
+        local.install(platform)
+
     def init(self, arguments=None):
-        platform = arguments.get("platform")
+        platform = arguments.get("<platform>")
         convert.convert(platform)
 
     def test(self, arguments=None):

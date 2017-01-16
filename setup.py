@@ -11,6 +11,7 @@ setup(
         'inquirer',
         'pychalk',
         'simplejson',
+        'aliyun-python-sdk-cs',
     ],
     entry_points='''
         [console_scripts]

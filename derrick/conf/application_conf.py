@@ -3,11 +3,11 @@ import chalk as log
 import os
 import conf
 
+
 class ApplicationConf(conf.Configuration):
     @staticmethod
     def init_application_conf(conf):
         application_conf_path = ApplicationConf.get_application_conf_path()
-        print application_conf_path
         try:
             file = open(application_conf_path, "w")
             json.dump(conf, file, indent=4)
@@ -17,7 +17,7 @@ class ApplicationConf(conf.Configuration):
 
     @staticmethod
     def update_application_conf(conf):
-        application_conf = ApplicationConf.parse_application_conf()
+        application_conf = ApplicationConf.parse_application_conf() or {}
         application_conf_path = ApplicationConf.get_application_conf_path()
         try:
             application_conf.update(conf)
