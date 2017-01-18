@@ -12,12 +12,12 @@ setup(
         'pychalk',
         'simplejson',
         'aliyun-python-sdk-cs',
+        'ConfigParser',
     ],
     entry_points='''
         [console_scripts]
         derrick=derrick.derrick:main
     ''',
-    packages=['derrick', 'derrick.convertor',
-              'derrick.cmd', 'derrick.utils', 'derrick.buildpacks',
+    packages=['derrick','derrick.cmd', 'derrick.utils', 'derrick.buildpacks',
               'derrick.conf', 'derrick.deployer', 'derrick.utils', ]
 )

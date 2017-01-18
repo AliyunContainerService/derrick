@@ -1,14 +1,46 @@
+import os
+import re
+
 import requests
 import simplejson as json
-import re
 
 MAX_RETRY_TIMES = 3
 LATEST = "latest"
+SPLIT_COLON = ":"
+SPLIT_ENTER = "\\\n&&  "
+
+
+def parse_addons_in_package_management(data):
+    commands = []
+    commands += install_package_by_search_module(data, "libffi-dev",
+                                                 ["argon2-cffi", "bcrypt", "cffi", "cryptography", "django[argon2]",
+                                                  "Django[argon2]",
+                                                  "django[bcrypt]", "Django[bcrypt]", "PyNaCl", "pyOpenSSL",
+                                                  "PyOpenSSL", "requests[security]",
+                                                  "misaka"])
+    commands += install_package_by_search_module(data, "libmemcache-dev", ["pylibmc"])
+    commands += install_package_by_search_module(data, ["mysql-client", "libmysqlclient-dev"], ["mysql"])
+    commands += install_package_by_search_module(data, "redis-cli", ["redis"])
+    commands += install_package_by_search_module(data, "postgresql-client", ["postgre"])
+    commands += install_package_by_search_module(data, "mongodb-clients", ["mongo"])
+    return commands
+
+
+def install_package_by_search_module(data, package_name, search_keys):
+    for name in search_keys:
+        if data.find(name) > -1:
+            if isinstance(package_name, str) == True:
+                return [package_name]
+            else:
+                return package_name
+        else:
+            return []
 
 
 def procfile_to_commands(procfile_data):
-    commands_arr = procfile_data.split(":")
-    run_command = commands_arr[-1].lstrip().rstrip()
+    pos = procfile_data.index(":")
+    command = procfile_data[pos + 1:-1]
+    run_command = command.lstrip().rstrip()
     commands = run_command.split(" ")
     return commands
 
@@ -71,3 +103,20 @@ def choose_similar_tag(version, versions_list, filter_words):
         best_fit_tag_number = LATEST
 
     return best_fit_tag_number
+
+
+def path_exists(*paths):
+    path_exists_or_not = False
+    for path in paths:
+        path_exists_or_not = path_exists_or_not or os.path.exists(path)
+    return path_exists_or_not
+
+
+def copy_file_to_dest(dest_dir, src_dir, *paths):
+    for path in paths:
+        absolute_path = os.path.join(src_dir, path)
+        with open(absolute_path) as file:
+            data = file.read()
+            f = open(os.path.join(dest_dir, path), "wa")
+            f.write(data)
+            f.close()

@@ -14,3 +14,7 @@ class NotFoundAccessKeyInfoInConf(Exception):
 
 class NotFoundRemoteRepo(Exception):
     pass
+
+
+class NotFoundTemplateConf(Exception):
+    pass
