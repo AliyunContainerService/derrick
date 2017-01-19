@@ -22,14 +22,19 @@ DERRICK_SLOGAN = """
 
 """
 
-DERRICK_HELP = """
-Usage:
-    derrick install <platform-git-repo>
-    derrick init [<platform>]
+"""
+//后续开放如下命令
     derrick test
     derrick publish
     derrick serve
     derrick deploy
+"""
+
+DERRICK_HELP = """
+Usage:
+    derrick install <platform-git-repo>
+    derrick init [<platform>]
+
 
 Options:
   -h --help         # Print this info and generator's options and usage

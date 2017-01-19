@@ -4,6 +4,7 @@ import chalk as log
 from derrick.conf.derrick_conf import ScaffoldConf
 import derrick.utils.file as fileUtil
 
+
 def convert(platform=None):
     path = os.getcwd()
     platform = verify_platform(platform=platform, path=path)
@@ -14,6 +15,7 @@ def convert(platform=None):
 
     module = load_buildpacks(platform=platform)
     try:
+        log.green("Start to generate dockerfile and it will take about 10 second")
         compile = module.get("compile")
         compile.compile(path)
     except Exception, e:
