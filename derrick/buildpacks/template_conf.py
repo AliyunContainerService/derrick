@@ -1,3 +1,8 @@
+"""
+    Supply some utils func to operate template key map
+"""
+
+
 class TemplateConf:
     def __init__(self, **conf):
         self.conf = conf or {}
@@ -28,10 +33,10 @@ class TemplateConf:
         for key in new_conf:
             new_value = new_conf.get(key)
 
-        if type(self.conf.get(key)) == list:
-            self.append(key, new_value)
-        else:
-            self.set(key, new_value)
+            if type(self.conf.get(key)) == list:
+                self.append(key, new_value)
+            else:
+                self.set(key, new_value)
 
         return self.conf
 
@@ -87,7 +92,7 @@ class DockerfileTemplateConf(TemplateConf):
     def __get_keys_from_conf(self, *args):
         values = []
         for key in args:
-            values.append(self.conf.get(key)) or []
+            values.append(self.conf.get(key) or [])
         return tuple(values)
 
     def convert_commands(self, commands):
@@ -125,7 +130,7 @@ class DockerfileTemplateConf(TemplateConf):
         convert_conf.update({
             DockerfileTemplateConf.PRE_COMMANDS: self.convert_commands(pre_commands),
             DockerfileTemplateConf.COMMANDS: self.convert_commands(commands),
-            DockerfileTemplateConf.POST_COMMANDS: self.convert_commands(commands),
+            DockerfileTemplateConf.POST_COMMANDS: self.convert_commands(post_commands),
         })
 
         # update commands

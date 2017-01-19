@@ -11,6 +11,7 @@ SPLIT_ENTER = "\\\n&&  "
 
 
 def parse_addons_in_package_management(data):
+    data = data.lower()
     commands = []
     commands += install_package_by_search_module(data, "libffi-dev",
                                                  ["argon2-cffi", "bcrypt", "cffi", "cryptography", "django[argon2]",
@@ -24,6 +25,20 @@ def parse_addons_in_package_management(data):
     commands += install_package_by_search_module(data, "postgresql-client", ["postgre"])
     commands += install_package_by_search_module(data, "mongodb-clients", ["mongo"])
     return commands
+
+
+def construct_system_dependencies(commands):
+    SYSTEM_INSTALL_COMMANDS = ["apt-get update -y", "[INSTALL_COMMAND]",
+                               "rm -rf /var/lib/apt/lists/*"]
+    SPLIT_ENTER_WITHOUT_AND = "\\\n "
+    if len(commands) > 0:
+        commands_str = "apt-get install -y " + SPLIT_ENTER_WITHOUT_AND.join(commands)
+        for i in range(0, len(SYSTEM_INSTALL_COMMANDS)):
+            if SYSTEM_INSTALL_COMMANDS[i] == "[INSTALL_COMMAND]":
+                SYSTEM_INSTALL_COMMANDS[i] = commands_str
+        return SYSTEM_INSTALL_COMMANDS
+    else:
+        return []
 
 
 def install_package_by_search_module(data, package_name, search_keys):
@@ -50,7 +65,7 @@ def convert_to_commands_arr(command_str):
 
 
 def calculate_version(version_origin, remote_repo, filter_keys):
-    version = version_origin.strip("[^>=~<]")
+    version = version_origin.strip("[^>=~<v]")
     tags_list = get_remote_available_tags(remote_repo)
     version = choose_similar_tag(version, tags_list, filter_keys)
     return version
@@ -120,3 +135,15 @@ def copy_file_to_dest(dest_dir, src_dir, *paths):
             f = open(os.path.join(dest_dir, path), "wa")
             f.write(data)
             f.close()
+
+
+def replace_str_in_file(path, old, new):
+    if os.path.exists(path) == True:
+        with open(path, "r") as f:
+            content = f.read()
+            replace_content = content.replace(old, new)
+            with open(path, "w") as f:
+                f.write(replace_content)
+        return True
+    else:
+        return False

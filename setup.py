@@ -18,6 +18,6 @@ setup(
         [console_scripts]
         derrick=derrick.derrick:main
     ''',
-    packages=['derrick','derrick.cmd', 'derrick.utils', 'derrick.buildpacks',
+    packages=['derrick', 'derrick.cmd', 'derrick.buildpacks',
               'derrick.conf', 'derrick.deployer', 'derrick.utils', ]
 )

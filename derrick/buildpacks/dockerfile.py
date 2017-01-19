@@ -4,14 +4,13 @@
     dockerfile convertor
 
 """
-import os
 from jinja2 import Template
 from exception import NotFoundTemplateConf
 from template_conf import DockerfileTemplateConf
 import chalk as log
 
 
-class Convertor():
+class Convertor(object):
     def __init__(self):
         # your should change the value of template_conf
         # when extends convertor class
@@ -26,24 +25,23 @@ class Convertor():
 # simple extends the parent class .
 class DockerfileConvertor(Convertor):
     def __init__(self, template_conf=None, source_template=None, dest_template=None):
+        super(DockerfileConvertor, self).__init__()
         if template_conf != None:
             self.df = DockerfileTemplateConf(template_conf)
             self.template_conf = self.df.convert_to_template_conf()
-        self.source_template = source_template
-        self.dest_template = dest_template
 
     def set_template_conf(self, template_conf_instance):
-        if template_conf_instance != None and isinstance(template_conf_instance) == DockerfileTemplateConf:
+        if template_conf_instance != None and isinstance(template_conf_instance, DockerfileTemplateConf) == True:
             self.df = template_conf_instance
             self.template_conf = template_conf_instance.convert_to_template_conf()
 
-    def flush_template_file_to_disk(self):
+    def flush_template_file_to_disk(self, source_template, dest_template):
         try:
-            with open(self.source_template) as source_template_file:
+            with open(source_template) as source_template_file:
                 template_content = source_template_file.read()
                 content = self.convert_to_template_content(template_content)
-                if self.dest_template != None and os.path.exists(self.dest_template):
-                    with open(self.dest_template, "w") as dest_file:
+                if dest_template != None:
+                    with open(dest_template, "w") as dest_file:
                         dest_file.write(content)
                 else:
                     raise NotFoundTemplateConf

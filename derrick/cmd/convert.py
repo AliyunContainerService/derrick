@@ -3,8 +3,6 @@ import os
 import chalk as log
 from derrick.conf.derrick_conf import ScaffoldConf
 import derrick.utils.file as fileUtil
-from derrick.buildpacks.exception import NotCompletelyConvertedException
-
 
 def convert(platform=None):
     path = os.getcwd()
