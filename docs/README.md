@@ -7,7 +7,7 @@ Derrick可以通过类似buildpack的机制动态探测代码使用的框架、�
 
 
 # 使用方式   
-安装derrick的<a href="../dist/derrick-0.0.1-py2.7.egg" target="_blank">egg包</a>  
+安装derrick的<a href="http://gitlab.alibaba-inc.com/zhongwei.lzw/derrick/blob/master/dist/derrick-0.0.1-py2.7.egg" target="_blank">egg包</a>  
 
 ```
   easy_install derrick-0.0.1-py2.7.egg
