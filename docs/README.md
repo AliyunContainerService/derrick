@@ -1,8 +1,10 @@
-# Derrick简介  
+# Derrick简介
+Derrick可以通过类似buildpack的机制动态探测代码使用的框架、平台与类库，并动态的生成Dockerfile、docker-compose并部署到阿里云容器服务。       
 
 # 支持的语言  
-<a href="./nodejs.md">Node.js</a>      
-<a href="./python.md">Python</a>    
+<a href="http://gitlab.alibaba-inc.com/zhongwei.lzw/derrick/blob/master/docs/nodejs.md">Node.js</a>      
+<a href="http://gitlab.alibaba-inc.com/zhongwei.lzw/derrick/blob/master/docs/python.md">Python</a>    
+
 
 # 使用方式   
 安装derrick的<a href="../dist/derrick-0.0.1-py2.7.egg" target="_blank">egg包</a>  
