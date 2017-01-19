@@ -21,9 +21,9 @@ def parse_addons_in_package_management(data):
                                                   "misaka"])
     commands += install_package_by_search_module(data, "libmemcache-dev", ["pylibmc"])
     commands += install_package_by_search_module(data, ["mysql-client", "libmysqlclient-dev"], ["mysql"])
-    commands += install_package_by_search_module(data, "redis-cli", ["redis"])
+    # commands += install_package_by_search_module(data, "redis-cli", ["redis"])
     commands += install_package_by_search_module(data, "postgresql-client", ["postgre"])
-    commands += install_package_by_search_module(data, "mongodb-clients", ["mongo"])
+    # commands += install_package_by_search_module(data, "mongodb-clients", ["mongo"])
     return commands
 
 
