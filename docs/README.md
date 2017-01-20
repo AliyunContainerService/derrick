@@ -5,6 +5,25 @@ Derrick可以通过类似buildpack的机制动态探测代码使用的框架、�
 <a href="http://gitlab.alibaba-inc.com/cos/derrick/blob/master/docs/nodejs.md">Node.js</a>      
 <a href="http://gitlab.alibaba-inc.com/cos/derrick/blob/master/docs/python.md">Python</a>    
 
+# 支持命令
+
+
+
+```
+Usage:
+    derrick install <platform-git-repo>
+    derrick init [<platform>]
+    derrick test
+    derrick publish
+    derrick serve
+    derrick deploy
+
+
+Options:
+  -h --help         # Print this info and generator's options and usage
+  -v --version      # Print version
+
+```
 
 # 使用方式   
 安装derrick的<a href="http://gitlab.alibaba-inc.com/cos/derrick/blob/master/dist/derrick-0.0.1-py2.7.egg" target="_blank">egg包</a>  
