@@ -45,7 +45,7 @@ Options:
 
 Node.js
 ```
-git clone  git@gitlab.alibaba-inc.com:cos/nodejs-demo.git
+git clone  git@gitlab.alibaba-inc.com:zhongwei.lzw/nodejs-demo.git
 cd nodejs-demo
 derrick init nodejs
 docker build -t nodejs-test:latest
@@ -55,7 +55,7 @@ docker run -d -p 3000:3000 nodejs-test:latest
 
 Python uwsgi
 ```
-git clone git@gitlab.alibaba-inc.com:cos/python-demo.git
+git clone git@gitlab.alibaba-inc.com:zhongwei.lzw/python-demo.git
 cd python-demo
 derrick init python
 docker build -t python-test:latest
