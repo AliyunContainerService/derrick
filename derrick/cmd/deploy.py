@@ -30,6 +30,9 @@ def deploy():
                       ),
     ]
     answer = inquirer.prompt(ques)
+    if answer.get("cluster_id") == None:
+        os.exit(-1)
+
     ApplicationConf.update_application_conf(answer)
     # Reload application conf
     application_conf = ApplicationConf.parse_application_conf()
