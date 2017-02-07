@@ -1,5 +1,6 @@
 import simplejson as json
-import os 
+import os
+
 
 class Configuration:
     path = ""
@@ -12,6 +13,9 @@ class Configuration:
             file(self.path, "w").close()
 
     def Load(self):
-        with open(self.path) as jsonData:
-            data = json.load(jsonData)
-            return data
+        try:
+            with open(self.path) as jsonData:
+                data = json.load(jsonData)
+                return data
+        except Exception, e:
+            return None

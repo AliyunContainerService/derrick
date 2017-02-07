@@ -6,7 +6,7 @@
 """
 from jinja2 import Template
 from exception import NotFoundTemplateConf
-from template_conf import DockerfileTemplateConf
+from template_conf import DockerfileTemplateConf, DockerComposeTemplateConf
 import chalk as log
 
 
@@ -24,7 +24,7 @@ class Convertor(object):
 
 # simple extends the parent class .
 class DockerfileConvertor(Convertor):
-    def __init__(self, template_conf=None, source_template=None, dest_template=None):
+    def __init__(self, template_conf=None):
         super(DockerfileConvertor, self).__init__()
         if template_conf != None:
             self.df = DockerfileTemplateConf(template_conf)
@@ -47,3 +47,25 @@ class DockerfileConvertor(Convertor):
                     raise NotFoundTemplateConf
         except NotFoundTemplateConf:
             log.red("Failed to convert dockerfile,because of not found tempalte conf")
+
+
+class DockerComposeConvertor(Convertor):
+    def __init__(self, template_conf=None):
+        super(DockerComposeConvertor, self).__init__()
+        if template_conf != None:
+            print template_conf
+            self.df = DockerComposeTemplateConf(template_conf)
+            self.template_conf = self.df.convert_to_template_conf()
+
+    def flush_template_file_to_disk(self, source_template, dest_template):
+        try:
+            with open(source_template) as source_template_file:
+                template_content = source_template_file.read()
+                content = self.convert_to_template_content(template_content)
+                if dest_template != None:
+                    with open(dest_template, "w") as dest_file:
+                        dest_file.write(content)
+                else:
+                    raise NotFoundTemplateConf
+        except NotFoundTemplateConf:
+            log.red("Failed to convert docker-compose,because of not found tempalte conf")

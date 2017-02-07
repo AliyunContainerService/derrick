@@ -4,7 +4,7 @@
 
 
 class TemplateConf:
-    def __init__(self, **conf):
+    def __init__(self, conf=None):
         self.conf = conf or {}
 
     # unshift a key to template key map
@@ -139,4 +139,15 @@ class DockerfileTemplateConf(TemplateConf):
             DockerfileTemplateConf.TEST_COMMANDS: self.convert_endpoint_commands(test_commands),
         })
 
+        return convert_conf
+
+
+class DockerComposeTemplateConf(TemplateConf):
+    def convert_to_template_conf(self):
+        convert_conf = self.conf
+        ports = self.conf.get('ports')
+        ports_arr = ports.split(" ")
+        convert_conf.update({
+            "ports": ports_arr,
+        })
         return convert_conf

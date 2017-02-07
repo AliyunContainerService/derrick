@@ -1,9 +1,11 @@
 from derrick.conf.application_conf import ApplicationConf
+from derrick.buildpacks.dockerfile import DockerComposeConvertor
 from derrick.conf.derrick_conf import DERRICK_BASE_PATH
 import os
 import inquirer
 import chalk as log
 import time
+import traceback
 
 
 def install(platform_git_repo):
@@ -76,19 +78,32 @@ def serve():
     cwd = os.getcwd()
     try:
         publish(publish_image_name)
-        if os.path.exists(cwd,"docker-compose.yml") != True:
+        if os.path.exists(os.path.join(cwd, "docker-compose.yml")) != True:
             construct_compose_file()
         os.system("docker-compose up")
     except Exception, e:
+        traceback.print_exc()
         log.red("Failed to run with docker,because of %s" % e.message)
 
 
 def construct_compose_file():
-    pass
-    # ques = [
-    #     inquirer.Text('port', message="Please input your expose port"),
-    #     inquirer.Text('volume', message="Please input volume mount mapping"),
-    # ]
-    # answers = inquirer.prompt(ques)
-    # application_conf = ApplicationConf.parse_application_conf()
+    ques = [
+        inquirer.Text('ports', message="Please input your expose port(such as 80:8080 81:8081)"),
+    ]
 
+    application_conf = ApplicationConf.parse_application_conf()
+    platform = application_conf.get("platform")
+    ports = application_conf.get("ports")
+    if ports == None:
+        answers = inquirer.prompt(ques)
+        if answers.get("ports") != None:
+            ApplicationConf.update_application_conf(answers)
+            application_conf = ApplicationConf.parse_application_conf()
+        else:
+            log.red("You should provide a valid port")
+            exit(0)
+    source_compose_file = os.path.join(DERRICK_BASE_PATH, "buildpacks", "buildpack-" + platform,
+                                       "templates", "docker-compose.j2")
+    dest_compose_file = os.path.join(os.getcwd(), "docker-compose.yml")
+    dc = DockerComposeConvertor(application_conf)
+    dc.flush_template_file_to_disk(source_template=source_compose_file, dest_template=dest_compose_file)

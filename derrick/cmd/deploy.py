@@ -10,8 +10,18 @@ import os
 
 
 def deploy():
-    cwd = os.getcwd()
-    deployer = AcsDeployer()
+    deployer = None
+    try:
+        deployer = AcsDeployer()
+    except Exception, e:
+        ques = [
+            inquirer.Text('AccessKeyId', message="Please input your AccessKeyId"),
+            inquirer.Text('AccessKeySecret', message="Please input your AccessKeySecret"),
+        ]
+        answers = inquirer.prompt(ques)
+        sf = ScaffoldConf()
+        sf.init_scaffold_conf(answers)
+
     cluster_list = deployer.get_cluster_list()
     ques = [
         inquirer.List('cluster_id',
@@ -31,20 +41,11 @@ def deploy():
         ApplicationConf.update_application_conf(answers)
         application_conf = ApplicationConf.parse_application_conf()
     local.publish()
-
-    if os.path.exists(cwd, "docker-compose.yml") != True:
+    cwd = os.getcwd()
+    if os.path.exists(os.path.join(cwd, "docker-compose.yml")) != True:
         local.construct_compose_file()
     try:
         # publish latest image to hub
-        deployer.deploy_application(application_conf)
-    except NotFoundAccessKeyInfoInConf:
-        ques = [
-            inquirer.Text('AccessKeyId', message="Please input your AccessKeyId"),
-            inquirer.Text('AccessKeySecret', message="Please input your AccessKeySecret"),
-        ]
-        answers = inquirer.prompt(ques)
-        sf = ScaffoldConf()
-        sf.init_scaffold_conf(answers)
         deployer.deploy_application(application_conf)
     except Exception, e:
         traceback.print_exc()

@@ -16,6 +16,8 @@ class AcsDeployer():
     def __init__(self):
         sf = ScaffoldConf()
         scaffold_conf = sf.get_scaffold_conf()
+        if scaffold_conf == None:
+            raise NotFoundAccessKeyInfoInConf
         accessKeyId = scaffold_conf.get("AccessKeyId")
         accessKeySecret = scaffold_conf.get("AccessKeySecret")
         if accessKeyId == None or accessKeySecret == None:
@@ -76,10 +78,6 @@ class AcsDeployer():
             log.green("Deploy application to Aliyun Container Service successfullly!")
         else:
             log.red("Failed to deploy application,because of %s" % response.text)
-
-
-
-
 
 
 class ClusterController:

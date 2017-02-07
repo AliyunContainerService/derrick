@@ -3,6 +3,7 @@ import os
 import chalk as log
 from derrick.conf.derrick_conf import ScaffoldConf
 import derrick.utils.file as fileUtil
+from derrick.conf.application_conf import ApplicationConf
 
 
 def convert(platform=None):
@@ -18,6 +19,8 @@ def convert(platform=None):
         log.green("Start to generate dockerfile and it will take about 10 second")
         compile = module.get("compile")
         compile.compile(path)
+        # update platform to application conf
+        ApplicationConf.update_application_conf({"platform": platform})
     except Exception, e:
         log.red("Unknown Exception occured,because of %s" % e.message)
 
