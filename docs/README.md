@@ -5,6 +5,25 @@ Derrick可以通过类似buildpack的机制动态探测代码使用的框架、�
 <a href="http://gitlab.alibaba-inc.com/cos/derrick/blob/master/docs/nodejs.md">Node.js</a>      
 <a href="http://gitlab.alibaba-inc.com/cos/derrick/blob/master/docs/python.md">Python</a>    
 
+# 支持命令
+
+
+
+```
+Usage:
+    derrick install <platform-git-repo>
+    derrick init [<platform>]
+    derrick test
+    derrick publish
+    derrick serve
+    derrick deploy
+
+
+Options:
+  -h --help         # Print this info and generator's options and usage
+  -v --version      # Print version
+
+```
 
 # 使用方式   
 安装derrick的<a href="http://gitlab.alibaba-inc.com/cos/derrick/blob/master/dist/derrick-0.0.1-py2.7.egg" target="_blank">egg包</a>  
@@ -26,7 +45,7 @@ Derrick可以通过类似buildpack的机制动态探测代码使用的框架、�
 
 Node.js
 ```
-git clone  git@gitlab.alibaba-inc.com:cos/nodejs-demo.git
+git clone  git@gitlab.alibaba-inc.com:zhongwei.lzw/nodejs-demo.git
 cd nodejs-demo
 derrick init nodejs
 docker build -t nodejs-test:latest
@@ -36,7 +55,7 @@ docker run -d -p 3000:3000 nodejs-test:latest
 
 Python uwsgi
 ```
-git clone git@gitlab.alibaba-inc.com:cos/python-demo.git
+git clone git@gitlab.alibaba-inc.com:zhongwei.lzw/python-demo.git
 cd python-demo
 derrick init python
 docker build -t python-test:latest
