@@ -2,6 +2,7 @@ import simplejson as json
 import chalk as log
 import os
 import conf
+import traceback
 
 
 class ApplicationConf(conf.Configuration):
@@ -17,7 +18,10 @@ class ApplicationConf(conf.Configuration):
 
     @staticmethod
     def update_application_conf(conf):
-        application_conf = ApplicationConf.parse_application_conf() or {}
+        try:
+            application_conf = ApplicationConf.parse_application_conf() or {}
+        except:
+            application_conf = {}
         application_conf_path = ApplicationConf.get_application_conf_path()
         try:
             application_conf.update(conf)
@@ -29,8 +33,10 @@ class ApplicationConf(conf.Configuration):
     @staticmethod
     def parse_application_conf():
         application_conf_path = ApplicationConf.get_application_conf_path()
+        if os.path.exists(application_conf_path) != True:
+            file(application_conf_path, "w").close()
         try:
-            file_data = open(application_conf_path).read()
+            file_data = open(application_conf_path).read() or "{}"
             json_data = json.loads(file_data)
             return json_data
         except Exception, e:
