@@ -13,6 +13,7 @@ setup(
         'simplejson',
         'aliyun-python-sdk-cs',
         'ConfigParser',
+        'requests',
     ],
     entry_points='''
         [console_scripts]
