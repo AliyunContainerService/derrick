@@ -1,3 +1,4 @@
 build
 derrick.egg-info
 *.pyc
+dist/
