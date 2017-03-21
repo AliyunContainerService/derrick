@@ -11,6 +11,7 @@ class Cli:
     Usage:
         derrick install <platform-git-repo>
         derrick init [<platform>]
+        derrick build
         derrick test
         derrick publish
         derrick serve
@@ -43,6 +44,10 @@ class Cli:
     # and run unittests in local containers
     def test(self, arguments=None):
         local.test()
+
+    # language specific build
+    def build(sefl, arguments=None):
+        local.build()
 
     # build docker image in local
     # and publish image to aliyun docker hub service

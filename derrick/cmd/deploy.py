@@ -43,7 +43,16 @@ def deploy():
         answers = inquirer.prompt(ques)
         ApplicationConf.update_application_conf(answers)
         application_conf = ApplicationConf.parse_application_conf()
-    local.publish()
+
+    confirm = {
+        inquirer.Confirm('confirmed',
+                    message="Do you want to build image ?",
+                    default=True),
+    }
+
+    build_image_answer = inquirer.prompt(confirm)
+    if build_image_answer['confirmed'] == True:
+        local.publish()
     cwd = os.getcwd()
     if os.path.exists(os.path.join(cwd, "docker-compose.yml")) != True:
         local.construct_compose_file()

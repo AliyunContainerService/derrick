@@ -50,6 +50,19 @@ def test():
     except Exception, e:
         log.red("Failed to test with docker, because of %s" % e.message)
 
+def build(builder_image_name=None):
+    cwd = os.getcwd()
+    builder_dockerfile_path = os.path.join(cwd, "Dockerfile.build")
+    if os.path.exists(builder_dockerfile_path) == False:
+        return
+    application_conf = ApplicationConf.parse_application_conf() or {}
+    if builder_image_name == None:
+        builder_image_name = "builder_by_derrick"
+    try:
+        os.system("docker build -t %s -f %s %s" % (builder_image_name, builder_dockerfile_path, cwd))
+        os.system("docker run -t -v %s:/workspace %s" % (cwd, builder_image_name))
+    except Exception, e:
+        log.red("Failed to build with docker,because of %s" % e.message)
 
 def publish(publish_image_name=None):
     application_conf = ApplicationConf.parse_application_conf() or {}
@@ -64,6 +77,8 @@ def publish(publish_image_name=None):
             publish_image_name = answers.get("publish_image_name")
 
     try:
+        builder_image_name = publish_image_name + "_builder"
+        build(builder_image_name)
         cwd = os.getcwd()
         dockerfile_path = os.path.join(cwd, "Dockerfile")
         os.system("docker build -t %s -f %s %s" % (publish_image_name, dockerfile_path, cwd))
