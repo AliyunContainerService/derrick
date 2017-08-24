@@ -16,13 +16,11 @@
     You can use Derrick to scaffold your project simply.
     ===================================================
 """
-
-from cmd.cli import Cli
+from derrick.core.derrick import Derrick
 
 
 def main():
-    cli = Cli()
-    cli.run()
+    Derrick.run()
 
 
 if __name__ == "__main__":

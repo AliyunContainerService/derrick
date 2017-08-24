@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='derrick',
-    version='0.0.1',
+    version='1.0.0',
     py_modules=['derrick'],
     include_package_data=True,
     install_requires=[
@@ -11,14 +11,11 @@ setup(
         'inquirer',
         'pychalk',
         'simplejson',
-        'aliyun-python-sdk-cs',
-        'ConfigParser',
         'requests',
     ],
     entry_points='''
         [console_scripts]
-        derrick=derrick.derrick:main
+        derrick=derrick.main:main
     ''',
-    packages=['derrick', 'derrick.cmd', 'derrick.buildpacks',
-              'derrick.conf', 'derrick.deployer', 'derrick.utils', ]
+    packages=['derrick', 'derrick.core', 'derrick.commands', 'derrick.utils', ]
 )
