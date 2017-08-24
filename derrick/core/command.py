@@ -1,5 +1,7 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
+from __future__ import absolute_import, division, print_function
+
 from derrick.core.extension import ExtensionPoint
 
 COMMAND_NOT_IMPLEMENTED_EXCEPTION = "The specific command doesn't implement the `%s` function."

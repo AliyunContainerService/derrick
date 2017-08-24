@@ -1,6 +1,7 @@
 """
     Derrick
 """
+from __future__ import absolute_import, division, print_function
 
 from derrick.core.command_manager import CommandManager
 
@@ -18,7 +19,8 @@ class Derrick(object):
         self.pre_load()
         pass
 
-    def run(self):
+    @staticmethod
+    def run():
         pass
 
     # when you need to load custom user's command

@@ -1,3 +1,9 @@
+#! /usr/bin/env python
+# -*- coding: utf-8 -*-
+
+from __future__ import absolute_import, division, print_function
+
+
 import unittest
 from derrick.core.command_manager import CommandManager
 
@@ -10,5 +16,5 @@ class CommandManagerTestCase(unittest.TestCase):
         self.cm = None
 
     def test_default_commands_load(self):
-        size = self.cm.all().size()
-        print size
+        commands = self.cm.all()
+        print(commands)

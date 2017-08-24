@@ -16,6 +16,7 @@
     You can use Derrick to scaffold your project simply.
     ===================================================
 """
+from __future__ import absolute_import, division, print_function
 from derrick.core.derrick import Derrick
 
 

@@ -1,5 +1,7 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
+from __future__ import absolute_import, division, print_function
+
 from derrick.core.extension import ExtensionPoints
 from derrick.commands import *
 
@@ -16,7 +18,7 @@ class CommandManager(ExtensionPoints):
         self.register(Test())
 
 
-class CommandContext(object, dict):
+class CommandContext(object):
     """
     set some common context envs to command
     """
