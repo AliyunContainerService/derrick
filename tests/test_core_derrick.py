@@ -1,0 +1,41 @@
+#! /usr/bin/env python
+# -*- coding: utf-8 -*-
+
+from __future__ import absolute_import, division, print_function
+
+from derrick.core.derrick import Derrick, DERRICK_HOME
+import unittest
+import os
+
+
+class DerrickTest(unittest.TestCase):
+    def setUp(self):
+        self.dk = Derrick()
+
+    def test_singleton_derrick(self):
+        dk1 = Derrick()
+        dk2 = Derrick()
+        self.assertEquals(True, dk1 is dk2)
+
+    def test_get_derrick_home(self):
+        home = self.dk.get_derrick_home()
+        predicted_home = os.path.join(os.path.expanduser("~"), ".derrick")
+        self.assertEqual(home, predicted_home)
+
+    @unittest.skip("skip env test")
+    def test_get_derrick_home_with_env(self):
+        env_home = "/root/.derrick"
+        os.putenv(DERRICK_HOME, env_home)
+        home = self.dk.get_derrick_home()
+        predicted_home = env_home
+        self.assertEqual(home, predicted_home)
+        os.unsetenv(DERRICK_HOME)
+
+    def test_derrick_home(self):
+        derrick_home = self.dk.get_derrick_home()
+        if os.path.exists(derrick_home) == True:
+            self.assertEqual(self.dk.check_first_setup(), False)
+            return
+        self.assertEqual(self.dk.check_first_setup(), True)
+        self.dk.pre_load()
+        self.assertEqual(self.dk.check_first_setup(), False)

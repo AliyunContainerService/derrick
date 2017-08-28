@@ -1,6 +1,13 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
+
+from __future__ import absolute_import, division, print_function
+
 from derrick.core.command import Command
+import derrick.core.logger as log
+import derrick.core.common as common
+import os
+
 
 class Build(Command):
     """
@@ -14,9 +21,15 @@ class Build(Command):
     language specific build tool and mount the
     artifacts with docker volume.
     """
+
     # implement the interface
-    def execute(self,context):
+    def execute(self, context):
+        log.info("Start to build application.")
         pass
+
+
+
     # implement the interface
-    def get_help_desc(self,context):
-        pass
+    def get_help_desc(self):
+        return "derrick build"
+
