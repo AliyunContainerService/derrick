@@ -2,9 +2,9 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, division, print_function
 
-from derrick.core.extension import ExtensionPoints
-from derrick.commands import *
 import derrick.core.logger as log
+from derrick.commands import *
+from derrick.core.extension import ExtensionPoints
 
 NEW_LINE = "\n"
 FOUR_WHITESPACE = "    "

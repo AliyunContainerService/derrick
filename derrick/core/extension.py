@@ -23,6 +23,7 @@ class ExtensionPoints(object):
     def load(self):
         pass
 
+
 class ExtensionPoint(object):
     # return the ExtensionPoint name
     def get_name(self):

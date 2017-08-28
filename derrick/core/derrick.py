@@ -13,32 +13,16 @@ Options:
     --version    Show derrick version
 """
 from __future__ import absolute_import, division, print_function
-from derrick.core.command_manager import CommandManager
-from derrick.core.command import CommandContext
-from derrick.core.common import singleton
-from docopt import docopt
-import derrick.core.logger as log
+
 import os
 
-DERRICK_LOGO = """
-    8888888b.                       d8b        888
-    888  "Y88b                      Y8P        888
-    888    888                                 888
-    888    888 .d88b. 888d888888d888888 .d8888b888  888
-    888    888d8P  Y8b888P"  888P"  888d88P"   888 .88P
-    888    88888888888888    888    888888     888888K
-    888  .d88PY8b.    888    888    888Y88b.   888 "88b
-    8888888P"  "Y8888 888    888    888 "Y8888P888  888
+from docopt import docopt
 
-    ===================================================
-    Derrick is a scaffold tool to migrate applications
-    You can use Derrick to migrate your project simply.
-    ===================================================
-"""
-DERRICK_HOME = "DERRICK_HOME"
-RIGGING_HOME = "rigging"
-DEBUG_MODE = "debug"
-WORKSPACE = "WORKSPACE"
+import derrick.core.logger as log
+from derrick.core.command import CommandContext
+from derrick.core.command_manager import CommandManager
+from derrick.core.common import *
+from derrick.core.rigging_manager import RiggingManager
 
 
 @singleton
@@ -53,19 +37,16 @@ class Derrick(object):
 
     def __init__(self):
         self.cm = CommandManager()
-        self.cm.set_commands_doc_template(__doc__)
-        self.cm.load()
+        self.rm = RiggingManager()
 
+    # First time to run Derrick
+    # create .derrick and .derrick/rigging in user root path
+    # copy built-in rigging to .derrick/rigging
     def pre_load(self):
-        """
-        First time to run Derrick
-        create .derrick and .derrick/rigging in user root path
-        copy built-in rigging to .derrick/rigging
-        :return:
-        """
         try:
             os.mkdir(self.get_derrick_home())
             os.mkdir(self.get_rigging_home())
+            os.system("cp -r %s/* %s" % (self.get_built_in_rigging_path(), self.get_rigging_home()))
             log.info(DERRICK_LOGO)
             log.info("This is the first time to run Derrick.\n")
             log.info("Successfully create DERRICK_HOME in %s" % (self.get_derrick_home()))
@@ -74,6 +55,7 @@ class Derrick(object):
             return
         return
 
+    # load all rigging and application conf
     def load(self):
         if self.check_first_setup() == True:
             try:
@@ -81,9 +63,14 @@ class Derrick(object):
             except Exception as e:
                 log.error(e.message)
                 return
-        return
+        # load RiggingManager
+        self.rm.load()
 
-        # Entry Point
+        # load CommandManager
+        self.cm.set_commands_doc_template(__doc__)
+        self.cm.load()
+
+        return
 
     def run(self):
         try:
@@ -119,6 +106,14 @@ class Derrick(object):
 
     def get_rigging_home(self):
         return os.path.join(self.get_derrick_home(), RIGGING_HOME)
+
+    def get_built_in_rigging_path(self):
+        derrick_source_path = os.path.dirname(
+            os.path.dirname(
+                os.path.abspath(__file__)
+            )
+        )
+        return os.path.join(derrick_source_path, DERRICK_BUILT_IN)
 
     # when you need to load custom user's command
     def get_commands_manager(self):

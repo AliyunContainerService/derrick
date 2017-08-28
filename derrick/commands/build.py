@@ -27,8 +27,6 @@ class Build(Command):
         log.info("Start to build application.")
         pass
 
-
-
     # implement the interface
     def get_help_desc(self):
         return "derrick build"
