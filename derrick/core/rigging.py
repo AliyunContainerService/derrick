@@ -12,8 +12,9 @@ class Rigging(ExtensionPoint):
     in your templates such as Dockerfile or some other config Template.
 
     """
-    def detect(self):
+
+    def detect(self, context):
         pass
 
-    def compile(self):
+    def compile(self, context):
         pass

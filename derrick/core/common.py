@@ -1,5 +1,6 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
+import os
 from functools import wraps
 
 DERRICK_LOGO = """
@@ -40,3 +41,29 @@ def singleton(cls):
         return instances[cls]
 
     return getinstance
+
+
+def get_derrick_home():
+    env_home = os.getenv(DERRICK_HOME)
+    if env_home != None:
+        return env_home
+    else:
+        return os.path.join(os.path.expanduser("~"), ".derrick")
+
+
+def get_rigging_home():
+    derrick_home = get_derrick_home()
+    return os.path.join(derrick_home, "rigging")
+
+
+def get_rigging_home():
+    return os.path.join(get_derrick_home(), RIGGING_HOME)
+
+
+def get_built_in_rigging_path():
+    derrick_source_path = os.path.dirname(
+        os.path.dirname(
+            os.path.abspath(__file__)
+        )
+    )
+    return os.path.join(derrick_source_path, DERRICK_BUILT_IN)

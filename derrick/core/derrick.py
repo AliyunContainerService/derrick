@@ -14,14 +14,12 @@ Options:
 """
 from __future__ import absolute_import, division, print_function
 
-import os
-
 from docopt import docopt
 
-import derrick.core.logger as log
 from derrick.core.command import CommandContext
 from derrick.core.command_manager import CommandManager
 from derrick.core.common import *
+from derrick.core.logger import Logger as log
 from derrick.core.rigging_manager import RiggingManager
 
 
@@ -44,27 +42,30 @@ class Derrick(object):
     # copy built-in rigging to .derrick/rigging
     def pre_load(self):
         try:
-            os.mkdir(self.get_derrick_home())
-            os.mkdir(self.get_rigging_home())
-            os.system("cp -r %s/* %s" % (self.get_built_in_rigging_path(), self.get_rigging_home()))
+            os.mkdir(get_derrick_home())
+            os.mkdir(get_rigging_home())
+            os.system("cp -r %s/* %s" % (get_built_in_rigging_path(), get_rigging_home()))
             log.info(DERRICK_LOGO)
             log.info("This is the first time to run Derrick.\n")
-            log.info("Successfully create DERRICK_HOME in %s" % (self.get_derrick_home()))
+            log.info("Successfully create DERRICK_HOME in %s" % (get_derrick_home()))
         except Exception as e:
-            log.error("Failed to create DERRICK_HOME:%s.Because of %s" % (self.get_derrick_home(), e.message))
+            log.error("Failed to create DERRICK_HOME:%s.Because of %s" % (get_derrick_home(), e.message))
             return
         return
 
     # load all rigging and application conf
     def load(self):
-        if self.check_first_setup() == True:
+        if self.check_derrick_first_setup() == True:
             try:
                 self.pre_load()
             except Exception as e:
                 log.error(e.message)
                 return
-        # load RiggingManager
-        self.rm.load()
+
+        if self.check_application_first_setup() == True:
+            self.rm.load()
+        else:
+            self.rm.load("rigging_name")
 
         # load CommandManager
         self.cm.set_commands_doc_template(__doc__)
@@ -93,41 +94,28 @@ class Derrick(object):
         # run commands with context
         self.cm.run_commands(command_context)
 
-    def get_derrick_home(self):
-        env_home = os.getenv(DERRICK_HOME)
-        if env_home != None:
-            return env_home
-        else:
-            return os.path.join(os.path.expanduser("~"), ".derrick")
-
-    def get_rigging_home(self):
-        derrick_home = self.get_derrick_home()
-        return os.path.join(derrick_home, "rigging")
-
-    def get_rigging_home(self):
-        return os.path.join(self.get_derrick_home(), RIGGING_HOME)
-
-    def get_built_in_rigging_path(self):
-        derrick_source_path = os.path.dirname(
-            os.path.dirname(
-                os.path.abspath(__file__)
-            )
-        )
-        return os.path.join(derrick_source_path, DERRICK_BUILT_IN)
-
     # when you need to load custom user's command
     def get_commands_manager(self):
         return self.cm
 
     # check if derrick is used for the first time.
-    def check_first_setup(self):
-        derrick_home = self.get_derrick_home()
-
+    def check_derrick_first_setup(self):
+        derrick_home = get_derrick_home()
         if not os.path.exists(derrick_home):
+            return True
+        return False
+
+    def check_application_first_setup(self):
+        application_conf = os.path.join(os.getcwd(), ".derrick_application")
+        if not os.path.exists(application_conf):
             return True
         return False
 
     # set some useful information to context such derrick_home and so on.
     def set_application_env(self, context):
-        context.set(DERRICK_HOME, self.get_derrick_home())
+        context.set(DERRICK_HOME, get_derrick_home())
         context.set(WORKSPACE, os.getcwd())
+
+    @staticmethod
+    def get_active_instance():
+        return 1
