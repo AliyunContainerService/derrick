@@ -18,13 +18,17 @@ DERRICK_LOGO = """
     You can use Derrick to migrate your project simply.
     ===================================================
 """
+DERRICK_VERSION = "0.0.1"
 DOCKERFILE = "Dockerfile"
 DERRICK_HOME = "DERRICK_HOME"
 RIGGING_HOME = "rigging"
-DEBUG_MODE = "debug"
+DEBUG_MODE = "--debug"
 WORKSPACE = "WORKSPACE"
 DERRICK_BUILT_IN = "builtIn"
 DERRICK_COMMANDS = "commands"
+NEW_LINE = "\n"
+FOUR_WHITESPACE = "    "
+COMMANDS_DOC_SECTION = "[COMMANDS_DOC_SECTION]"
 
 
 def singleton(cls):
@@ -77,4 +81,4 @@ def get_built_in_rigging_path():
 
 def get_commands_home():
     derrick_source_path = get_derrick_source_path()
-    return os.path.join(derrick_source_path, DERRICK_COMMANDS)
+    return os.path.join(get_derrick_home(), DERRICK_COMMANDS)

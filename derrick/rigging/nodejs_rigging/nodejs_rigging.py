@@ -7,30 +7,20 @@ import os
 
 from derrick.core.rigging import Rigging
 
-
 PLATFORM = "NodeJs"
 
-class NodejsRiggle(Rigging):
+
+class NodejsRigging(Rigging):
     def detect(self, context):
         """
-
         :param context:
         :return: handled(bool),platform(string)
         """
-        workspace = context.get("workspace")
+        workspace = context.get("WORKSPACE")
         package_json_file = os.path.join(workspace, "package.json")
         if os.path.exists(package_json_file) == True:
             return True, PLATFORM
         return False, None
 
     def compile(self, context):
-        pass
-
-
-# Every rigging should be able to run separately.
-def main():
-    pass
-
-
-if __name__ == "__main__":
-    main()
+        return context

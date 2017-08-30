@@ -3,6 +3,8 @@
 
 from __future__ import absolute_import, division, print_function
 
+import os
+
 from derrick.core.extension import ExtensionPoint
 
 
@@ -12,6 +14,13 @@ class Rigging(ExtensionPoint):
     in your templates such as Dockerfile or some other config Template.
 
     """
+
+    def get_template_dir(self):
+        basedir = os.path.join(__file__)
+        return os.path.join(basedir, "templates")
+
+    def get_name(self):
+        return self.__class__.__name__
 
     def detect(self, context):
         pass

@@ -33,6 +33,7 @@ class PathModuleLoader(object):
     def __init__(self, path, base_module):
         self.path = path
         self.base_module = base_module
+        self.load_once = dict()
 
     def load(self, module_name=None):
         modules = []
@@ -41,9 +42,14 @@ class PathModuleLoader(object):
         else:
             dirs = os.listdir(self.path)
             for module_path in dirs:
-                if self.is_can_load(module_path) == False:
+                module_absolute_path = os.path.join(self.path, module_path)
+                module_loaded_path = module_absolute_path
+                if self.is_can_load(module_absolute_path) == False:
                     continue
-                modules_arr = self.load_module(os.path.join(self.path, module_path))
+                if os.path.isdir(module_absolute_path) == False:
+                    module_loaded_path = os.path.dirname(module_absolute_path)
+
+                modules_arr = self.load_module(module_loaded_path)
                 if len(modules_arr) == 0:
                     continue
                 else:
@@ -51,10 +57,7 @@ class PathModuleLoader(object):
         return modules
 
     def load_module(self, path):
-        if os.path.isdir(path) == False:
-            path = os.path.dirname(path)
         sys.path.append(path)
-
         module_arr = []
         module_name = os.path.basename(path)
         module = __import__(module_name)
@@ -62,14 +65,18 @@ class PathModuleLoader(object):
             if inspect.isclass(module_class) and \
                     issubclass(module_class, self.base_module) \
                     and (module_class.__bases__ == self.base_module.__bases__):
-                module_arr.append(Module(module_name, module_class))
+                module_arr.append(Module(module_class.__name__, module_class))
         return module_arr
 
     def is_can_load(self, path):
-        if os.path.isdir(path) == True:
-            return True
-        if not str(path).endswith(".py") or str(path) == "__init__.py":
-            return False
+        if os.path.isdir(path) == False:
+            if (str(path).endswith("__init__.py") or not str(path).endswith(".py")):
+                return False
+            module_name = os.path.dirname(path)
+            if self.load_once.has_key(module_name):
+                return False
+            else:
+                self.load_once[module_name] = True
         return True
 
 

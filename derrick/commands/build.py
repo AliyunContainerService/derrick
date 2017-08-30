@@ -5,8 +5,6 @@ from __future__ import absolute_import, division, print_function
 
 from derrick.core.command import Command
 import derrick.core.logger as log
-import derrick.core.common as common
-import os
 
 
 class Build(Command):

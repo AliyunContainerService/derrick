@@ -8,18 +8,9 @@ from derrick.core.rigging import Rigging
 PLATFORM = "Python"
 
 
-class PythonRiggle(Rigging):
+class PythonRigging(Rigging):
     def detect(self, context):
-        pass
+        return False, None
 
     def compile(self, context):
-        pass
-
-
-# Every rigging should be able to run separately.
-def main():
-    pass
-
-
-if __name__ == "__main__":
-    main()
+        return

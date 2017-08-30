@@ -5,7 +5,6 @@
 Usage:
 [COMMANDS_DOC_SECTION]
     derrick -h | --help
-    derrick -d | --debug
     derrick --version
 Options:
     -d --debug   Set debug mode
@@ -35,6 +34,7 @@ class Derrick(object):
 
     def __init__(self):
         self.cm = CommandManager()
+        self.cm.set_commands_doc_template(__doc__)
         self.rm = RiggingManager()
 
     # First time to run Derrick
@@ -68,7 +68,6 @@ class Derrick(object):
             self.rm.load("rigging_name")
 
         # load CommandManager
-        self.cm.set_commands_doc_template(__doc__)
         self.cm.load()
 
         return
@@ -81,7 +80,7 @@ class Derrick(object):
             print(e.message)
 
         commands_doc = self.cm.get_commands_doc()
-        arguments = docopt(commands_doc, help=False, version="0.0.1")
+        arguments = docopt(commands_doc, help=False, version=DERRICK_VERSION)
         # set debug mode if necessary
         if arguments[DEBUG_MODE] == True:
             log.set_debug_mode()

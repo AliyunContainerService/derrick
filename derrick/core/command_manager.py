@@ -7,10 +7,6 @@ from derrick.core.extension import ExtensionPoints
 from derrick.core.logger import Logger
 from derrick.core.module_loader import CommandModuleLoader
 
-NEW_LINE = "\n"
-FOUR_WHITESPACE = "    "
-COMMANDS_DOC_SECTION = "[COMMANDS_DOC_SECTION]"
-
 
 class CommandManager(ExtensionPoints):
     """
@@ -24,6 +20,13 @@ class CommandManager(ExtensionPoints):
 
     # direct load from derrick
     def load(self):
+        # load developer's custom commands
+        # avoid circular import
+        import derrick.commands.build as b
+        import derrick.commands.init as i
+        self.register(b.Build())
+        self.register(i.Init())
+
         commands = self.cl.load()
         for command in commands:
             self.register(command)

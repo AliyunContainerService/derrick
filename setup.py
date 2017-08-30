@@ -17,5 +17,5 @@ setup(
         [console_scripts]
         derrick=derrick.main:main
     ''',
-    packages=['derrick', 'derrick.core', 'derrick.commands', 'derrick.utils', ]
+    packages=['derrick', 'derrick.core', 'derrick.utils',"" ]
 )

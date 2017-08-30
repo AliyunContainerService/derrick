@@ -15,6 +15,13 @@ class RiggingManager(ExtensionPoints):
         self.rigging_module_loader = RiggingModuleLoader(rigging_home)
 
     def load(self, rigging_name=None):
+        # buildIn rigging
+        from derrick.rigging.nodejs_rigging.nodejs_rigging import NodejsRigging
+        from derrick.rigging.python_rigging.python_rigging import PythonRigging
+        self.register(NodejsRigging())
+        self.register(PythonRigging())
+
+        # Load developer's custom rigging
         modules = self.rigging_module_loader.load(rigging_name)
         if modules != None:
             for module in modules:
