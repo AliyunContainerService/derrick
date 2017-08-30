@@ -23,4 +23,4 @@ class NodejsRigging(Rigging):
         return False, None
 
     def compile(self, context):
-        return context
+        return {"Dockerfile.j2": dict()}

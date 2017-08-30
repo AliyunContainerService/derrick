@@ -3,6 +3,7 @@
 
 from __future__ import absolute_import, division, print_function
 
+import inspect
 import os
 
 from derrick.core.extension import ExtensionPoint
@@ -16,7 +17,7 @@ class Rigging(ExtensionPoint):
     """
 
     def get_template_dir(self):
-        basedir = os.path.join(__file__)
+        basedir = os.path.dirname(inspect.getfile(self.__class__))
         return os.path.join(basedir, "templates")
 
     def get_name(self):
