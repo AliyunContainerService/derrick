@@ -2,9 +2,10 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, division, print_function
 
-import derrick.core.logger as log
-from derrick.commands import *
+from derrick.core.common import *
 from derrick.core.extension import ExtensionPoints
+from derrick.core.logger import Logger
+from derrick.core.module_loader import CommandModuleLoader
 
 NEW_LINE = "\n"
 FOUR_WHITESPACE = "    "
@@ -16,10 +17,16 @@ class CommandManager(ExtensionPoints):
     manage all commands from CommandManager
     """
 
+    def __init__(self):
+        super(CommandManager, self).__init__()
+        derrick_commands_home = get_commands_home()
+        self.cl = CommandModuleLoader(derrick_commands_home)
+
     # direct load from derrick
     def load(self):
-        self.register(Init())
-        self.register(Build())
+        commands = self.cl.load()
+        for command in commands:
+            self.register(command)
 
     def set_commands_doc_template(self, template):
         self.template = template
@@ -42,5 +49,5 @@ class CommandManager(ExtensionPoints):
                 try:
                     command.execute(context)
                 except Exception as e:
-                    log.error(e.message)
+                    Logger.error(e.message)
         return

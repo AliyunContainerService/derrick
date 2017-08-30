@@ -1,2 +1,3 @@
 build
 derrick.egg-info
+*.pyc

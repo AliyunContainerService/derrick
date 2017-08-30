@@ -24,6 +24,7 @@ RIGGING_HOME = "rigging"
 DEBUG_MODE = "debug"
 WORKSPACE = "WORKSPACE"
 DERRICK_BUILT_IN = "builtIn"
+DERRICK_COMMANDS = "commands"
 
 
 def singleton(cls):
@@ -60,10 +61,20 @@ def get_rigging_home():
     return os.path.join(get_derrick_home(), RIGGING_HOME)
 
 
-def get_built_in_rigging_path():
+def get_derrick_source_path():
     derrick_source_path = os.path.dirname(
         os.path.dirname(
             os.path.abspath(__file__)
         )
     )
+    return derrick_source_path
+
+
+def get_built_in_rigging_path():
+    derrick_source_path = get_derrick_source_path()
     return os.path.join(derrick_source_path, DERRICK_BUILT_IN)
+
+
+def get_commands_home():
+    derrick_source_path = get_derrick_source_path()
+    return os.path.join(derrick_source_path, DERRICK_COMMANDS)

@@ -3,9 +3,10 @@
 
 from __future__ import absolute_import, division, print_function
 
-from derrick.core.derrick import Derrick, DERRICK_HOME
 import unittest
-import os
+
+from derrick.core.common import *
+from derrick.core.derrick import Derrick
 
 
 class DerrickTest(unittest.TestCase):
@@ -18,7 +19,7 @@ class DerrickTest(unittest.TestCase):
         self.assertEquals(True, dk1 is dk2)
 
     def test_get_derrick_home(self):
-        home = self.dk.get_derrick_home()
+        home = get_derrick_home()
         predicted_home = os.path.join(os.path.expanduser("~"), ".derrick")
         self.assertEqual(home, predicted_home)
 
@@ -32,10 +33,10 @@ class DerrickTest(unittest.TestCase):
         os.unsetenv(DERRICK_HOME)
 
     def test_derrick_home(self):
-        derrick_home = self.dk.get_derrick_home()
+        derrick_home = get_derrick_home()
         if os.path.exists(derrick_home) == True:
-            self.assertEqual(self.dk.check_first_setup(), False)
+            self.assertEqual(self.dk.check_derrick_first_setup(), False)
             return
-        self.assertEqual(self.dk.check_first_setup(), True)
+        self.assertEqual(self.dk.check_derrick_first_setup(), True)
         self.dk.pre_load()
-        self.assertEqual(self.dk.check_first_setup(), False)
+        self.assertEqual(self.dk.check_derrick_first_setup(), False)

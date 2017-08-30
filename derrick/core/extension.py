@@ -7,7 +7,8 @@ class ExtensionPoints(object):
         want to define a new entry to Derrick core
     """
 
-    ext_points = dict()
+    def __init__(self):
+        self.ext_points = dict()
 
     # all() will return all ExtensionPoints
     def all(self):

@@ -98,6 +98,9 @@ class Derrick(object):
     def get_commands_manager(self):
         return self.cm
 
+    def get_rigging_manager(self):
+        return self.rm
+
     # check if derrick is used for the first time.
     def check_derrick_first_setup(self):
         derrick_home = get_derrick_home()
