@@ -1,5 +1,4 @@
-Derrick: a dockerize tool for Aliyun Container Service
-======================================================
+## Info
 Derrick is an open source project that help you to migrate a application to cloud native containerized application. 
 
 Docker Container is cool enough but it is not very easy to set up a complex program with it alone.    
@@ -10,9 +9,7 @@ Sometimes you need K8S or Swarm to orchestrate your service and SLB(Server Load 
 
 Derrick will help you to reduce the effort of struggling with docker.
 
-## Docs 
-Derrick's docs is hosted by mkdocs.you can install mkdocs to view all docs.
-```
-    pip install mkdocs 
-    mkdocs serve 
-```
+
+## Docs
+<a href="/cn">中文文档</a>    
+<a href="/en">English document</a>
