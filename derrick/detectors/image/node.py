@@ -16,7 +16,7 @@ NODEJS_LATEST = "node:latest"
 
 class NodeVersionDetector(Detector):
     def execute(self):
-        output = subprocess.check_output(["/bin/bash -i -c 'node -v'"], shell=True)
+        output = subprocess.check_output(["node",  "--version"], shell=False)
         version = self.get_most_relative_version(output)
         return version
 

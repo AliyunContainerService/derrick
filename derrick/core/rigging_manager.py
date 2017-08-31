@@ -30,8 +30,11 @@ class RiggingManager(ExtensionPoints):
         # buildIn rigging
         from derrick.rigging.nodejs_rigging.nodejs_rigging import NodejsRigging
         from derrick.rigging.python_rigging.python_rigging import PythonRigging
+        from derrick.rigging.maven_rigging.maven_rigging import MavenRigging
+
         self.register(NodejsRigging())
         self.register(PythonRigging())
+        self.register(MavenRigging())
 
         # Load developer's custom rigging
         modules = self.rigging_module_loader.load(rigging_name)
