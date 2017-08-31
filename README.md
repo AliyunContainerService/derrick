@@ -10,7 +10,20 @@ Sometimes you need K8S or Swarm to orchestrate your service and SLB(Server Load 
 
 Derrick will help you to reduce the effort of struggling with docker.
 
-## Docs 
+## Hello Derrick  
+
+```
+    pip install derrick 
+    
+    git clone git@gitlab.alibaba-inc.com:zhongwei.lzw/nodejs-demo.git 
+    
+    derrick init 
+    
+    derrick build 
+    
+```
+
+## Documentation 
 Derrick's docs is hosted by mkdocs.you can install mkdocs to view all docs.
 ```
     pip install mkdocs 
