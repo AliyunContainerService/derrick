@@ -99,7 +99,7 @@ class Init(Command):
         if templates_dir == None or dest_dir == None or compile_dict == None:
             raise ParamsShortageException("compile templates need some more params")
         all_success = True
-        for template_name in compile_dict.keys():
+        for template_name in os.listdir(templates_dir):
             template_path = os.path.join(templates_dir, template_name)
             try:
                 self.render_template(template_path, dest_dir, compile_dict.get(template_name))
@@ -125,6 +125,7 @@ class Init(Command):
                 converted_content = template.render(content)
             else:
                 dest_file_name = template_file
+                converted_content = template_content
 
         dest_file_path = os.path.join(dest_dir, dest_file_name)
 
