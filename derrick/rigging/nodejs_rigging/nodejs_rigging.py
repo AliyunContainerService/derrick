@@ -6,6 +6,7 @@ from __future__ import absolute_import, division, print_function
 import os
 
 from derrick.core.rigging import Rigging
+from derrick.detectors.image.node import NodeVersionDetector
 
 PLATFORM = "NodeJs"
 
@@ -23,4 +24,6 @@ class NodejsRigging(Rigging):
         return False, None
 
     def compile(self, context):
-        return {"Dockerfile.j2": {"version": "3.0"}}
+        node_version_detector = NodeVersionDetector()
+        image_version = node_version_detector.execute()
+        return {"Dockerfile.j2": {"version": image_version}}

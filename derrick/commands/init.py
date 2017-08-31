@@ -103,7 +103,10 @@ class Init(Command):
                 self.render_template(template_path, dest_dir, compile_dict.get(template_name))
             except Exception as e:
                 all_success = False
+                Logger.debug("template_path:%s,dest_dir:%s,content:%s"
+                             % (template_path, dest_dir, compile_dict.get(template_name)))
                 Logger.warn("Failed to compile template(%s),because of %s" % (template_name, e.message))
+
         return all_success
 
     # Render single file to workspace

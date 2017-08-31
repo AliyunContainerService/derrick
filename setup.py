@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
     name='derrick',
@@ -11,11 +11,10 @@ setup(
         'inquirer',
         'pychalk',
         'simplejson',
-        'requests',
     ],
     entry_points='''
         [console_scripts]
         derrick=derrick.main:main
     ''',
-    packages=['derrick', 'derrick.core', 'derrick.utils',"" ]
+    packages=find_packages()
 )
