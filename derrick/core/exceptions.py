@@ -15,3 +15,7 @@ class RiggingDetectException(Exception):
 
 class ParamsShortageException(Exception):
     pass
+
+
+class UnmarshalFailedException(Exception):
+    pass

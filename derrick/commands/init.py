@@ -3,8 +3,6 @@
 
 from __future__ import absolute_import, division, print_function
 
-import os
-
 from jinja2 import Template
 
 from derrick.core.command import Command
@@ -12,11 +10,14 @@ from derrick.core.common import *
 from derrick.core.derrick import Derrick
 from derrick.core.exceptions import RiggingCompileException, ParamsShortageException
 from derrick.core.logger import Logger
+from derrick.core.recorder import ApplicationRecorder
 
 
 class Init(Command):
     # implement the interface
     def execute(self, context):
+        # TODO move ApplicationRecorder to a listener.
+        ar = ApplicationRecorder()
         rigging_manager = Derrick().get_rigging_manager()
         all_rigging = rigging_manager.all()
 
@@ -61,8 +62,9 @@ class Init(Command):
                 "Failed to detect your application's platform."
                 "Maybe you can upgrade Derrick to get more platforms supported.")
 
+
     def get_help_desc(self):
-        return "derrick init (-d | --debug)"
+        return "derrick init [-d | --debug]"
 
     # TODO Maybe you can alse define your custom template render using ExtensionPoints
     # Render all templates to dest workspace

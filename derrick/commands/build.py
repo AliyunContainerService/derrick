@@ -4,7 +4,8 @@
 from __future__ import absolute_import, division, print_function
 
 from derrick.core.command import Command
-import derrick.core.logger as log
+from derrick.core.common import *
+from derrick.core.logger import Logger
 
 
 class Build(Command):
@@ -22,10 +23,19 @@ class Build(Command):
 
     # implement the interface
     def execute(self, context):
-        log.info("Start to build application.")
-        pass
+        if check_application_first_setup() == True:
+            Logger.info("Your application haven't been initialized,you can run `derrick init`.")
+            return
+
+        if check_dockerfile_exists() == False:
+            Logger.info("Dockerfile is not exists, Maybe you can rerun `derrick init` to resolve it.")
+            return
+
+        # TODO Maybe a timestap is better
+        repo_name = os.path.basename(get_workspace())
+        repo_tag = "latest"
+        os.system("/bin/bash -i -c 'docker build -t %s .'" % (repo_name + ":" + repo_tag))
 
     # implement the interface
     def get_help_desc(self):
         return "derrick build"
-

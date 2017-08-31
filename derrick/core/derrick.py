@@ -18,7 +18,7 @@ from docopt import docopt
 from derrick.core.command import CommandContext
 from derrick.core.command_manager import CommandManager
 from derrick.core.common import *
-from derrick.core.logger import Logger as log
+from derrick.core.logger import Logger
 from derrick.core.rigging_manager import RiggingManager
 
 
@@ -45,32 +45,26 @@ class Derrick(object):
             os.mkdir(get_derrick_home())
             os.mkdir(get_rigging_home())
             os.system("cp -r %s/* %s" % (get_built_in_rigging_path(), get_rigging_home()))
-            log.info(DERRICK_LOGO)
-            log.info("This is the first time to run Derrick.\n")
-            log.info("Successfully create DERRICK_HOME in %s" % (get_derrick_home()))
+            Logger.info(DERRICK_LOGO)
+            Logger.info("This is the first time to run Derrick.\n")
+            Logger.info("Successfully create DERRICK_HOME in %s" % (get_derrick_home()))
         except Exception as e:
-            log.error("Failed to create DERRICK_HOME:%s.Because of %s" % (get_derrick_home(), e.message))
+            Logger.error("Failed to create DERRICK_HOME:%s.Because of %s" % (get_derrick_home(), e.message))
             return
         return
 
     # load all rigging and application conf
     def load(self):
-        if self.check_derrick_first_setup() == True:
+        if check_derrick_first_setup() == True:
             try:
                 self.pre_load()
             except Exception as e:
-                log.error(e.message)
+                Logger.error(e.message)
                 return
 
-        if self.check_application_first_setup() == True:
-            self.rm.load()
-        else:
-            self.rm.load("rigging_name")
-
         # load CommandManager
+        self.rm.load()
         self.cm.load()
-
-        return
 
     def run(self):
         try:
@@ -83,7 +77,7 @@ class Derrick(object):
         arguments = docopt(commands_doc, help=False, version=DERRICK_VERSION)
         # set debug mode if necessary
         if arguments[DEBUG_MODE] == True:
-            log.set_debug_mode()
+            Logger.set_debug_mode()
 
         # construct command context and pass some useful message to command
         command_context = CommandContext()
@@ -99,19 +93,6 @@ class Derrick(object):
 
     def get_rigging_manager(self):
         return self.rm
-
-    # check if derrick is used for the first time.
-    def check_derrick_first_setup(self):
-        derrick_home = get_derrick_home()
-        if not os.path.exists(derrick_home):
-            return True
-        return False
-
-    def check_application_first_setup(self):
-        application_conf = os.path.join(os.getcwd(), ".derrick_application")
-        if not os.path.exists(application_conf):
-            return True
-        return False
 
     # set some useful information to context such derrick_home and so on.
     def set_application_env(self, context):
