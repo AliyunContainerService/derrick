@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='derrick',
-    version='1.0.0',
+    version='1.0.1',
     py_modules=['derrick'],
     include_package_data=True,
     install_requires=[

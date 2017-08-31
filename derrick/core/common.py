@@ -18,7 +18,7 @@ DERRICK_LOGO = """
     You can use Derrick to migrate your project simply.
     ===================================================
 """
-DERRICK_VERSION = "0.0.1"
+DERRICK_VERSION = "1.0.1"
 DOCKERFILE = "Dockerfile"
 DERRICK_HOME = "DERRICK_HOME"
 DERRICK_APPLICATION_CONF = ".derrick_application_conf"
