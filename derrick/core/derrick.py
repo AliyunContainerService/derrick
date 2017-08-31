@@ -44,7 +44,6 @@ class Derrick(object):
         os.mkdir(get_derrick_home())
         os.mkdir(get_rigging_home())
         os.mkdir(get_commands_home())
-        os.system("cp -r %s/* %s" % (get_built_in_rigging_path(), get_rigging_home()))
         Logger.info(DERRICK_LOGO)
         Logger.info("This is the first time to run Derrick.\n")
         Logger.info("Successfully create DERRICK_HOME in %s" % (get_derrick_home()))
