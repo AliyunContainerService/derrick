@@ -1,6 +1,6 @@
 #
 # ---- Base Node ----
-FROM alpine:3.5 AS base
+FROM alpine:{{ version }} AS base
 # install node
 RUN apk add --no-cache nodejs-current tini
 # set working directory

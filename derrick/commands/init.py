@@ -12,6 +12,7 @@ from derrick.core.common import *
 from derrick.core.derrick import Derrick
 from derrick.core.exceptions import RiggingCompileException, ParamsShortageException
 from derrick.core.logger import Logger
+from derrick.core.recorder import ApplicationRecorder
 
 
 class Init(Command):
@@ -82,6 +83,10 @@ class Init(Command):
             Logger.warn(
                 "Failed to detect your application's platform."
                 "Maybe you can upgrade Derrick to get more platforms supported.")
+
+        # TODO simple set a recorder
+        ApplicationRecorder()
+        # TODO add some records to recorder
 
     def get_help_desc(self):
         return "derrick init [-d | --debug]"

@@ -43,6 +43,7 @@ class Derrick(object):
     def pre_load(self):
         os.mkdir(get_derrick_home())
         os.mkdir(get_rigging_home())
+        os.mkdir(get_commands_home())
         os.system("cp -r %s/* %s" % (get_built_in_rigging_path(), get_rigging_home()))
         Logger.info(DERRICK_LOGO)
         Logger.info("This is the first time to run Derrick.\n")
@@ -75,7 +76,7 @@ class Derrick(object):
         if arguments[DEBUG_MODE] == True:
             Logger.set_debug_mode()
 
-        command_context = self.init_command_context(arguments=arguments)
+        command_context = self.init_commands_context(arguments=arguments)
         self.cm.run_commands(command_context)
 
     def get_commands_manager(self):
