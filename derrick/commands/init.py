@@ -3,6 +3,8 @@
 
 from __future__ import absolute_import, division, print_function
 
+import traceback
+
 from jinja2 import Template
 
 from derrick.core.command import Command
@@ -10,14 +12,28 @@ from derrick.core.common import *
 from derrick.core.derrick import Derrick
 from derrick.core.exceptions import RiggingCompileException, ParamsShortageException
 from derrick.core.logger import Logger
-from derrick.core.recorder import ApplicationRecorder
 
 
 class Init(Command):
-    # implement the interface
+    """
+    Init command is the most important command in Derrick.
+    It will first detect application's platform to judge
+    if the registered rigging can handle the application.
+
+    When there is a rigging that can handle the application,
+    It's compile function will execute.The compile command
+    will return a dict,It contains the template_name and template_content mapping.
+    Then Init command will load the template and render the template
+    with template_content and flush the rendered template to WORKSPACE.
+
+    If there is more than one rigging that match the application
+    Derrick will prompt a choice select window. You can choose one
+    rigging to execute.
+    """
+
     def execute(self, context):
-        # TODO move ApplicationRecorder to a listener.
-        ar = ApplicationRecorder()
+        # TODO add application recoarder to record the application platform and other things.
+
         rigging_manager = Derrick().get_rigging_manager()
         all_rigging = rigging_manager.all()
 
@@ -31,12 +47,15 @@ class Init(Command):
                     detected = True
                     handled_rigging.append({"rigging_name": rigging_name, "rigging": rigging, "platform": platform})
             except Exception as e:
-                Logger.debug("Failed to detect your application's platform with rigging(%s),because of %s"
+                Logger.error("Failed to detect your application's platform with rigging(%s),because of %s"
                              % (rigging_name, e.message))
+                Logger.debug(traceback.format_exc())
+
         if detected != False:
             if len(handled_rigging) > 1:
                 # TODO when more than one rigging can handle your application.
-                pass
+                Logger.warn("More than one rigging can handle the application.")
+                return
             else:
                 rigging_dict = handled_rigging[0]
                 rigging = rigging_dict.get("rigging")
@@ -47,6 +66,7 @@ class Init(Command):
                     Logger.debug("The results is %s" % results)
                 except Exception as e:
                     Logger.error("Failed to compile your application.because of %s" % e.message)
+                    Logger.debug(traceback.format_exc())
 
                 if type(results) is dict:
                     try:
@@ -54,14 +74,14 @@ class Init(Command):
                         dest_dir = context.get(WORKSPACE)
                         self.render_templates(templates_dir=template_dir, dest_dir=dest_dir, compile_dict=results)
                     except Exception as e:
-                        Logger.error("")
+                        Logger.error("Failed to render template with rigging(%s),because of %s"
+                                     % (rigging.get_name(), e.message))
                 else:
                     raise RiggingCompileException("compile results is not a dict")
         else:
             Logger.warn(
                 "Failed to detect your application's platform."
                 "Maybe you can upgrade Derrick to get more platforms supported.")
-
 
     def get_help_desc(self):
         return "derrick init [-d | --debug]"

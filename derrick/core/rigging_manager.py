@@ -9,6 +9,18 @@ from derrick.core.module_loader import RiggingModuleLoader
 
 
 class RiggingManager(ExtensionPoints):
+    """
+    RiggingManager will load,manage,execute rigging.
+    You can define a custom rigging and just put them
+    in the DERRICK_HOME/rigging.
+
+    RiggingManager will load built-in rigging and developer's
+    custom rigging in RIGGING_HOME.
+
+    Just like the CommandManager.If your rigging has the same
+    name with other rigging.The latest registered works
+    """
+
     def __init__(self):
         super(RiggingManager, self).__init__()
         rigging_home = get_rigging_home()
