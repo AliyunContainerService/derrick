@@ -11,6 +11,7 @@ setup(
         'inquirer',
         'pychalk',
         'simplejson',
+        'setuptools-git'
     ],
     entry_points='''
         [console_scripts]

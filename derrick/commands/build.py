@@ -34,7 +34,10 @@ class Build(Command):
         # TODO Maybe a timestap is better
         repo_name = os.path.basename(get_workspace())
         repo_tag = "latest"
-        os.system("/bin/bash -i -c 'docker build -t %s .'" % (repo_name + ":" + repo_tag))
+        status = os.system("/bin/bash -i -c 'docker build -t %s .'" % (repo_name + ":" + repo_tag))
+        if status == 0:
+            Logger.info("Build %s:%s successfully.You can execute `derrick serve` to run this image."
+                        % (repo_name, repo_tag))
 
     # implement the interface
     def get_help_desc(self):

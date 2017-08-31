@@ -1,5 +1,6 @@
 # stage1
 FROM {{ version }} AS base
+WORKDIR /app
 COPY package.json .
 RUN npm set progress=false && npm config set depth 0
 RUN npm install --only=production
@@ -13,6 +14,6 @@ RUN npm test
 
 # stage 3
 FROM base AS release
-COPY --from=dependencies /root/app/prod_node_modules /root/app/node_modules
+COPY --from=base /app/prod_node_modules /app/node_modules
 COPY . /app
-CMD ['npm','start']
+CMD ["npm","start"]
