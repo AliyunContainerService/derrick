@@ -48,9 +48,8 @@ class Derrick(object):
         Logger.info("This is the first time to run Derrick.\n")
         Logger.info("Successfully create DERRICK_HOME in %s" % (get_derrick_home()))
 
-    #
     def load(self):
-        if check_derrick_first_setup() == True:
+        if check_derrick_first_setup() is True:
             try:
                 self.pre_load()
             except Exception as e:
@@ -72,7 +71,7 @@ class Derrick(object):
         commands_doc = self.cm.get_commands_doc()
         arguments = docopt(commands_doc, help=False, version=DERRICK_VERSION)
 
-        if arguments[DEBUG_MODE] == True:
+        if arguments[DEBUG_MODE] is True:
             Logger.set_debug_mode()
 
         command_context = self.init_commands_context(arguments=arguments)
@@ -84,7 +83,8 @@ class Derrick(object):
     def get_rigging_manager(self):
         return self.rm
 
-    def init_commands_context(self, arguments):
+
+    def init_commands_context(self,arguments):
         """
         set some useful information to context
         such as DERRICK_HOME and so on.

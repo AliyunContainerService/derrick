@@ -38,6 +38,6 @@ class RiggingManager(ExtensionPoints):
 
         # Load developer's custom rigging
         modules = self.rigging_module_loader.load(rigging_name)
-        if modules != None:
+        if modules is not None:
             for module in modules:
                 self.register(module)

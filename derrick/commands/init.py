@@ -6,6 +6,7 @@ from __future__ import absolute_import, division, print_function
 import traceback
 
 from jinja2 import Template
+from whaaaaat import style_from_dict, Token, prompt
 
 from derrick.core.command import Command
 from derrick.core.common import *
@@ -33,7 +34,7 @@ class Init(Command):
     """
 
     def execute(self, context):
-        # TODO add application recoarder to record the application platform and other things.
+        # TODO add application recorder to record the application platform and other things.
 
         rigging_manager = Derrick().get_rigging_manager()
         all_rigging = rigging_manager.all()
@@ -44,7 +45,7 @@ class Init(Command):
             rigging = all_rigging.get(rigging_name)
             try:
                 handled, platform = rigging.detect(context)
-                if handled == True:
+                if handled is True:
                     detected = True
                     handled_rigging.append({"rigging_name": rigging_name, "rigging": rigging, "platform": platform})
             except Exception as e:
@@ -52,35 +53,39 @@ class Init(Command):
                              % (rigging_name, e.message))
                 Logger.debug(traceback.format_exc())
 
-        if detected != False:
+        if detected is True:
             if len(handled_rigging) > 1:
                 # TODO when more than one rigging can handle your application.
                 Logger.warn("More than one rigging can handle the application.")
-                return
+                rigging_dict = self.choose_rigging(handled_rigging)
+                if rigging_dict is None:
+                    Logger.error("The Rigging you chosen maybe broken.")
+                    return
             else:
                 rigging_dict = handled_rigging[0]
-                rigging = rigging_dict.get("rigging")
-                try:
-                    results = rigging.compile(context)
-                    Logger.debug("The platform is %s,the rigging used is %s"
-                                 % (rigging_dict.get("platform"), rigging_dict.get("rigging_name")))
-                    Logger.debug("The results is %s" % results)
-                except Exception as e:
-                    Logger.error("Failed to compile your application.because of %s" % e.message)
-                    Logger.debug(traceback.format_exc())
 
-                if type(results) is dict:
-                    try:
-                        template_dir = rigging.get_template_dir()
-                        dest_dir = context.get(WORKSPACE)
-                        self.render_templates(templates_dir=template_dir, dest_dir=dest_dir, compile_dict=results)
-                        Logger.info("Derrick detect your platform is %s and compile successfully."
-                                    % rigging_dict.get("platform"))
-                    except Exception as e:
-                        Logger.error("Failed to render template with rigging(%s),because of %s"
-                                     % (rigging.get_name(), e.message))
-                else:
-                    raise RiggingCompileException("compile results is not a dict")
+            rigging = rigging_dict.get("rigging")
+            try:
+                results = rigging.compile(context)
+                Logger.debug("The platform is %s,the rigging used is %s"
+                             % (rigging_dict.get("platform"), rigging_dict.get("rigging_name")))
+                Logger.debug("The results is %s" % results)
+            except Exception as e:
+                Logger.error("Failed to compile your application.because of %s" % e.message)
+                Logger.debug(traceback.format_exc())
+
+            if type(results) is dict:
+                try:
+                    template_dir = rigging.get_template_dir()
+                    dest_dir = context.get(WORKSPACE)
+                    Init.render_templates(templates_dir=template_dir, dest_dir=dest_dir, compile_dict=results)
+                    Logger.info("Derrick detect your platform is %s and compile successfully."
+                                % rigging_dict.get("platform"))
+                except Exception as e:
+                    Logger.error("Failed to render template with rigging(%s),because of %s"
+                                 % (rigging.get_name(), e.message))
+            else:
+                raise RiggingCompileException("compile results is not a dict")
         else:
             Logger.warn(
                 "Failed to detect your application's platform."
@@ -93,16 +98,45 @@ class Init(Command):
     def get_help_desc(self):
         return "derrick init [-d | --debug]"
 
+    def choose_rigging(self, riggings=None):
+        choices = []
+        for rigging in riggings:
+            rigging_name = rigging.get("rigging_name")
+            platform = rigging.get("platform")
+            choices.append("[R] %-15s [P] %-s" % (rigging_name, platform))
+
+        questions = [
+            {
+                'type': 'list',
+                'name': 'rigging_choice',
+                'message': 'Which rigging would you like to choose?',
+                'choices': choices
+            }
+        ]
+        style = style_from_dict({
+            Token.Selected: '#00FFFF bold',
+        })
+        answers = prompt(questions, style=style)
+        choice = answers.get('rigging_choice')
+
+        for rigging in riggings:
+            rigging_name = rigging.get("rigging_name")
+            platform = rigging.get("platform")
+            if choice == "[R] %-15s [P] %-s" % (rigging_name, platform):
+                return rigging
+        return None
+
     # TODO Maybe you can alse define your custom template render using ExtensionPoints
     # Render all templates to dest workspace
-    def render_templates(self, templates_dir=None, dest_dir=None, compile_dict=None):
-        if templates_dir == None or dest_dir == None or compile_dict == None:
+    @staticmethod
+    def render_templates(templates_dir=None, dest_dir=None, compile_dict=None):
+        if templates_dir is None or dest_dir is None or compile_dict is None:
             raise ParamsShortageException("compile templates need some more params")
         all_success = True
         for template_name in os.listdir(templates_dir):
             template_path = os.path.join(templates_dir, template_name)
             try:
-                self.render_template(template_path, dest_dir, compile_dict.get(template_name))
+                Init.render_template(template_path, dest_dir, compile_dict.get(template_name))
             except Exception as e:
                 all_success = False
                 Logger.debug("template_path:%s,dest_dir:%s,content:%s"
@@ -112,13 +146,13 @@ class Init(Command):
         return all_success
 
     # Render single file to workspace
-    def render_template(self, template_path, dest_dir, content):
-        converted_content = None
+    @staticmethod
+    def render_template(template_path, dest_dir, content):
         template_file = os.path.basename(template_path)
 
         with open(template_path) as f:
             template_content = f.read()
-            # If template is jinjia template then render the template or just move the template
+            # If template is Jinja2 template then render the template or just move the template
             if template_file.endswith(".j2"):
                 dest_file_name = template_file[:-3]
                 template = Template(template_content)

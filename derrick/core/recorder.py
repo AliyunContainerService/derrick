@@ -57,3 +57,4 @@ class ApplicationRecorder(Recorder):
             self.__dict__.update(dict_content)
         else:
             raise UnmarshalFailedException()
+

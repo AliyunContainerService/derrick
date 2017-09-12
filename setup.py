@@ -8,7 +8,7 @@ setup(
     install_requires=[
         'jinja2',
         'docopt',
-        'inquirer',
+        'whaaaaat',
         'pychalk',
         'simplejson',
         'setuptools-git'

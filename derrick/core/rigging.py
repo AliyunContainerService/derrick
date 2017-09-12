@@ -25,6 +25,6 @@ class Rigging(ExtensionPoint):
 
     def detect(self, context):
         pass
-
+    
     def compile(self, context):
         pass

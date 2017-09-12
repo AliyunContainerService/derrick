@@ -16,6 +16,7 @@ class CommandManager(ExtensionPoints):
     CommandManager load built-in commands and user custom commands
     CommandManager is the actual command manager and executor
     """
+    template = ""
 
     def __init__(self):
         super(CommandManager, self).__init__()
@@ -60,7 +61,7 @@ class CommandManager(ExtensionPoints):
         commands = self.all()
         arguments = context.get_arguments()
         for command_name in commands.keys():
-            if arguments[command_name] == True:
+            if arguments[command_name] is True:
                 command = commands[command_name]
                 try:
                     command.execute(context)

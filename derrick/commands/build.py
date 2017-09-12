@@ -23,15 +23,15 @@ class Build(Command):
 
     # implement the interface
     def execute(self, context):
-        if check_application_first_setup() == True:
+        if check_application_first_setup() is True:
             Logger.info("Your application haven't been initialized,you can run `derrick init`.")
             return
 
-        if check_dockerfile_exists() == False:
+        if check_dockerfile_exists() is False:
             Logger.info("Dockerfile is not exists, Maybe you can rerun `derrick init` to resolve it.")
             return
 
-        # TODO Maybe a timestap is better
+        # TODO Maybe a timestamp is better
         repo_name = os.path.basename(get_workspace())
         repo_tag = "latest"
         status = os.system("/bin/bash -i -c 'docker build -t %s .'" % (repo_name + ":" + repo_tag))
