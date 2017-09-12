@@ -73,7 +73,7 @@ class PathModuleLoader(object):
             if inspect.isclass(module_class) and \
                     issubclass(module_class, self.base_module) \
                     and (module_class.__bases__ is not self.base_module.__bases__):
-                module_arr.append(Module(module_class.__name__, module_class))
+                module_arr.append(Module(module_class.__name__.lower(), module_class))
         return module_arr
 
     def is_can_load(self, path):
