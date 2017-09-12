@@ -20,7 +20,8 @@ DERRICK_LOGO = """
 """
 DERRICK_VERSION = "1.0.1"
 DOCKERFILE = "Dockerfile"
-DERRICK_HOME = "DERRICK_HOME"
+DERRICK_HOME_ENV = "DERRICK_HOME"
+DERRICK_HOME = ".derrick"
 DERRICK_APPLICATION_CONF = ".derrick_application_conf"
 RIGGING_HOME = "rigging"
 DEBUG_MODE = "--debug"
@@ -51,16 +52,16 @@ def singleton(cls):
 
 
 def get_derrick_home():
-    env_home = os.getenv(DERRICK_HOME)
-    if env_home != None:
+    env_home = os.getenv(DERRICK_HOME_ENV)
+    if env_home is not None:
         return env_home
     else:
-        return os.path.join(os.path.expanduser("~"), ".derrick")
+        return os.path.join(os.path.expanduser("~"), DERRICK_HOME)
 
 
 def get_rigging_home():
     derrick_home = get_derrick_home()
-    return os.path.join(derrick_home, "rigging")
+    return os.path.join(derrick_home, RIGGING_HOME)
 
 
 def get_rigging_home():
@@ -106,42 +107,6 @@ def check_application_first_setup():
 
 def check_dockerfile_exists():
     dockerfile_path = os.path.join(os.getcwd(), DOCKERFILE)
-    if os.path.exists(dockerfile_path) == True:
+    if os.path.exists(dockerfile_path) is True:
         return True
     return False
-
-
-def which(name, flags=os.X_OK):
-    """
-    Search PATH for executable files with the given name.
-    On newer versions of MS-Windows, the PATHEXT environment variable will be
-    set to the list of file extensions for files considered executable. This
-    will normally include things like ".EXE". This function will also find files
-    with the given name ending with any of these extensions.
-    On MS-Windows the only flag that has any meaning is os.F_OK. Any other
-    flags will be ignored.
-    @type name: C{str}
-    @param name: The name for which to search.
-    @type flags: C{int}
-    @param flags: Arguments to L{os.access}.
-    @rtype: C{list}
-    @param: A list of the full paths to files found, in the order in which they
-    were found.
-    """
-    result = []
-    exts = list(filter(None, os.environ.get('PATHEXT', '').split(os.pathsep)))
-    path = os.environ.get('PATH', None)
-
-    if path is None:
-        return []
-
-    for p in os.environ.get('PATH', '').split(os.pathsep):
-        p = os.path.join(p, name)
-        if os.access(p, flags):
-            result.append(p)
-        for e in exts:
-            pext = p + e
-            if os.access(pext, flags):
-                result.append(pext)
-
-    return result

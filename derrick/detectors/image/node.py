@@ -17,10 +17,11 @@ NODEJS_LATEST = "node:latest"
 class NodeVersionDetector(Detector):
     def execute(self):
         output = subprocess.check_output(["node", "--version"], shell=False)
-        version = self.get_most_relative_version(output)
+        version = NodeVersionDetector.get_most_relative_version(output)
         return version
 
-    def get_most_relative_version(self, version):
+    @staticmethod
+    def get_most_relative_version(version):
         version_num = str(version)[1:]
         version_arr = version_num.split(".")
 

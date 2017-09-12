@@ -25,13 +25,13 @@ class ChalkFormatter(logging.Formatter):
     def formatMessage(self, record):
         message = super(ChalkFormatter, self).formatMessage(record)
         level = record.levelno
-        _chalk = getChalkColor(level)
+        _chalk = get_chalk_color(level)
         return _chalk(message)
 
     def format(self, record):
         if sys.version_info[0] < 3:
             level = record.levelno
-            _chalk = getChalkColor(level)
+            _chalk = get_chalk_color(level)
             self._fmt = _chalk(self._fmt)
         return super(ChalkFormatter, self).format(record)
 
@@ -40,8 +40,10 @@ class ChalkFormatter(logging.Formatter):
         return chalk.format_red(exception)
 
 
-def getChalkColor(level):
-    "gets the appropriate piece of chalk for the logging level"
+def get_chalk_color(level):
+    """
+    gets the appropriate piece of chalk for the logging level
+    """
     if level >= logging.ERROR:
         _chalk = chalk.format_magenta
     elif level >= logging.WARNING:

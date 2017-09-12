@@ -57,7 +57,7 @@ class Init(Command):
             if len(handled_rigging) > 1:
                 # TODO when more than one rigging can handle your application.
                 Logger.warn("More than one rigging can handle the application.")
-                rigging_dict = self.choose_rigging(handled_rigging)
+                rigging_dict = Init.choose_rigging(handled_rigging)
                 if rigging_dict is None:
                     Logger.error("The Rigging you chosen maybe broken.")
                     return
@@ -98,11 +98,12 @@ class Init(Command):
     def get_help_desc(self):
         return "derrick init [-d | --debug]"
 
-    def choose_rigging(self, riggings=None):
+    @staticmethod
+    def choose_rigging(rigging=None):
         choices = []
-        for rigging in riggings:
-            rigging_name = rigging.get("rigging_name")
-            platform = rigging.get("platform")
+        for c_rigging in rigging:
+            rigging_name = c_rigging.get("rigging_name")
+            platform = c_rigging.get("platform")
             choices.append("[R] %-15s [P] %-s" % (rigging_name, platform))
 
         questions = [
@@ -119,11 +120,11 @@ class Init(Command):
         answers = prompt(questions, style=style)
         choice = answers.get('rigging_choice')
 
-        for rigging in riggings:
-            rigging_name = rigging.get("rigging_name")
-            platform = rigging.get("platform")
+        for c_rigging in rigging:
+            rigging_name = c_rigging.get("rigging_name")
+            platform = c_rigging.get("platform")
             if choice == "[R] %-15s [P] %-s" % (rigging_name, platform):
-                return rigging
+                return c_rigging
         return None
 
     # TODO Maybe you can alse define your custom template render using ExtensionPoints
