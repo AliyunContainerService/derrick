@@ -13,6 +13,7 @@ from derrick.core.common import *
 from derrick.core.derrick import Derrick
 from derrick.core.exceptions import RiggingCompileException, ParamsShortageException
 from derrick.core.logger import Logger
+from derrick.core.models import RiggingDetectInfo
 from derrick.core.recorder import ApplicationRecorder
 
 
@@ -65,6 +66,7 @@ class Init(Command):
                 rigging_dict = handled_rigging[0]
 
             rigging = rigging_dict.get("rigging")
+            rdi = RiggingDetectInfo(rigging_dict.get("rigging_name"), rigging_dict.get("platform"))
             try:
                 results = rigging.compile(context)
                 Logger.debug("The platform is %s,the rigging used is %s"
@@ -81,6 +83,7 @@ class Init(Command):
                     Init.render_templates(templates_dir=template_dir, dest_dir=dest_dir, compile_dict=results)
                     Logger.info("Derrick detect your platform is %s and compile successfully."
                                 % rigging_dict.get("platform"))
+                    ApplicationRecorder().record(rdi)
                 except Exception as e:
                     Logger.error("Failed to render template with rigging(%s),because of %s"
                                  % (rigging.get_name(), e.message))
@@ -90,10 +93,7 @@ class Init(Command):
             Logger.warn(
                 "Failed to detect your application's platform."
                 "Maybe you can upgrade Derrick to get more platforms supported.")
-
-        # TODO simple set a recorder
-        ApplicationRecorder()
-        # TODO add some records to recorder
+            return
 
     def get_help_desc(self):
         return "derrick init [-d | --debug]"

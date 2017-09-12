@@ -19,11 +19,11 @@ class NodejsRigging(Rigging):
         """
         workspace = context.get("WORKSPACE")
         package_json_file = os.path.join(workspace, "package.json")
-        if os.path.exists(package_json_file) == True:
+        if os.path.exists(package_json_file) is True:
             return True, PLATFORM
         return False, None
 
     def compile(self, context):
         node_version_detector = NodeVersionDetector()
-        image_version = node_version_detector.execute()
-        return {"Dockerfile.j2": {"version": image_version}}
+        image_version_dict = node_version_detector.execute()
+        return {"Dockerfile.j2": image_version_dict}

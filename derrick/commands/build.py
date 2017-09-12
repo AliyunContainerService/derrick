@@ -36,7 +36,7 @@ class Build(Command):
         repo_tag = "latest"
         status = os.system("/bin/bash -i -c 'docker build -t %s .'" % (repo_name + ":" + repo_tag))
         if status == 0:
-            Logger.info("Build %s:%s successfully.You can execute `derrick serve` to run this image."
+            Logger.info("Build %s:%s successfully.You can execute `docker run` to run this image."
                         % (repo_name, repo_tag))
 
     # implement the interface

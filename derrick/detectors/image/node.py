@@ -18,7 +18,7 @@ class NodeVersionDetector(Detector):
     def execute(self):
         output = subprocess.check_output(["node", "--version"], shell=False)
         version = NodeVersionDetector.get_most_relative_version(output)
-        return version
+        return {"version": version}
 
     @staticmethod
     def get_most_relative_version(version):

@@ -19,11 +19,11 @@ class MavenRigging(Rigging):
         """
         workspace = context.get("WORKSPACE")
         package_json_file = os.path.join(workspace, "pom.xml")
-        if os.path.exists(package_json_file) == True:
+        if os.path.exists(package_json_file) is True:
             return True, RUNTIME
         return False, None
 
     def compile(self, context):
         java_version_detector = JavaVersionDetector()
-        java_version = java_version_detector.execute()
-        return {"Dockerfile.j2": {"version": java_version}}
+        java_version_dict = java_version_detector.execute()
+        return {"Dockerfile.j2": java_version_dict}
