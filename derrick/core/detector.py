@@ -8,4 +8,3 @@ class Detector(object):
     def execute(self, *args, **kwargs):
         raise NotImplementedError("The specific detector execute function is not implemented.")
 
-

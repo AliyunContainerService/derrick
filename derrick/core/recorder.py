@@ -32,7 +32,7 @@ class ApplicationRecorder(Recorder):
     def load(self):
         with open(self.config_file, "a+") as f:
             content = f.read()
-            if content is None or content is "":
+            if content is None or content is "" or len(content) is 0:
                 pass
             else:
                 try:
@@ -53,7 +53,7 @@ class ApplicationRecorder(Recorder):
         return item.__dict__
 
     def unmarshal(self, dict_content):
-        if dict_content is not None and type(dict_content) is dict:
+        if dict_content is not None and issubclass(dict_content.__class__, dict):
             self.__dict__.update(dict_content)
         else:
             raise UnmarshalFailedException()
