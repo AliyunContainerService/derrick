@@ -27,16 +27,16 @@ class DerrickTest(unittest.TestCase):
     def test_get_derrick_home_with_env(self):
         env_home = "/root/.derrick"
         os.putenv(DERRICK_HOME, env_home)
-        home = self.dk.get_derrick_home()
+        home = get_derrick_home()
         predicted_home = env_home
         self.assertEqual(home, predicted_home)
         os.unsetenv(DERRICK_HOME)
 
     def test_derrick_home(self):
         derrick_home = get_derrick_home()
-        if os.path.exists(derrick_home) == True:
-            self.assertEqual(self.dk.check_derrick_first_setup(), False)
+        if os.path.exists(derrick_home) is True:
+            self.assertEqual(check_derrick_first_setup(), False)
             return
-        self.assertEqual(self.dk.check_derrick_first_setup(), True)
+        self.assertEqual(check_derrick_first_setup(), True)
         self.dk.pre_load()
-        self.assertEqual(self.dk.check_derrick_first_setup(), False)
+        self.assertEqual(check_derrick_first_setup(), False)

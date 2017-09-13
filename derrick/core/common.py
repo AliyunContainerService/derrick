@@ -18,20 +18,20 @@ DERRICK_LOGO = """
     You can use Derrick to migrate your project simply.
     ===================================================
 """
-DERRICK_VERSION = "1.0.1"
-DOCKERFILE = "Dockerfile"
-DERRICK_HOME_ENV = "DERRICK_HOME"
+
 DERRICK_HOME = ".derrick"
 DERRICK_APPLICATION_CONF = ".derrick_application_conf"
 RIGGING_HOME = "rigging"
-DEBUG_MODE = "--debug"
-WORKSPACE = "WORKSPACE"
-DERRICK_BUILT_IN = "builtIn"
 DERRICK_COMMANDS = "commands"
+
+WORKSPACE_ENV = "WORKSPACE"
+DERRICK_HOME_ENV = "DERRICK_HOME"
+
+DERRICK_VERSION = "1.0.1"
 NEW_LINE = "\n"
 FOUR_WHITESPACE = "    "
-
 COMMANDS_DOC_SECTION = "[COMMANDS_DOC_SECTION]"
+DEBUG_MODE = "--debug"
 
 
 def singleton(cls):
@@ -43,12 +43,12 @@ def singleton(cls):
     instances = {}
 
     @wraps(cls)
-    def getinstance(*args, **kw):
+    def get_instance(*args, **kw):
         if cls not in instances:
             instances[cls] = cls(*args, **kw)
         return instances[cls]
 
-    return getinstance
+    return get_instance
 
 
 def get_derrick_home():
@@ -77,11 +77,6 @@ def get_derrick_source_path():
     return derrick_source_path
 
 
-def get_built_in_rigging_path():
-    derrick_source_path = get_derrick_source_path()
-    return os.path.join(derrick_source_path, DERRICK_BUILT_IN)
-
-
 def get_commands_home():
     return os.path.join(get_derrick_home(), DERRICK_COMMANDS)
 
@@ -106,7 +101,7 @@ def check_application_first_setup():
 
 
 def check_dockerfile_exists():
-    dockerfile_path = os.path.join(os.getcwd(), DOCKERFILE)
+    dockerfile_path = os.path.join(os.getcwd(), "Dockerfile")
     if os.path.exists(dockerfile_path) is True:
         return True
     return False

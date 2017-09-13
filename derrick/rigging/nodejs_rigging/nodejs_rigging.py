@@ -5,6 +5,7 @@ from __future__ import absolute_import, division, print_function
 
 import os
 
+from derrick.core.detector_report import DetectorReport
 from derrick.core.rigging import Rigging
 from derrick.detectors.image.node import NodeVersionDetector
 
@@ -24,6 +25,7 @@ class NodejsRigging(Rigging):
         return False, None
 
     def compile(self, context):
-        node_version_detector = NodeVersionDetector()
-        image_version_dict = node_version_detector.execute()
-        return {"Dockerfile.j2": image_version_dict}
+        dr = DetectorReport()
+        docker_node = dr.create_node("Dockerfile.j2")
+        docker_node.register_detector(NodeVersionDetector())
+        return dr.generate_report()

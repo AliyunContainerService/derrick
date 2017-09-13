@@ -7,6 +7,7 @@ import os
 
 from derrick.core.rigging import Rigging
 from derrick.detectors.image.java import JavaVersionDetector
+from derrick.core.detector_report import DetectorReport
 
 RUNTIME = "Maven"
 
@@ -24,6 +25,7 @@ class MavenRigging(Rigging):
         return False, None
 
     def compile(self, context):
-        java_version_detector = JavaVersionDetector()
-        java_version_dict = java_version_detector.execute()
-        return {"Dockerfile.j2": java_version_dict}
+        dr = DetectorReport()
+        docker_node = dr.create_node("Dockerfile.j2")
+        docker_node.register_detector(JavaVersionDetector())
+        return dr.generate_report()

@@ -83,14 +83,13 @@ class Derrick(object):
     def get_rigging_manager(self):
         return self.rm
 
-
-    def init_commands_context(self,arguments):
+    def init_commands_context(self, arguments):
         """
         set some useful information to context
         such as DERRICK_HOME and so on.
         """
         context = CommandContext()
-        context.set(DERRICK_HOME, get_derrick_home())
-        context.set(WORKSPACE, os.getcwd())
+        context.set(DERRICK_HOME_ENV, get_derrick_home())
+        context.set(WORKSPACE_ENV, os.getcwd())
         context.set_arguments(arguments)
         return context
