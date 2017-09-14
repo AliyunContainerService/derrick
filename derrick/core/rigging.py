@@ -24,7 +24,7 @@ class Rigging(ExtensionPoint):
         return self.__class__.__name__
 
     def detect(self, context):
-        pass
-    
+        raise NotImplementedError()
+
     def compile(self, context):
-        pass
+        raise NotImplementedError()

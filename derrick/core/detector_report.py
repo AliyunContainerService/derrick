@@ -37,6 +37,9 @@ class DetectorReport(object):
     def get_name(self):
         return self.name
 
+    def get_node(self, node_name):
+        return self.nodes[node_name]
+
     def create_node(self, node_name):
         dr = DetectorReport(node_name)
         self.nodes[node_name] = dr
@@ -48,6 +51,19 @@ class DetectorReport(object):
     def register_detector(self, detector, *args, **kwargs):
         result = detector.execute(*args, **kwargs)
         self.extend_content(result)
+
+    def parse_report(self, report):
+        DetectorReport.recursive_parse_store(self, report)
+
+    @staticmethod
+    def recursive_parse_store(detector_node, data):
+        for key in data.keys():
+            content = data[key]
+            if type(content) is dict:
+                node = detector_node.create_node(key)
+                DetectorReport.recursive_parse_store(node, content)
+            else:
+                detector_node.extend_content({key: content})
 
     def generate_report(self):
         return DetectorReport.recursive_generate_store(self)

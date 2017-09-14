@@ -49,3 +49,31 @@ class DetectorReportTestCase(unittest.TestCase):
         result_dict = dr.generate_report()
 
         self.assertEquals("2.0", result_dict["node1"]["version"])
+
+    def test_parse(self):
+        data = {
+            "Dockerfile.j2": {
+                "version": "1"
+            }
+        }
+
+        dr = DetectorReport()
+        dr.parse_report(data)
+        self.assertEquals(data, dr.generate_report())
+
+    def test_complex_parse(self):
+        data = {
+            "node1": {
+                "version": "1",
+                "node2": {
+                    "content": "content"
+                }
+            },
+            "node3": {
+                "version": "2"
+            }
+        }
+
+        dr = DetectorReport()
+        dr.parse_report(data)
+        self.assertEquals(data, dr.generate_report())
