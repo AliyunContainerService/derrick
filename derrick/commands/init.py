@@ -79,7 +79,7 @@ class Init(Command):
             if type(results) is dict:
                 try:
                     template_dir = rigging.get_template_dir()
-                    dest_dir = context.get(WORKSPACE)
+                    dest_dir = context.get(WORKSPACE_ENV)
                     Init.render_templates(templates_dir=template_dir, dest_dir=dest_dir, compile_dict=results)
                     Logger.info("Derrick detect your platform is %s and compile successfully."
                                 % rigging_dict.get("platform"))
