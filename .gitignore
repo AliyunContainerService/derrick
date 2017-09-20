@@ -2,6 +2,7 @@ build
 derrick.egg-info
 *.pyc
 /venv/
+/venv3/
 /dist/
 /derrick.egg-info/
 /build/

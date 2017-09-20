@@ -1,24 +1,33 @@
-### 简介 
-<img src="http://container-service.oss-cn-beijing.aliyuncs.com/derrick.png" width=600px/>   
-<b>Derrick</b> 是一个帮助应用Docker化的工具，通过探测、编译、构建，自动生成Dockerfile，快速在本地验证容器化后的业务正常与否。
-### 快速开始   
-#### 安装Derrick
+# 简介 
+<img src="images/derrick.png"  width=100%/>      
+<b>Derrick</b> 是Docker的MTA(Modernize Traditional Applications)工具，通过基于源代码、配置、环境的探测，自动生成Dockerfile，快速本地验证容器化结果，减少开发者Docker的学习成本，降低传统应用容器化的难度。    
+
+# 快速开始   
+### 安装Derrick
 ```
 	pip install derrick
 	
-	注：开源前暂无法使用，请使用源码安装 python setup.py install 
+	注:开源前暂无法使用，请使用源码安装 python setup.py install
+	   如果需要本地开发，建议使用virtualenv 建立虚拟env进行调试
 ```
-#### 使用示例项目  
-下面以一个Node.Js项目为例，演示Derrick的使用方法。
+### 使用示例项目  
+下面以一个Node.Js项目为例，通过Derrick将这个项目转变为一个容器。
+
 ##### 下载demo项目
 ```
 	git clone git@gitlab.alibaba-inc.com:zhongwei.lzw/nodejs-demo.git 
 ```
-##### 运行Derrick   
+##### 运行Derrick生成Dockerfile 
+
 ```
-	derrick init 
+    derrick init 
 	
-	运行结果如下   
+```
+Derrick的init命令通常会在应用容器化的时候执行一次，init命令会动态探测代码的类型、使用的框架等信息，并最终将Dockerfile渲染到您的项目根目录下。如果已经生成了Dockerfile并再次执执行init命令，Derrick会重新生成Dockerfile并覆盖现有的文件。
+
+第一次运行Derrick会进行部分配置目录的初始化，运行结果如下:
+
+``` 
 	
     8888888b.                       d8b        888
     888  "Y88b                      Y8P        888
@@ -39,14 +48,17 @@
 	Successfully create DERRICK_HOME in /Users/zhongweilzw/.derrick
 	Derrick detect your platform is NodeJs and compile successfully.
 ```
-初次运行Derrick的时候会创建在当前用户的根路径下创建.derrick目录，里面会保存用户未来定义的插件、Rigging等等。     
+在结果的提示信息中，DERRICK_HOME是Derrick存储用户自定义Command、Rigging的目录，默认会存储在当前用户的根目录下的.derrick文件夹中。init命令执行成功后，此时会发现在项目的目录中已经可以看到探测生成的Dockerfile。      
 
-此时会发现在项目的目录中已经可以看到探测生成的Dockerfile。      
+##### 运行Derrick构建镜像    
 
 ```
 	derrick build 
+```
+Derrick build会调用系统的docker命令来构建镜像，此处建议大家使用docker-ce(17.06）以上的版本，因此在17.06的版本上面开始支持multi-stage build的特性，这个特性将会极大的节省生成镜像的尺寸，低版本的docker-ce是无法处理multi-stage的Dockerfile的。build命令的结果如下：
+
+```
 	
-	运行结果： 
 	Sending build context to Docker daemon  32.77kB
 	Step 1/14 : FROM node:6 AS base
  	---> cb4fff641acf
@@ -76,45 +88,74 @@
 	Build nodejs-demo:latest successfully.
 	You can execute `docker run [options]` to run this image.
 ```
-此时一个镜像已经构建完成，在本地进行镜像的验证即可。      
+此时一个镜像已经构建完成，在本地进行镜像的验证即可。构建命令的结果中会输出镜像构建的名称和版本，在本例中为nodejs-demo:latest。此时可以通过docker的相关命令进行本地验证即可。          
 
-### 进阶用法 
-#### 安装自定义Rigging   
-```
-	pip install --target=~/.derrick/rigging rigging_package_name   
-	
-	# 也可以拷贝Rigging到~/.derrick/rigging目录   
-```
-
-### 成为代码贡献者
-#### Derrick的原理    
+# 深入了解Derrick   
+### Derrick的原理    
 了解`Derrick`是如何将代码转换成Dockerfile会帮助你更好的hack `Derrick`。`Derrick`的实现原理主要来自CloudFoundry中buildpack，如果想进一步了解buildpack原理的开发者可以查看<a href="https://docs.cloudfoundry.org/buildpacks/understand-buildpacks.html" target="_blank">这篇文章</a>。在此，我们简单的介绍下buildpack的核心概念。一个服务能够运行起来到底需要哪些必要的因素，抽象后大体可以分为三类：代码，应用配置，应用依赖（基础环境、运行依赖）。buildpack要解决的问题就是如何将代码通过一些流程转变为一个运行的应用的过程。在CloudFoundry中buildpack是一系列脚本的集合，通常一个buildpack会包含三个脚本，detect,compile,release.当代码提交给CloudFoundry后，会依次执行三个脚本，然后尝试通过脚本执行将代码转变为一个运行的服务。detect脚本的主要作用是探测当前的buildpack是否能够处理你的代码，如果能够处理就会运行compile来进行代码特征的探测，通常探测的方式包含包管理配置探测、自定义配置探测等等。例如一个nodejs的应用，在compile的时候会探测package.json中的一些配置，来判断当前nodejs的语言版本，启动的命令，是否依赖系统的包等等。当compile脚本执行完成后，会调用release脚本，这个脚本的主要作用是描述如何启动当前的应用，类似启动脚本。通过这三个命令CloudFoundry会尝试将代码转换为运行的服务。    
 
 通过上面的介绍大家不难发现buildpack是有一些局限的，因为很多特性信息包括配置都无法通过探测的方式得到。诚然，buildpack只能解决通用场景的80%左右的问题，因此CloudFoundry作为一个PaaS平台会预定义一些项目的template，只有满足的template的项目才能够正常的buildpack，而且CloudFoundry支持自定义builpack，通过这种方式让开发者能够解决自己特征性的需求。     
 
 那么Derrick是如何借鉴buildpack的机制呢？CloudFoundry的目标是生成运行的服务，而Derrick的目标是生成一个可运行的镜像的Dockerfile，因此Derrick中需要的是buildpack机制中的detect与compile，而release对应的运行能力其实并不是Derrick所需要的。因此Derrick会先通过detect的方式探测是否可以处理当前的语言或者框架，如果可以处理，那么会调用compile，进行Dockerfile的生成。
 
-#### Derrick中的核心概念 
+### Derrick中的核心概念 
 Derrick中有几个核心的名词概念，了解了他们的具体的含义有助于大家进一步理解Derrick的实现原理。     
-##### Rigging
+
+<h3>Rigging</h3>
+<br/>
+
 <img src="http://container-service.oss-cn-beijing.aliyuncs.com/java.png" style="width:200px"/>
 <img src="http://container-service.oss-cn-beijing.aliyuncs.com/nodejs.png" style="width:200px"/>  
 Derrick的本意是起重机的意思，在码头上Derrick是用来吊Container（集装箱）的。而绑定Container（集装箱）的Rigging（绳索）。吊起不同的Container需要使用不同的Rigging。Derrick探测、编译不同的语言与框架也就需要不同的Rigging。因此，在Derrick中转换不同语言或者平台的角色就是Rigging。比如NodeJs的平台，就有对应的NodejsRigging,Maven的项目就会有MavenRigging。Rigging是buildpack在Derrick中的一种实现。
 
-##### Command
+<h3>Command</h3>
+
 Command 顾名思义是命令的意思，在Derrick中内置了init、build两条命令，init命令会执行整个Rigging的流程，build命令会根据生成的Dockerfile完成docker image的构建。    
 
-##### Detector    
+
+<h3>Detector</h3>
+  
 Detector是探测器的意思，Rigging中有很大一部分功能是需要探测源代码的结构、配置等等信息。为了能够让探测的流程可以复用，并且使用更加简单，我们提出了Detector的概念，开发者可以使用已定义的Detector或者自定义Detector快速的开发自己的Rigging。
 
+# 进阶用法 
+### 使用自定义Rigging
+##### 安装自定义Rigging   
+```
+	pip install --target=~/.derrick/rigging rigging_package_name   
+	
+	# 也可以拷贝Rigging到~/.derrick/rigging目录   
+```
+开源前通过此流程下载并安装自定义Rigging。      
 
-#### 如何开发一个Rigging  
+```
+	git clone git@gitlab.alibaba-inc.com:zhongwei.lzw/nodejs_devops_rigging.git [your_derrick_home]/rigging/[rigging_name] 
+```
+##### 使用自定义Rigging    
+安装一个自定义的Rigging后，在运行Derrick init命令时会加载内置的Rigging与自定义的Rigging，如果有超过两个Rigging同时满足探测条件，那么Derrick会提供方向键的选择，选择后回车即可。   
+
+```
+(venv)➜  nodejs-demo git:(master) derrick init
+More than one rigging can handle the application.
+? Which rigging would you like to choose?  (Use arrow keys)
+ 	❯ [R] NodejsRigging   [P] NodeJs
+   	  [R] NodejsDevOpsRigging [P] NodeJs
+```
+
+# 成为代码贡献者
+### 如何开发一个Rigging  
 在开发Rigging之前，我们来看下Derrick init命令是如何使用Rigging来完成相关信息生成的。Rigging分为两种，一种是内置的Rigging，一种是用户自定义的Rigging。Derrick支持开发者以插件的方式运行Rigging，在Derrick中Rigging的加载是通过RiggingManager进行管理的，RiggingManager会管理所有的Rigging的加载、运行的生命周期。Derrick init命令执行的时候会通过RiggingManager获取所有系统中注册的Rigging，并依次调用Rigging的detect方法来判断当前的Rigging是否可以处理当前的语言或者平台，如果能处理那么就会进行标记，当所有的Rigging遍历完成后，如果有标记的Rigging数目大于一个，那么开发者可以选择调用哪个Rigging进行后续的compile。如果只有一个Rigging，那么会直接调用当前Rigging的compile。如果没有Rigging进行标注，那么会提示无法处理当前语言和平台。       
 
-##### 一个Rigging的标准结构    
+### 一个Rigging的标准结构    
 Rigging也是一个标准的Python module，是可以通过pip进行安装的，因此一个Rigging的标准结构如下：
 
-<img src="images/rigging_folder.jpeg" width=200px/>    
+```
+	└── nodejs_rigging
+    	├── __init__.py
+    	├── nodejs_rigging.py
+    	└── templates
+        	└── Dockerfile.j2
+        	└── .dockerignore
+```
 
 在nodejs_rigging.py中的内容如下    
 
@@ -157,10 +198,10 @@ class NodejsRigging(Rigging):
 detect方法返回的结果为handled(bool),platform(string)，handled表示当前的Rigging是否能够处理探测的语言或者框架，platform表示探测出来的内容，这个信息会在又多个探测器选择的时候或者探测完成显示的时候显示出来。     
 
 
-compile方法核心的目标是进行探测并生成相应的文件，换言之，compile的核心目标是如何生成渲染模板的变量。
+compile方法核心的目标是进行探测并生成相应的文件，换言之，compile的核心目标就是在探测出系统的结果后，进行相应的模板组装的动作，而在Derrick中，只需要生成一个模板文件与替换变量的Python dict即可，最终渲染的动作会由Derrick来完成，在Derrick中默认支持的模板是Python的jinja2模板，如果是非jinja2的文件，Derrick只会进行默认的拷贝，并不会进行变量的渲染，下面来看一个NodeJs的Dockerfile的渲染的例子。
 
 ```
-Dockerfile.j2中的内容    
+Dockerfile.j2模板中的中的内容    
 
 # stage1
 FROM {{ version }} AS base
@@ -246,10 +287,18 @@ class NodeVersionDetector(Detector):
 NodeVersionDetector 实现了Detector的execute方法，并返回一个dict。而这个dict最终会在DetectorReport遍历生成dict的时候自动扩展到相应的节点上。      
 
 
-##### 如何开发一个自定义Rigging   
-例如我们要开发一个nodejs_devops_rigging,因为已经内置了NodejsRigging,我们可以扩展自已有的Rigging    
+### 如何开发一个自定义Rigging   
+例如我们要开发一个nodejs_devops_rigging,因为已经内置了NodejsRigging,我们可以扩展自已有的Rigging，同样可以直接扩展自derrick.core.rigging.Rigging，在本例中是扩展自NodejsRigging。
 
-<img src="images/custom_rigging.jpeg" width=200px/>   
+```
+└── nodejs_devops_rigging
+    ├── __init__.py
+    ├── nodejs_devops_rigging.py
+    └── templates
+        ├── Dockerfile.j2
+        ├── Jenkinsfile
+        └── docker-compose.yml.j2
+```
 根据上面介绍的部分创建目录结构，在nodejs_devops_rigging.py中内容如下   
 
 ```
@@ -335,7 +384,15 @@ class DockerComposeDetector(Detector):
 ```
 这样一个基于NodejsRigging二次开发的NodejsDevOpsRigging就开发完成了，下面我们进行验证，将这个目录拷贝到
 ~/.derrick/rigging目录中。然后在需要探测的项目中执行 Derrick init   
-<img src="images/rigging_2.jpeg" width= 300px/>     
+
+
+```
+(venv)➜  nodejs-demo git:(master) derrick init
+More than one rigging can handle the application.
+? Which rigging would you like to choose?  (Use arrow keys)
+ 	❯ [R] NodejsRigging   [P] NodeJs
+   	  [R] NodejsDevOpsRigging [P] NodeJs
+```  
 
 通过方向键选择即可。
 
@@ -344,5 +401,10 @@ class DockerComposeDetector(Detector):
 ① Python默认情况下是不打包非.py的文件的，因此在调试的时候需要将代码提交到本地，在setup.py中会自动将SCM控制的文件一同打包。<br/><br/>
 ② 调试代码的时候，如果已经安装过Derrick会自动先寻找系统中安装的Derrick，因此最好在调试Derrick代码的时候，卸载已经安装的Derrick。
 </p>
+
+
+    
+
+
 
    

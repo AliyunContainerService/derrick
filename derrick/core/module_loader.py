@@ -81,7 +81,7 @@ class PathModuleLoader(object):
             if str(path).endswith("__init__.py") or not str(path).endswith(".py"):
                 return False
             module_name = os.path.dirname(path)
-            if self.load_once.has_key(module_name):
+            if module_name in self.load_once.keys():
                 return False
             else:
                 self.load_once[module_name] = True

@@ -62,7 +62,7 @@ class CommandManager(ExtensionPoints):
         arguments = context.get_arguments()
         for command_name in commands.keys():
             command_name_lower = command_name.lower()
-            if arguments.has_key(command_name_lower) and arguments[command_name_lower] is True:
+            if command_name_lower in arguments.keys() and arguments[command_name_lower] is True:
                 command = commands[command_name]
                 try:
                     command.execute(context)
