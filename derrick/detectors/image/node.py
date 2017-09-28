@@ -16,8 +16,13 @@ NODEJS_LATEST = "node:latest"
 
 class NodeVersionDetector(Detector):
     def execute(self):
-        output = subprocess.check_output(["node", "--version"], shell=False)
-        version = NodeVersionDetector.get_most_relative_version(output)
+        try:
+            output = subprocess.check_output(["nodejs", "--version"], shell=False)
+            Logger.debug("NodeJs version detected is %s" % output)
+            version = NodeVersionDetector.get_most_relative_version(output)
+        except:
+            version = NODEJS_LATEST
+
         return {"version": version}
 
     @staticmethod

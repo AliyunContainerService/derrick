@@ -70,8 +70,7 @@ class Derrick(object):
 
         commands_doc = self.cm.get_commands_doc()
         arguments = docopt(commands_doc, help=False, version=DERRICK_VERSION)
-
-        if arguments[DEBUG_MODE] is True:
+        if DEBUG_MODE in arguments and arguments[DEBUG_MODE] == 1:
             Logger.set_debug_mode()
 
         command_context = self.init_commands_context(arguments=arguments)

@@ -1,0 +1,6 @@
+
+web:
+    image: [image:tag]
+    port:
+        - 3000:3000
+    restart: always

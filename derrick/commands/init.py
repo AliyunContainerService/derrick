@@ -75,11 +75,13 @@ class Init(Command):
             except Exception as e:
                 Logger.error("Failed to compile your application.because of %s" % e.message)
                 Logger.debug(traceback.format_exc())
+                return
 
             if type(results) is dict:
                 try:
                     template_dir = rigging.get_template_dir()
                     dest_dir = context.get(WORKSPACE_ENV)
+                    Logger.debug("Ready to render templates and template_dir:%s,dest_dir:%s,compile_dict:%s" % (template_dir, dest_dir, results))
                     Init.render_templates(templates_dir=template_dir, dest_dir=dest_dir, compile_dict=results)
                     Logger.info("Derrick detect your platform is %s and compile successfully."
                                 % rigging_dict.get("platform"))
