@@ -3,9 +3,9 @@ FROM {{ version }} AS base
 WORKDIR /app
 COPY package.json .
 RUN npm set progress=false && npm config set depth 0
-RUN npm install --only=production
+RUN npm install --only=production --registry=https://registry.npm.taobao.org
 RUN cp -R node_modules prod_node_modules
-RUN npm install
+RUN npm install --registry=https://registry.npm.taobao.org
 
 # stage 2
 FROM base As test

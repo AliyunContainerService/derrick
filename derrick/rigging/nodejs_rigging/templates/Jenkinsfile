@@ -1,7 +1,7 @@
 pipeline {
    environment {
-     REGISTRY_ENDPOINT = "https://registry.cn-beijing.aliyuncs.com/v2"
-     IMAGE_WITH_TAG = "https://registry.cn-beijing.aliyuncs.com/ringtail/nodejs-demo:0.1"
+     REGISTRY_ENDPOINT = "[YOUR_REGISTRY_AUTH_ENDPOINT]"
+     IMAGE_WITH_TAG = "[YOUR_IMAGE_WITH_TAG]"
    }
   agent {
     node {
