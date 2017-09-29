@@ -32,7 +32,7 @@ class Build(Command):
             return
 
         # TODO Maybe a timestamp is better
-        repo_name = os.path.basename(get_workspace())
+        repo_name = os.path.basename(get_workspace()).lower()
         repo_tag = "latest"
         status = os.system("/bin/bash -i -c 'docker build -t %s .'" % (repo_name + ":" + repo_tag))
         if status == 0:
