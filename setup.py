@@ -1,8 +1,13 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='derrick',
-    version='1.0.1',
+    name='alibaba-derrick',
+    version='0.0.1',
+    description="An automation tool to help you dockerize App in seconds",
+    keywords='Docker dockerize automation dockerfile docker-compose Jenkinsfile DevOps',
+    author="ringtail",
+    author_email="zhongwei.lzw@alibaba-inc.com",
+    url="https://github.com/alibaba/derrick",
     py_modules=['derrick'],
     include_package_data=True,
     install_requires=[
@@ -15,7 +20,7 @@ setup(
     ],
     entry_points='''
         [console_scripts]
-        derrick=derrick.main:main
+        derrick=derrick.derrick:main
     ''',
     packages=find_packages()
 )

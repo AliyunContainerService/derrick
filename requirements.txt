@@ -1,0 +1,12 @@
+docopt==0.6.2
+Jinja2==2.9.6
+MarkupSafe==1.0
+prompt-toolkit==1.0.15
+pychalk==1.1.0
+Pygments==2.2.0
+regex==2017.9.23
+setuptools-git==1.2
+simplejson==3.11.1
+wcwidth==0.1.7
+whaaaaat==0.5.2
+wheel==0.24.0
