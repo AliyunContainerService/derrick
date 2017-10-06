@@ -6,7 +6,7 @@
 [![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
 
 
-Derrick is an automation tool to help you dockerize App in seconds. Derrick focus on the developer's workflow in local developement.Derrick will generate Dockerfile，docker-compose.yml，.dockerignore，Jenkinsfile and so on.You can simply use Derrick to accelerate application migration smoothly.  
+Derrick is an automation tool to help you dockerize App in seconds. Derrick focus on the developer's workflow in local developement.Derrick will generate Dockerfile,docker-compose.yml,.dockerignore,Jenkinsfile and so on.You can simply use Derrick to accelerate application migration smoothly.  
 
 <img src="http://container-service.oss-cn-beijing.aliyuncs.com/derrick.png" width=100%/>    
 
