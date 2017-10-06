@@ -24,7 +24,7 @@ Using Derrick is very simple:
 ## Installation
 
 ```
-	pip install alibaba-derrrick
+pip install alibaba-derrrick
 ```
 
 ### *License*
