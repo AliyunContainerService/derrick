@@ -18,13 +18,13 @@ Using Derrick is very simple:
 
 
 ## Documentation
-* Documentation Home 
-* Frequently Asked Questions   
+* <a href="https://github.com/alibaba/fastjson/wiki>Documentation Home</a>
+* <a href="https://github.com/alibaba/fastjson/wiki>Frequently Asked Questions</a>  
 
-## Installation 
- 
+## Installation
+
 ```
-	pip install alibaba-derrrick 
+	pip install alibaba-derrrick
 ```
 
 ### *License*
