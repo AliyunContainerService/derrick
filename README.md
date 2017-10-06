@@ -1,7 +1,7 @@
 # Derrick
 [![PIP release](https://img.shields.io/badge/pypi-v0.0.1-yellow.svg)](https://github.com/alibaba/derrick)
 [![Platform](https://img.shields.io/badge/platform-Windows&Linux&Mac-green.svg)](https://github.com/alibaba/derrick)
-[![Language](https://img.shields.io/badge/language-NodeJs Java Python-red.svg)](https://github.com/alibaba/derrick)
+[![Language](https://img.shields.io/badge/language-NodeJs&Java&Python-red.svg)](https://github.com/alibaba/derrick)
 [![GitHub release](https://img.shields.io/badge/release-0.0.1-green.svg)](https://github.com/alibaba/derrick/releases)
 [![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
 
