@@ -20,7 +20,7 @@ DERRICK_LOGO = """
 """
 
 DERRICK_HOME = ".derrick"
-DERRICK_APPLICATION_CONF = ".derrick_application_conf"
+DERRICK_APPLICATION_CONF = "derrick_conf"
 RIGGING_HOME = "rigging"
 DERRICK_COMMANDS = "commands"
 

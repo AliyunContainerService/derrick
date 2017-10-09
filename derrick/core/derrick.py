@@ -4,12 +4,10 @@
 """
 Usage:
 [COMMANDS_DOC_SECTION]
-    derrick -h | --help
+    derrick --help
     derrick --version
 Options:
-    -d --debug   Set debug mode
-    -h --help    Show derrick help
-    --version    Show derrick version
+    -d    Set debug mode
 """
 from __future__ import absolute_import, division, print_function
 
