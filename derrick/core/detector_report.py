@@ -3,6 +3,8 @@
 
 from __future__ import absolute_import, division, print_function
 
+from derrick.core.cache import CacheStore
+
 
 class DetectorReport(object):
     """
@@ -49,7 +51,14 @@ class DetectorReport(object):
         self.store.update(detect_content)
 
     def register_detector(self, detector, *args, **kwargs):
-        result = detector.execute(*args, **kwargs)
+        cs = CacheStore()
+        key = detector.__class__.__name__
+        value = cs.get(key)
+        if value is None:
+            result = detector.execute(*args, **kwargs)
+            cs.put(key, result)
+        else:
+            result = value
         self.extend_content(result)
 
     def parse_report(self, report):

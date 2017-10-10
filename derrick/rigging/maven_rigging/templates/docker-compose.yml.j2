@@ -1,7 +1,9 @@
 version: "3"
 services:
   web:
-    image: [YOUR_IMAGE_WITH_TAG]
+    build:
+        context: .
+    image: {{ image_with_tag }}
     ports:
       - 8080
     restart: always

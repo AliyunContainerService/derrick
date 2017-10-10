@@ -8,7 +8,7 @@ from derrick.core.common import *
 from derrick.core.logger import Logger
 
 
-class Build(Command):
+class Serve(Command):
     """
     Docker 17.05.0-ce support multi-stage build
     We recommend you to use latest version Docker CE
@@ -31,14 +31,10 @@ class Build(Command):
             Logger.info("Dockerfile is not exists, Maybe you can rerun `derrick init` to resolve it.")
             return
 
-        # TODO Maybe a timestamp is better
-        repo_name = os.path.basename(get_workspace()).lower()
-        repo_tag = "latest"
-        status = os.system("/bin/bash -i -c 'docker build -t %s .'" % (repo_name + ":" + repo_tag))
+        status = os.system("/bin/bash -i -c 'docker-compose up -d '")
         if status == 0:
-            Logger.info("Build %s:%s successfully.You can execute `docker run` to run this image."
-                        % (repo_name, repo_tag))
+            Logger.info("Your application has been up to running! You can run `docker ps` to get exposed ports.")
 
     # implement the interface
     def get_help_desc(self):
-        return "derrick build"
+        return "derrick serve"
