@@ -8,10 +8,9 @@ import subprocess
 from derrick.core.detector import Detector
 from derrick.core.logger import Logger
 
-NODEJS_4 = "node:4"
-NODEJS_6 = "node:6"
-NODEJS_8 = "node:8"
-NODEJS_LATEST = "node:latest"
+NODEJS_4 = "4"
+NODEJS_6 = "6"
+NODEJS_8 = "8"
 
 
 class NodeVersionDetector(Detector):

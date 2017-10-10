@@ -1,5 +1,5 @@
 # stage1
-FROM {{ version }} AS base
+FROM registry.cn-beijing.aliyuncs.com/codepipeline/node:{{ version }} AS base
 WORKDIR /app
 COPY package.json .
 RUN npm set progress=false && npm config set depth 0
