@@ -1,5 +1,6 @@
 *.pyc
 /venv/
+/venv3/
 /.idea/
 /dist/
 /alibaba_derrick.egg-info/

@@ -51,7 +51,7 @@ class Derrick(object):
             try:
                 self.pre_load()
             except Exception as e:
-                Logger.error("Failed to create DERRICK_HOME:%s.Because of %s" % (get_derrick_home(), e.message))
+                Logger.error("Failed to create DERRICK_HOME:%s.Because of %s" % (get_derrick_home(), e))
                 # Logger.debug(traceback.format_exc())
                 return
 
@@ -64,7 +64,7 @@ class Derrick(object):
             self.load()
         except Exception as e:
             # TODO add some exception handler
-            Logger.error("Failed to load rigging or commands in disk,because of %s" % e.message)
+            Logger.error("Failed to load rigging or commands in disk,because of %s" % e)
 
         commands_doc = self.cm.get_commands_doc()
         arguments = docopt(commands_doc, help=False, version=DERRICK_VERSION)

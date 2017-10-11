@@ -39,5 +39,5 @@ class NodeVersionDetector(Detector):
             if base_version == "8":
                 detect_version = NODEJS_8
         except Exception as e:
-            Logger.debug("system version is %s,error message is %s" % (version, e.message))
+            Logger.debug("system version is %s,error message is %s" % (version, e))
         return detect_version

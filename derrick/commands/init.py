@@ -51,7 +51,7 @@ class Init(Command):
                     handled_rigging.append({"rigging_name": rigging_name, "rigging": rigging, "platform": platform})
             except Exception as e:
                 Logger.error("Failed to detect your application's platform with rigging(%s),because of %s"
-                             % (rigging_name, e.message))
+                             % (rigging_name, e))
                 Logger.debug(traceback.format_exc())
 
         if detected is True:
@@ -73,7 +73,7 @@ class Init(Command):
                              % (rigging_dict.get("platform"), rigging_dict.get("rigging_name")))
                 Logger.debug("The results is %s" % results)
             except Exception as e:
-                Logger.error("Failed to compile your application.because of %s" % e.message)
+                Logger.error("Failed to compile your application.because of %s" % e)
                 Logger.debug(traceback.format_exc())
                 return
 
@@ -88,7 +88,7 @@ class Init(Command):
                     ApplicationRecorder().record(rdi)
                 except Exception as e:
                     Logger.error("Failed to render template with rigging(%s),because of %s"
-                                 % (rigging.get_name(), e.message))
+                                 % (rigging.get_name(), e))
             else:
                 raise RiggingCompileException("compile results is not a dict")
         else:
@@ -144,7 +144,7 @@ class Init(Command):
                 all_success = False
                 Logger.debug("template_path:%s,dest_dir:%s,content:%s"
                              % (template_path, dest_dir, compile_dict.get(template_name)))
-                Logger.warn("Failed to compile template(%s),because of %s" % (template_name, e.message))
+                Logger.warn("Failed to compile template(%s),because of %s" % (template_name, e))
 
         return all_success
 

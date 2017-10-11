@@ -69,5 +69,5 @@ class CommandManager(ExtensionPoints):
                     # TODO Add command event listener in here
                     # TODO event listener will fire event in the whole lifecycle
                 except Exception as e:
-                    Logger.error("Failed to execute command %s,because of %s" % (command_name, e.message))
+                    Logger.error("Failed to execute command %s,because of %s" % (command_name, e))
                     Logger.debug(traceback.format_exc())
