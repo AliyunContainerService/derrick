@@ -12,7 +12,7 @@ Derrick is a tool to help you dockerizing application in seconds. Derrick focus 
 
 Using Derrick is very simple:    
 1. `derrick init` to dockerize your application based on Derrick.    
-2. `derrick build` to build your application to a Docker image.          
+2. `derrick up` to build your application to a Docker image and run in local.        
 3. Use your favorite text editor to modify the Dockerfile or some others and run your application in local.        
 4. Integrate into your workflow and have fun.       
 

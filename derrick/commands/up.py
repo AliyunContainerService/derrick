@@ -8,7 +8,7 @@ from derrick.core.common import *
 from derrick.core.logger import Logger
 
 
-class Serve(Command):
+class Up(Command):
     """
     Docker 17.05.0-ce support multi-stage build
     We recommend you to use latest version Docker CE
@@ -37,4 +37,4 @@ class Serve(Command):
 
     # implement the interface
     def get_help_desc(self):
-        return "derrick serve"
+        return "derrick up"

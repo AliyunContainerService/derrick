@@ -32,9 +32,9 @@ class CommandManager(ExtensionPoints):
 
         Maybe you can define a command which can deploy to K8S.
         """
-        import derrick.commands.serve as s
+        import derrick.commands.up as u
         import derrick.commands.init as i
-        self.register(s.Serve())
+        self.register(u.Up())
         self.register(i.Init())
 
         commands = self.cl.load()
