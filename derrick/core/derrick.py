@@ -4,7 +4,6 @@
 """
 Usage:
 [COMMANDS_DOC_SECTION]
-    derrick --help
     derrick --version
 Options:
     -d    Set debug mode
