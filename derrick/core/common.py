@@ -1,6 +1,7 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 import os
+import platform
 from functools import wraps
 
 DERRICK_LOGO = """
@@ -27,7 +28,7 @@ DERRICK_COMMANDS = "commands"
 WORKSPACE_ENV = "WORKSPACE"
 DERRICK_HOME_ENV = "DERRICK_HOME"
 
-DERRICK_VERSION = "0.0.4"
+DERRICK_VERSION = "0.0.6"
 NEW_LINE = "\n"
 FOUR_WHITESPACE = "    "
 COMMANDS_DOC_SECTION = "[COMMANDS_DOC_SECTION]"
@@ -105,3 +106,9 @@ def check_dockerfile_exists():
     if os.path.exists(dockerfile_path) is True:
         return True
     return False
+
+
+def is_windows():
+    version = platform.system()
+    if version is "Windows":
+        return True

@@ -144,7 +144,7 @@ class Init(Command):
                 all_success = False
                 Logger.debug("template_path:%s,dest_dir:%s,content:%s"
                              % (template_path, dest_dir, compile_dict.get(template_name)))
-                Logger.warn("Failed to compile template(%s),because of %s" % (template_name, e))
+                Logger.debug("Failed to compile template(%s),because of %s" % (template_name, e))
 
         return all_success
 
