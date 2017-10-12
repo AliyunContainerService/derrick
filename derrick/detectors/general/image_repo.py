@@ -23,5 +23,5 @@ class ImageRepoDetector(Detector):
         except Exception as e:
             Logger.warn("Failed to detect image repo. Windows console don't support prompt action.")
             Logger.warn("Jenkinsfile and docker-compose.yml may not be generated completely.")
-            answers = {}
+            answers = {"image_with_tag": "[IMAGE_WITH_TAG]"}
         return answers

@@ -8,7 +8,7 @@ import simplejson as json
 from derrick.core.common import *
 from derrick.core.exceptions import UnmarshalFailedException
 from derrick.core.logger import Logger
-import traceback
+
 
 class Recorder(object):
     def load(self):
@@ -39,8 +39,7 @@ class ApplicationRecorder(Recorder):
                     json_dict = json.loads(content)[0]['datapoints']
                     self.unmarshal(json_dict)
                 except Exception as e:
-                    Logger.error("Failed to load .derrick_application_conf,because of %s" % e)
-                    Logger.debug("Stack Information:%s" % traceback.format_exec())
+                    Logger.warn("Failed to load derrick_conf,because of %s" % e)
 
     def record(self, dict_data):
         self.unmarshal(dict_data)
