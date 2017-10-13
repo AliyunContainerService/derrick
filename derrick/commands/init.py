@@ -92,7 +92,7 @@ class Init(Command):
                 try:
                     ApplicationRecorder().record(rdi)
                 except Exception as e:
-                    Logger.warn("Failed to record detected information.because of %s" % e)
+                    Logger.debug("Failed to record detected information.because of %s" % e)
             else:
                 raise RiggingCompileException("compile results is not a dict.")
         else:
