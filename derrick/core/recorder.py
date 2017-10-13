@@ -39,7 +39,7 @@ class ApplicationRecorder(Recorder):
                     json_dict = json.loads(content)[0]['datapoints']
                     self.unmarshal(json_dict)
                 except Exception as e:
-                    Logger.warn("Failed to load derrick_conf,because of %s" % e)
+                    Logger.debug("Failed to load derrick_conf,because of %s" % e)
 
     def record(self, dict_data):
         self.unmarshal(dict_data)

@@ -26,7 +26,7 @@ class Derrick(object):
     It will proxy command execution to commands_manager
     And Derrick will collect all commands status and result
     If the result or status is useful and it will save them
-    to .derrick_application_conf file in the application folder.
+    to derrick_conf file in the application folder.
     """
 
     def __init__(self):
