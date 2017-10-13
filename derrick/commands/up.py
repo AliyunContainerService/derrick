@@ -34,6 +34,8 @@ class Up(Command):
         status = os.system("/bin/bash -i -c 'docker-compose up -d '")
         if status == 0:
             Logger.info("Your application has been up to running! You can run `docker ps` to get exposed ports.")
+        else:
+            Logger.error("Can not start your application.Have you installed docker-compose in path?")
 
     # implement the interface
     def get_help_desc(self):
