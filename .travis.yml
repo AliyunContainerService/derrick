@@ -1,8 +1,6 @@
 language: python
 python:
   - "2.7"
-  - "3.2"
-  - "3.3"
   - "3.4"
   - "3.5"
   - "3.5-dev" # 3.5 development branch
@@ -13,6 +11,9 @@ python:
 # command to install dependencies
 install:
   - pip install -r requirements.txt
+  - pip install codecov
 # command to run tests
 script:
-  - nosetests # or py.test for Python versions 3.5 and below
+  - nosetests --with-coverage # or py.test for Python versions 3.5 and below
+after_success:
+  - codecov

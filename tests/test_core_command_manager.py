@@ -11,7 +11,7 @@ from derrick.core.derrick import Derrick
 
 class CommandManagerTestCase(unittest.TestCase):
     def setUp(self):
-        # pre load 
+        # pre load
         derrick = Derrick()
         derrick.load()
 

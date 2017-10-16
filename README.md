@@ -4,7 +4,7 @@
 [![Language](https://img.shields.io/badge/language-NodeJs&Java&Python-red.svg)](https://github.com/alibaba/derrick)
 [![GitHub release](https://img.shields.io/badge/release-0.0.1-green.svg)](https://github.com/alibaba/derrick/releases)
 [![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
-
+[![Build Status](https://travis-ci.org/alibaba/derrick.svg?branch=master)](https://travis-ci.org/alibaba/derrick)
 
 Derrick is a tool to help you dockerizing application in seconds. Derrick focus on the developer's workflow in local development environment. Derrick will inspect your workspace and generate Dockerfile, docker-compose.yml, Jenkinsfile, etc. for you. You can simply use Derrick to stream line your DevOps process in container way smoothly.
 
