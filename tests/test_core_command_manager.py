@@ -6,10 +6,15 @@ from __future__ import absolute_import, division, print_function
 import unittest
 from derrick.core.command_manager import CommandManager
 from derrick.core.command import Command
+from derrick.core.derrick import Derrick
 
 
 class CommandManagerTestCase(unittest.TestCase):
     def setUp(self):
+        # pre load 
+        derrick = Derrick()
+        derrick.load()
+
         self.cm = CommandManager()
         self.cm.load()
 
