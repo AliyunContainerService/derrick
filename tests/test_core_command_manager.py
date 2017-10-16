@@ -19,7 +19,7 @@ class CommandManagerTestCase(unittest.TestCase):
 
     def test_built_in_commands_registered(self):
         commands_dict = self.cm.all()
-        self.assertIsNot(None, commands_dict["build"])
+        self.assertIsNot(None, commands_dict["up"])
         self.assertIsNot(None, commands_dict["init"])
 
     def test_built_int_commands_re_registration(self):
