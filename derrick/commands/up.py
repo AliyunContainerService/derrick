@@ -33,11 +33,11 @@ class Up(Command):
         if is_windows() is True:
             try:
                 import win32api
-                win32api.WinExec('docker-compose up -d ')
+                win32api.WinExec('docker-compose up --build -d ')
             except Exception as e:
                 Logger.error("Can not start your application.Have you installed docker-compose in path?")
             return
-        status = os.system("/bin/bash -i -c 'docker-compose up -d '")
+        status = os.system("/bin/bash -i -c 'docker-compose up --build -d '")
         if status == 0:
             Logger.info("Your application has been up to running! You can run `docker ps` to get exposed ports.")
         else:

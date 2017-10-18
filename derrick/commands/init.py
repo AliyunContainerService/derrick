@@ -52,7 +52,6 @@ class Init(Command):
             except Exception as e:
                 Logger.error("Failed to detect your application's platform with rigging(%s),because of %s"
                              % (rigging_name, e))
-                Logger.debug(traceback.format_exc())
 
         if detected is True:
             if len(handled_rigging) > 1:
@@ -74,7 +73,6 @@ class Init(Command):
                 Logger.debug("The results is %s" % results)
             except Exception as e:
                 Logger.error("Failed to compile your application.because of %s" % e)
-                Logger.debug(traceback.format_exc())
                 return
 
             if type(results) is dict:
