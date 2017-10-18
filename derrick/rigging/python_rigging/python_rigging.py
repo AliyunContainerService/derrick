@@ -5,8 +5,6 @@ from __future__ import absolute_import, division, print_function
 
 import os
 
-from derrick.detectors.platform.python_platform import PythonPlatformDetector
-
 from derrick.core.detector_report import DetectorReport
 from derrick.core.rigging import Rigging
 from derrick.detectors.general.image_repo import ImageRepoDetector
