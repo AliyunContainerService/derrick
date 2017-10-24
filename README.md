@@ -17,15 +17,32 @@ Using Derrick is very simple:
 3. Use your favorite text editor to modify the Dockerfile or some others and run your application in local.        
 4. Integrate into your workflow and have fun.       
 
+## Demo 
+[![Derrick with BlueOcean](https://i.ytimg.com/vi/IHq_gTvOCSs/maxresdefault.jpg)](https://www.youtube.com/watch?v=IHq_gTvOCSs)
+
+
+
 
 ## Documentation
 * <a href="https://github.com/alibaba/derrick/wiki">Documentation Home</a>
 * <a href="https://github.com/alibaba/derrick/wiki">Frequently Asked Questions</a>  
 
+
+## Requirements 
+<a href="https://www.python.org/" target="_blank">Python(Above 2.7.10 or python3.4)</a>     
+<a href="https://docs.docker.com/compose/" target="_blank">Compose(Recommendation)</a>      
+<a href="https://docs.docker.com/" target="_blank">Docker(Above 17.06ce)</a>      
 ## Installation
 
+Linux/mac 
 ```
-pip install python-derrick
+sudo pip install -i https://pypi.python.org/simple  python-derrick
+```
+
+Windows 
+```
+# Download zip file , unzip it and config the system path.
+
 ```
 
 ### *License*
