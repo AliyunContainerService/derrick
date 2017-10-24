@@ -1,8 +1,8 @@
 # Derrick
-[![PIP release](https://img.shields.io/badge/pypi-v0.0.10-yellow.svg)](https://github.com/alibaba/derrick)
+[![PIP release](https://img.shields.io/badge/pypi-v0.0.11-yellow.svg)](https://github.com/alibaba/derrick)
 [![Platform](https://img.shields.io/badge/platform-Windows&Linux&Mac-green.svg)](https://github.com/alibaba/derrick)
 [![Language](https://img.shields.io/badge/language-NodeJs&Java&Python-red.svg)](https://github.com/alibaba/derrick)
-[![GitHub release](https://img.shields.io/badge/release-0.0.10-green.svg)](https://github.com/alibaba/derrick/releases)
+[![GitHub release](https://img.shields.io/badge/release-0.0.11-green.svg)](https://github.com/alibaba/derrick/releases)
 [![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
 [![Build Status](https://travis-ci.org/alibaba/derrick.svg?branch=master)](https://travis-ci.org/alibaba/derrick)
 [![Codecov](https://codecov.io/gh/alibaba/derrick/branch/master/graph/badge.svg)](https://codecov.io/gh/alibaba/derrick)
@@ -38,7 +38,7 @@ Windows
 Download <a href="http://derrick.oss-cn-beijing.aliyuncs.com/release/windows/derrick-0.0.11.zip" target="_blank"_>Derrick</a> zip file , unzip it and config the system path.
 
 ## Demo 
-[![Derrick with BlueOcean](http://derrick.oss-cn-beijing.aliyuncs.com/static/WX20171024-172428%402x.png =800x)](https://www.youtube.com/watch?v=IHq_gTvOCSs)
+<a href="https://www.youtube.com/watch?v=IHq_gTvOCSs" target="-blank"><img src="http://derrick.oss-cn-beijing.aliyuncs.com/static/WX20171024-172428%402x.png" width=800px/></a>
 
 
 ### *License*
