@@ -38,7 +38,7 @@ Windows
 Download <a href="http://derrick.oss-cn-beijing.aliyuncs.com/release/windows/derrick-0.0.11.zip" target="_blank">Derrick</a> zip file , unzip it and config the system path.
 
 ## Demo 
-<a href="https://www.youtube.com/watch?v=IHq_gTvOCSs" target="-blank"><img src="http://derrick.oss-cn-beijing.aliyuncs.com/static/WX20171024-172428%402x.png" width=800px/></a>
+<a href="https://www.youtube.com/watch?v=IHq_gTvOCSs" target="_blank"><img src="http://derrick.oss-cn-beijing.aliyuncs.com/static/WX20171024-172428%402x.png" width=800px/></a>
 
 
 ### *License*
