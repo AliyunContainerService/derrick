@@ -103,7 +103,7 @@ def check_application_first_setup():
 
 def check_dockerfile_exists():
     dockerfile_path = os.path.join(os.getcwd(), "Dockerfile")
-    if os.path.exists(dockerfile_path) is True:
+    if os.path.exists(dockerfile_path):
         return True
     return False
 
@@ -112,3 +112,4 @@ def is_windows():
     version = platform.system()
     if version is "Windows":
         return True
+    return False
