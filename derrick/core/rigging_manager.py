@@ -31,10 +31,12 @@ class RiggingManager(ExtensionPoints):
         from derrick.rigging.nodejs_rigging.nodejs_rigging import NodejsRigging
         from derrick.rigging.maven_rigging.maven_rigging import MavenRigging
         from derrick.rigging.python_rigging.python_rigging import PythonRigging
+        from derrick.rigging.golang_rigging.golang_rigging import GolangRigging
 
         self.register(NodejsRigging())
         self.register(MavenRigging())
         self.register(PythonRigging())
+        self.register(GolangRigging())
 
         # Load developer's custom rigging
         modules = self.rigging_module_loader.load(rigging_name)

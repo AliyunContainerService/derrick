@@ -1,0 +1,19 @@
+# build stage
+FROM golang:{{ version }}-alpine3.6 AS build-env
+ADD . /src
+WORKDIR /src
+RUN go build -o app
+
+
+# test stage
+FROM golang:{{ version }}-alpine3.6
+WORKDIR /src
+RUN go test
+
+
+# release stage
+FROM alpine
+WORKDIR /app
+EXPOSE 8080
+COPY --from=build-env /src/app /app/
+ENTRYPOINT ./app
