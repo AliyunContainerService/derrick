@@ -31,6 +31,6 @@ class GolangVersionDetector(Detector):
     def get_most_relative_version(output):
         versions = [GOLANG_1_7, GOLANG_1_8, GOLANG_1_9]
         version = filter(lambda x: "go" + x in output, versions)
-        if version is None:
+        if len(version) == 0:
             return DEFAULT_VERSION
-        return version
+        return version[0]
