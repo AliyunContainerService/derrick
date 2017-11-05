@@ -7,7 +7,7 @@
 [![Build Status](https://travis-ci.org/alibaba/derrick.svg?branch=master)](https://travis-ci.org/alibaba/derrick)
 [![Codecov](https://codecov.io/gh/alibaba/derrick/branch/master/graph/badge.svg)](https://codecov.io/gh/alibaba/derrick)
 
-Derrick is a tool to help you dockerizing application in seconds. Derrick focus on the developer's workflow in local development environment. Derrick will inspect your workspace and generate Dockerfile, docker-compose.yml, Jenkinsfile, etc. for you. You can simply use Derrick to stream line your DevOps process in container way smoothly.
+Derrick is a tool to help you dockerizing application in seconds. Derrick focus on the developer's workflow in local development environment. Derrick will inspect your workspace and generate Dockerfile, docker-compose.yml, Jenkinsfile, etc. You can simply use Derrick to set up your DevOps process in container way smoothly.
 
 <img src="http://container-service.oss-cn-beijing.aliyuncs.com/derrick.png" width=100%/>    
 
