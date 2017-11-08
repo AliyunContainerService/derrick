@@ -13,8 +13,8 @@ from derrick.core.logger import Logger
 class GopathDetector(Detector):
     def execute(self, *args, **kwargs):
         cwd = os.getcwd()
-        project_folder_path = re.findall(r"src/(.+?)", cwd)
-        if project_folder_path == "":
+        project_folder_path = re.findall(r"/src/(.*)", cwd)
+        if len(project_folder_path) == 0:
             Logger.error("Please place the source code to go path.")
-            return {"project_folder": project_folder_path}
-        return {"project_folder": project_folder_path}
+            return {"project_folder": project_folder_path[0]}
+        return {"project_folder": project_folder_path[0]}

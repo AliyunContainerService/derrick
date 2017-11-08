@@ -8,9 +8,9 @@ import unittest
 from derrick.detectors.platform.golang.gopath import GopathDetector
 
 
-@unittest.skip
-class TestGopathetector(unittest.TestCase):
+class GopathTestCase(unittest.TestCase):
     def test_gopath_detector(self):
         gr = GopathDetector()
-        gph = gr.execute()
-        self.assertIsNot(gph, None)
+        gopath = gr.execute()
+        print(gopath)
+        self.assertIsNotNone(gopath)

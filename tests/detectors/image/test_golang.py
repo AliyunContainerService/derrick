@@ -7,7 +7,7 @@ import unittest
 from derrick.detectors.image.golang import GolangVersionDetector
 
 
-class TestGolangDetector(unittest.TestCase):
+class GolangTestCase(unittest.TestCase):
     def test_golang_detector(self):
         gr = GolangVersionDetector()
         version = gr.execute()
