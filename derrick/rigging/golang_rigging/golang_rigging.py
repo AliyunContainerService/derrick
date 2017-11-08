@@ -9,7 +9,7 @@ from derrick.core.detector_report import DetectorReport
 from derrick.core.rigging import Rigging
 from derrick.detectors.general.image_repo import ImageRepoDetector
 from derrick.detectors.image.golang import GolangVersionDetector
-from derrick.detectors.platform.golang.gopath import GopathDetector
+from derrick.detectors.platform.golang.package_name import PackageNameDetector
 
 GOLANG = "Golang"
 
@@ -26,7 +26,7 @@ class GolangRigging(Rigging):
         dc = DetectorReport()
         dn = dc.create_node("Dockerfile.j2")
         dn.register_detector(GolangVersionDetector())
-        dn.register_detector(GopathDetector())
+        dn.register_detector(PackageNameDetector())
 
         jn = dc.create_node("Jenkinsfile.j2")
         jn.register_detector(ImageRepoDetector())
