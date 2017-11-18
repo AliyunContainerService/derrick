@@ -12,7 +12,7 @@ from derrick.detectors.image.python import PythonVersionDetector
 from derrick.detectors.platform.python.package_manager import PythonPakcageManager
 from derrick.detectors.platform.python.framework import PythonFrameworkDetector
 
-PLATFROM = "Python"
+PLATFORM = "Python"
 
 
 class PythonRigging(Rigging):
@@ -27,7 +27,7 @@ class PythonRigging(Rigging):
         setup_py = os.path.join(workspace, "setup.py")
 
         if os.path.exists(requirements_txt) is True or os.path.exists(setup_py) is True:
-            return True, PLATFROM
+            return True, PLATFORM
         return False, None
 
     def compile(self, context):
