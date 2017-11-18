@@ -6,19 +6,19 @@ pipeline {
    }
   agent {
     node {
-      label 'python'
+      label 'php'
     }
 
   }
   stages {
     stage('Build') {
       steps {
-        sh 'pip install -r requirements.txt'
+        sh 'composer install'
       }
     }
     stage('Test') {
       steps {
-        sh 'python setup.py test'
+        sh 'phpunit'
       }
     }
     stage('Code Quality') {
