@@ -6,7 +6,7 @@ from __future__ import absolute_import, division, print_function
 import os
 
 from derrick.core.detector_report import DetectorReport
-from derrick.detectors.image.golang import GolangVersionDetector
+from derrick.detectors.image.php import PhpVersionDetector
 from derrick.detectors.general.image_repo import ImageRepoDetector
 from derrick.core.rigging import Rigging
 
@@ -25,7 +25,7 @@ class PhpRigging(Rigging):
     def compile(self, context):
         dr = DetectorReport()
         docker_node = dr.create_node("Dockerfile.j2")
-        docker_node.register_detector(GolangVersionDetector())
+        docker_node.register_detector(PhpVersionDetector())
 
         docker_compose_node = dr.create_node("docker-compose.yml.j2")
         docker_compose_node.register_detector(ImageRepoDetector())

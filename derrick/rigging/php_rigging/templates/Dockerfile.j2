@@ -10,7 +10,7 @@ RUN composer install
 
 
 # Use apache alpine version to serve
-FROM php:{{ version }}-apache-alpine
+FROM php:{{ version }}-apache-jessie
 
 WORKDIR /var/www/html/
 
@@ -19,4 +19,4 @@ COPY . /var/www/html/app
 
 RUN chown -R www-data:www-data /var/www/html/app
 
-COPY --from=composer /app/vendor  /var/www/html/app/vendor
+COPY --from=build /app/vendor  /var/www/html/app/vendor
