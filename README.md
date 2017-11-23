@@ -21,6 +21,24 @@ Using Derrick is very simple:
 ## Language Support 
 NodeJs,Python,Java,Golang,PHP.      
 
+## Framework and Build tool Support 
+* Java (maven)
+ * springcloud 
+ * springboot
+* PHP (composer) 
+ * Laravel 
+ * Lumen 
+ * ThinkPHP
+ * Symfony 
+* PYTHON (pip or setup)
+ * flask 
+ * Django
+* Golang (tools by vendor)
+ * Gin 
+ * Beego 
+* NodeJs (npm)
+ * Express 
+ * Sails 
 
 ## Documentation
 * <a href="https://github.com/alibaba/derrick/wiki">Documentation Home</a>
