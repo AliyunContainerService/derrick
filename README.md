@@ -23,9 +23,9 @@ NodeJs,Python,Java,Golang,PHP.
 
 ## Framework and Build tool Support 
 Here is the list of frameworks passed the tests.If you want more frameworks or can not dockerize application,please submit a issue.
-* Java (maven)       
-  * springcloud         
-  * springboot 
+* Java (maven)
+  * springcloud
+  * springboot 
 * PHP (composer) 
   * Laravel 
   * Lumen 
