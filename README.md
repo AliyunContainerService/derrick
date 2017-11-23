@@ -22,17 +22,18 @@ Using Derrick is very simple:
 NodeJs,Python,Java,Golang,PHP.      
 
 ## Framework and Build tool Support 
-* Java (maven)
-  * springcloud 
-  * springboot
+Here is the list of frameworks passed the tests.If you want more frameworks or can not dockerize application,please submit a issue.
+* Java (maven) 
+  * springcloud 
+  * springboot 
 * PHP (composer) 
   * Laravel 
   * Lumen 
-  * ThinkPHP
+  * ThinkPHP 
   * Symfony 
 * PYTHON (pip or setup)
   * flask 
-  * Django
+  * Django 
 * Golang (tools by vendor)
   * Gin 
   * Beego 
