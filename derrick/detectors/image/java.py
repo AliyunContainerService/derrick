@@ -33,6 +33,11 @@ class JavaVersionDetector(Detector):
         if matches:
             version_arr = matches.group(1).split(".")
             if len(version_arr) > 1:
-                detect_version = version_arr[1]
+                # Java 7,8 version string is the format of "1.8.0_131"
+                # Java 9 version string is like this: "9.0.1"
+                if version_arr[0] == '1':
+                    detect_version = version_arr[1]
+                else:
+                    detect_version = version_arr[0]
 
         return detect_version
