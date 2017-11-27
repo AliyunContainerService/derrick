@@ -1,10 +1,10 @@
-FROM maven:3-jdk-{{ version }} AS build-env
+FROM maven:3-jdk-{{ version }}-slim AS build-env
 
 WORKDIR /app
 COPY . /app
 RUN mvn package
 
-FROM openjdk:{{ version }}-jre-alpine
+FROM openjdk:{{ version }}-jre-slim
 COPY --from=build-env /app/target/*.jar /app.jar
 
 ENV JAVA_OPTS=""
