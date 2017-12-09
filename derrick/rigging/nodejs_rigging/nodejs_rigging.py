@@ -9,6 +9,7 @@ from derrick.core.detector_report import DetectorReport
 from derrick.core.rigging import Rigging
 from derrick.detectors.image.node import NodeVersionDetector
 from derrick.detectors.general.image_repo import ImageRepoDetector
+from derrick.detectors.general.derrick import DerrickDetector
 
 PLATFORM = "NodeJs"
 
@@ -35,5 +36,9 @@ class NodejsRigging(Rigging):
 
         jenkins_file_node = dr.create_node("Jenkinsfile.j2")
         jenkins_file_node.register_detector(ImageRepoDetector())
+
+        derrick_deployment_file_node = dr.create_node("derrick-deployment.yaml.j2")
+        derrick_deployment_file_node.register_detector(ImageRepoDetector())
+        derrick_deployment_file_node.register_detector(DerrickDetector())
 
         return dr.generate_report()
