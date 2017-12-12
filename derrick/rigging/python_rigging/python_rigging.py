@@ -11,6 +11,7 @@ from derrick.detectors.general.image_repo import ImageRepoDetector
 from derrick.detectors.image.python import PythonVersionDetector
 from derrick.detectors.platform.python.package_manager import PythonPakcageManager
 from derrick.detectors.platform.python.framework import PythonFrameworkDetector
+from derrick.detectors.general.derrick import DerrickDetector
 
 PLATFORM = "Python"
 
@@ -42,5 +43,9 @@ class PythonRigging(Rigging):
 
         jenkins_file_node = dr.create_node("Jenkinsfile.j2")
         jenkins_file_node.register_detector(ImageRepoDetector())
+
+        derrick_deployment_file_node = dr.create_node("kubernetes-deployment.yaml.j2")
+        derrick_deployment_file_node.register_detector(ImageRepoDetector())
+        derrick_deployment_file_node.register_detector(DerrickDetector())
 
         return dr.generate_report()

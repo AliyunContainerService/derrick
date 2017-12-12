@@ -9,6 +9,7 @@ from derrick.core.detector_report import DetectorReport
 from derrick.core.rigging import Rigging
 from derrick.detectors.general.image_repo import ImageRepoDetector
 from derrick.detectors.image.java import JavaVersionDetector
+from derrick.detectors.general.derrick import DerrickDetector
 
 RUNTIME = "Maven"
 
@@ -36,4 +37,7 @@ class MavenRigging(Rigging):
         jenkins_file_node = dr.create_node("Jenkinsfile.j2")
         jenkins_file_node.register_detector(ImageRepoDetector())
 
+        derrick_deployment_file_node = dr.create_node("kubernetes-deployment.yaml.j2")
+        derrick_deployment_file_node.register_detector(ImageRepoDetector())
+        derrick_deployment_file_node.register_detector(DerrickDetector())
         return dr.generate_report()

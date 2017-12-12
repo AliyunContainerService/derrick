@@ -37,7 +37,7 @@ class NodejsRigging(Rigging):
         jenkins_file_node = dr.create_node("Jenkinsfile.j2")
         jenkins_file_node.register_detector(ImageRepoDetector())
 
-        derrick_deployment_file_node = dr.create_node("derrick-deployment.yaml.j2")
+        derrick_deployment_file_node = dr.create_node("kubernetes-deployment.yaml.j2")
         derrick_deployment_file_node.register_detector(ImageRepoDetector())
         derrick_deployment_file_node.register_detector(DerrickDetector())
 
