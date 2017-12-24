@@ -39,4 +39,4 @@ class GolangRigging(Rigging):
         derrick_deployment_file_node.register_detector(ImageRepoDetector())
         derrick_deployment_file_node.register_detector(DerrickDetector())
 
-        return dc.generate_report()
+        return dr.generate_report()
