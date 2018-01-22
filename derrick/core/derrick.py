@@ -15,6 +15,7 @@ from docopt import docopt
 from derrick.core.command import CommandContext
 from derrick.core.command_manager import CommandManager
 from derrick.core.common import *
+from derrick.core.engine_manager import EngineManager
 from derrick.core.logger import Logger
 from derrick.core.rigging_manager import RiggingManager
 
@@ -33,6 +34,7 @@ class Derrick(object):
         self.cm = CommandManager()
         self.cm.set_commands_doc_template(__doc__)
         self.rm = RiggingManager()
+        self.em = EngineManager()
 
     # First time to run Derrick
     # create .derrick and .derrick/rigging in user root path
@@ -57,6 +59,7 @@ class Derrick(object):
         # Load rigging and commands in disk
         self.rm.load()
         self.cm.load()
+        self.em.load()
 
     def run(self):
         try:
@@ -78,6 +81,9 @@ class Derrick(object):
 
     def get_rigging_manager(self):
         return self.rm
+
+    def get_engine_manager(self):
+        return self.em
 
     def init_commands_context(self, arguments):
         """

@@ -19,3 +19,8 @@ class Config(Command):
 
     def execute(self, context):
         pass
+
+        # docopt will combine all the desc to one single help
+
+    def get_help_desc(self):
+        return "derrick config"

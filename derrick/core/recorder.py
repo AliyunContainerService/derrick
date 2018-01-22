@@ -18,18 +18,14 @@ class Recorder(object):
         raise NotImplementedError()
 
 
-class ApplicationRecorder(Recorder):
-    """
-    ApplicationRecorder will record every useful information in whole lifecycle
-    You can also get latest application status from ApplicationRecord
-    """
-
+class FileRecorder(Recorder):
     def __init__(self):
-        super(ApplicationRecorder, self).__init__()
-        self.config_file = os.path.join(get_workspace(), DERRICK_APPLICATION_CONF)
+        super(FileRecorder, self).__init__()
         self.load()
 
     def load(self):
+        if self.config_file is None:
+            raise Exception("You should supply at least one config file.")
         with open(self.config_file, "a+") as f:
             content = f.read()
             if content is None or content is "" or len(content) is 0:
@@ -57,3 +53,24 @@ class ApplicationRecorder(Recorder):
             self.__dict__.update(dict_content)
         else:
             raise UnmarshalFailedException()
+
+
+class ApplicationRecorder(FileRecorder):
+    """
+    ApplicationRecorder will record every useful information in whole lifecycle
+    You can also get latest application status from ApplicationRecord
+    """
+
+    def __init__(self):
+        super(ApplicationRecorder, self).__init__()
+        self.config_file = os.path.join(get_workspace(), DERRICK_APPLICATION_CONF)
+
+
+class DerrickRecorder(FileRecorder):
+    """
+    DerrickRecorder will record the conf all over the Derrick projects.
+    """
+
+    def __init__(self):
+        super(DerrickRecorder, self).__init__()
+        self.config_file = os.path.join(get_derrick_home(), DERRICK_APPLICATION_CONF)
