@@ -3,8 +3,6 @@
 
 from __future__ import absolute_import, division, print_function
 
-import traceback
-
 from jinja2 import Template
 from whaaaaat import style_from_dict, Token, prompt
 

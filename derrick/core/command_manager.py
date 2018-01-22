@@ -34,8 +34,10 @@ class CommandManager(ExtensionPoints):
         """
         import derrick.commands.up as u
         import derrick.commands.init as i
+        import derrick.commands.config as c
         self.register(u.Up())
         self.register(i.Init())
+        self.register(c.Config())
 
         commands = self.cl.load()
         for command in commands:

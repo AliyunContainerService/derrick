@@ -8,6 +8,7 @@ import unittest
 from derrick.detectors.platform.golang.package_name import PackageNameDetector
 
 
+@unittest.skip("skip if not golang project")
 class PackageNameTestCase(unittest.TestCase):
     def test_package_name_detector(self):
         gr = PackageNameDetector()
