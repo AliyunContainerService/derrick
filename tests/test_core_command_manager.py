@@ -20,7 +20,7 @@ class CommandManagerTestCase(unittest.TestCase):
 
     def test_built_in_commands(self):
         built_in_commands_num = len(self.cm.all().keys())
-        self.assertEquals(2, built_in_commands_num)
+        self.assertEquals(3, built_in_commands_num)
 
     def test_built_in_commands_registered(self):
         commands_dict = self.cm.all()
