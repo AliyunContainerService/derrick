@@ -14,7 +14,7 @@ setup(
         'jinja2',
         'docopt',
         'whaaaaat',
-        'pychalk',
+        'pychalk==1.1.0',
         'simplejson',
         'setuptools-git'
     ],
