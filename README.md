@@ -55,6 +55,7 @@ Linux/mac
 ```
 sudo pip install -i https://pypi.python.org/simple  python-derrick
 ```
+if you find some error like: fatal error: Python.h: No such file or directory,Please install python-dev or python-devel with package manager.
 
 Windows      
 
