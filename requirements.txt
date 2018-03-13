@@ -7,7 +7,6 @@ pkginfo==1.4.1
 prompt-toolkit==1.0.15
 pychalk==1.1.0
 Pygments==2.2.0
-python-derrick==0.0.8
 regex==2017.9.23
 requests==2.18.4
 requests-toolbelt==0.8.0
