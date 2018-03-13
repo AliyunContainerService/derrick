@@ -20,7 +20,7 @@ class JavaVersionDetector(Detector):
         version = default_version;
         try:
             output = subprocess.check_output(["java", "-version"], shell=False, stderr=subprocess.STDOUT)
-            version = JavaVersionDetector.get_most_relative_version(output)
+            version = JavaVersionDetector.get_most_relative_version(output.decode('utf-8'))
         except Exception as e:
             Logger.debug("Failed to detect Java version,because of %s" % e)
             Logger.debug("Use default Java version:%s instead ." % default_version)
