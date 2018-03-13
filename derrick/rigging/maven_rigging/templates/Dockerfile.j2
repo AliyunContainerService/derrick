@@ -1,4 +1,4 @@
-FROM maven:3-jdk-{{ version }}-slim AS build-env
+FROM maven:3-jdk-{{ version }} AS build-env
 
 WORKDIR /app
 COPY . /app

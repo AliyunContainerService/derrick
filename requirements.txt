@@ -19,3 +19,4 @@ urllib3==1.22
 wcwidth==0.1.7
 whaaaaat==0.5.2
 wheel==0.24.0
+chardet==3.0.4
