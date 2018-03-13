@@ -25,6 +25,9 @@ class GolangRigging(Rigging):
 
     def compile(self, context):
         dr = DetectorReport()
+        meta = dr.create_node("Meta")
+        meta.register_detector(ImageRepoDetector())
+
         dn = dr.create_node("Dockerfile.j2")
         dn.register_detector(GolangVersionDetector())
         dn.register_detector(PackageNameDetector())

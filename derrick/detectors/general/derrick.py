@@ -4,17 +4,15 @@
 from __future__ import absolute_import, division, print_function
 
 import os
-import re
-
-from whaaaaat import prompt
 
 from derrick.core.detector import Detector
-from derrick.core.logger import Logger
 from derrick.core.common import DERRICK_VERSION
 
+
 def normalize_name(name):
-    #return re.sub(r'[^a-z0-9]', '', name.lower())
+    # return re.sub(r'[^a-z0-9]', '', name.lower())
     return name
+
 
 def get_project_name():
     project = os.path.basename(os.path.abspath(""))
@@ -22,6 +20,7 @@ def get_project_name():
         return normalize_name(project)
 
     return 'default'
+
 
 class DerrickDetector(Detector):
     def execute(self, *args, **kwargs):

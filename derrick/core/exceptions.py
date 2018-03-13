@@ -19,3 +19,7 @@ class ParamsShortageException(Exception):
 
 class UnmarshalFailedException(Exception):
     pass
+
+
+class DerrickConfigIsNotValidException(Exception):
+    pass

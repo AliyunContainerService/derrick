@@ -18,6 +18,7 @@ from derrick.core.common import *
 from derrick.core.engine_manager import EngineManager
 from derrick.core.logger import Logger
 from derrick.core.rigging_manager import RiggingManager
+from derrick.core.recorder import DerrickRecorder
 
 
 @singleton
@@ -35,6 +36,7 @@ class Derrick(object):
         self.cm.set_commands_doc_template(__doc__)
         self.rm = RiggingManager()
         self.em = EngineManager()
+        self.recorder = DerrickRecorder()
 
     # First time to run Derrick
     # create .derrick and .derrick/rigging in user root path
@@ -55,7 +57,6 @@ class Derrick(object):
                 Logger.error("Failed to create DERRICK_HOME:%s.Because of %s" % (get_derrick_home(), e))
                 # Logger.debug(traceback.format_exc())
                 return
-
         # Load rigging and commands in disk
         self.rm.load()
         self.cm.load()
@@ -73,6 +74,12 @@ class Derrick(object):
         if DEBUG_MODE in arguments and arguments[DEBUG_MODE] == 1:
             Logger.set_debug_mode()
 
+        # if not config command and check record valid
+        if arguments["config"] is False:
+            if self.recorder.is_valid() is False:
+                Logger.error("Your should run `derrick config` first")
+                return
+
         command_context = self.init_commands_context(arguments=arguments)
         self.cm.run_commands(command_context)
 
@@ -84,6 +91,9 @@ class Derrick(object):
 
     def get_engine_manager(self):
         return self.em
+
+    def get_recorder(self):
+        return self.recorder
 
     def init_commands_context(self, arguments):
         """

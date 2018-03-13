@@ -1,0 +1,39 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    derrick.service.type: nodeport
+    derrick.version: 0.0.14
+  labels:
+    derrick.service: derrick
+  name: derrick
+spec:
+  ports:
+  - name: "8000"
+    port: 8000
+    targetPort: 8000
+  selector:
+    derrick.service: derrick
+  type: NodePort
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    derrick.version: 0.0.14
+  labels:
+    derrick.service: derrick
+  name: derrick
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        derrick.service: derrick
+    spec:
+      containers:
+      - image: [IMAGE_WITH_TAG]
+        name: web
+        ports:
+        - containerPort: 8000

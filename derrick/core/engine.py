@@ -11,5 +11,5 @@ class Engine(ExtensionPoint):
     def __init__(self):
         self.name = self.__class__.__name__.lower()
 
-    def deploy(self, *args, **kwargs):
+    def up(self, *args, **kwargs):
         raise NotImplementedError("Every engine should implement this method!")

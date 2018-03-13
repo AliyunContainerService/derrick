@@ -63,7 +63,7 @@ class Init(Command):
                 rigging_dict = handled_rigging[0]
 
             rigging = rigging_dict.get("rigging")
-            rdi = RiggingDetectInfo(rigging_dict.get("rigging_name"), rigging_dict.get("platform"))
+
             try:
                 results = rigging.compile(context)
                 Logger.debug("The platform is %s,the rigging used is %s"
@@ -86,6 +86,10 @@ class Init(Command):
                     Logger.error("Failed to render template with rigging(%s),because of %s"
                                  % (rigging.get_name(), e))
                 try:
+                    if results.get("Meta") is not None:
+                        image_with_tag = results.get("Meta").get("image_with_tag")
+                    rdi = RiggingDetectInfo(rigging_dict.get("rigging_name"), rigging_dict.get("platform"),
+                                            image_with_tag)
                     ApplicationRecorder().record(rdi)
                 except Exception as e:
                     Logger.debug("Failed to record detected information.because of %s" % e)
@@ -98,7 +102,7 @@ class Init(Command):
             return
 
     def get_help_desc(self):
-        return "derrick init [-d | --debug]"
+        return "derrick init [--debug]"
 
     @staticmethod
     def choose_rigging(rigging=None):

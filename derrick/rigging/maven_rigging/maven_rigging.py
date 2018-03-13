@@ -28,6 +28,9 @@ class MavenRigging(Rigging):
 
     def compile(self, context):
         dr = DetectorReport()
+        meta = dr.create_node("Meta")
+        meta.register_detector(ImageRepoDetector())
+
         docker_node = dr.create_node("Dockerfile.j2")
         docker_node.register_detector(JavaVersionDetector())
 

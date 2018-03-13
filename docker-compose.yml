@@ -1,0 +1,9 @@
+version: "2"
+services:
+  web:
+    build:
+        context: .
+    image: [IMAGE_WITH_TAG]
+    ports:
+      - 8000
+    restart: always

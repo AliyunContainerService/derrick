@@ -5,7 +5,7 @@ from __future__ import absolute_import, division, print_function
 
 import re
 import subprocess
-
+import chardet
 from derrick.core.detector import Detector
 from derrick.core.logger import Logger
 
@@ -28,6 +28,8 @@ class JavaVersionDetector(Detector):
 
     @staticmethod
     def get_most_relative_version(version):
+        encode_type = chardet.detect(version)
+        version = version.decode(encode_type['encoding'])
         matches = re.search(regex, version)
         detect_version = default_version
         if matches:
