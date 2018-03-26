@@ -3,6 +3,7 @@
 
 from __future__ import absolute_import, division, print_function
 
+import sys
 from derrick.core.engine import Engine
 from derrick.core.common import *
 from derrick.core.logger import Logger
@@ -28,6 +29,7 @@ class KubernetesEngine(Engine):
         status = os.system("docker build -t %s ." % image_with_tag)
         if status != 0:
             Logger.info("Failed to build docker image, Have you installed docker in path?")
+            sys.exit(-1)
         status = os.system("kubectl apply -f kubernetes-deployment.yaml")
         if status == 0:
             Logger.info("Your application has been up to running! You can run `kubelet get svc` to get exposed ports.")
