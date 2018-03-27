@@ -17,7 +17,7 @@ regex = r"(?!\.)(\d+(\.\d+)+)([-.][A-Z]+)?(?![\d.])"
 class JavaVersionDetector(Detector):
     def execute(self):
         print("Detecting Java version ...")
-        version = default_version;
+        version = default_version
         try:
             output = subprocess.check_output(["java", "-version"], shell=False, stderr=subprocess.STDOUT)
             version = JavaVersionDetector.get_most_relative_version(output.decode('utf-8'))
@@ -28,9 +28,10 @@ class JavaVersionDetector(Detector):
 
     @staticmethod
     def get_most_relative_version(version):
-        encode_type = chardet.detect(version)
-        version = version.decode(encode_type['encoding'])
-        matches = re.search(regex, version)
+        version_bytes = str.encode(version)
+        encode_type = chardet.detect(version_bytes)
+        version_converted = version_bytes.decode(encode_type['encoding'])
+        matches = re.search(regex, version_converted)
         detect_version = default_version
         if matches:
             version_arr = matches.group(1).split(".")
