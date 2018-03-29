@@ -1,5 +1,5 @@
 # Derrick
-[![PIP release](https://img.shields.io/badge/pypi-v0.0.16-yellow.svg)](https://github.com/alibaba/derrick)
+[![PIP release](https://img.shields.io/badge/pypi-v0.2.alpha-yellow.svg)](https://github.com/alibaba/derrick)
 [![Platform](https://img.shields.io/badge/platform-Windows&Linux&Mac-green.svg)](https://github.com/alibaba/derrick)
 [![Orchestration](https://img.shields.io/badge/orchestration-swarm&kubernetes-green.svg)](https://github.com/alibaba/derrick)
 [![Language](https://img.shields.io/badge/language-NodeJs&PHP&Java&Python&Golang-red.svg)](https://github.com/alibaba/derrick)
