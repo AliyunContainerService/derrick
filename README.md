@@ -1,8 +1,9 @@
 # Derrick
-[![PIP release](https://img.shields.io/badge/pypi-v0.0.14-yellow.svg)](https://github.com/alibaba/derrick)
+[![PIP release](https://img.shields.io/badge/pypi-v0.2.alpha-yellow.svg)](https://github.com/alibaba/derrick)
 [![Platform](https://img.shields.io/badge/platform-Windows&Linux&Mac-green.svg)](https://github.com/alibaba/derrick)
+[![Orchestration](https://img.shields.io/badge/orchestration-swarm&kubernetes-green.svg)](https://github.com/alibaba/derrick)
 [![Language](https://img.shields.io/badge/language-NodeJs&PHP&Java&Python&Golang-red.svg)](https://github.com/alibaba/derrick)
-[![GitHub release](https://img.shields.io/badge/release-0.0.14-green.svg)](https://github.com/alibaba/derrick/releases)
+[![GitHub release](https://img.shields.io/badge/release-0.0.16-green.svg)](https://github.com/alibaba/derrick/releases)
 [![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
 [![Build Status](https://travis-ci.org/alibaba/derrick.svg?branch=master)](https://travis-ci.org/alibaba/derrick)
 [![Codecov](https://codecov.io/gh/alibaba/derrick/branch/master/graph/badge.svg)](https://codecov.io/gh/alibaba/derrick)
@@ -49,15 +50,13 @@ Here is the list of frameworks passed the tests.If you want more frameworks or c
 Requirements:     
 <a href="https://www.python.org/" target="_blank">Python(Necessary and above 2.7.10 or python3.4)</a>     ,<a href="https://docs.docker.com/compose/" target="_blank">Compose(Recommend)</a>      ,<a href="https://docs.docker.com/" target="_blank">Docker(Recommend and 17.06 is better)</a>        
   
-Linux/mac     
+Linux/mac/windows    
 
 ```
 sudo pip install -i https://pypi.python.org/simple  python-derrick
 ```
+if you find some error like: fatal error: Python.h: No such file or directory,Please install python-dev or python-devel with package manager.Windows please use powershell or winshell.
 
-Windows      
-
-Download <a href="http://derrick.oss-cn-beijing.aliyuncs.com/release/windows/derrick-0.0.14.zip" target="_blank">Derrick</a> zip file , unzip it and config the system path.
 
 ## Demo 
 <a href="https://www.youtube.com/watch?v=IHq_gTvOCSs" target="_blank"><img src="http://derrick.oss-cn-beijing.aliyuncs.com/static/WX20171024-172428%402x.png" width=800px/></a>
