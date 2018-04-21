@@ -48,8 +48,8 @@ Here is the list of frameworks passed the tests.If you want more frameworks or c
 
 ## Installation
 Requirements:     
-<a href="https://www.python.org/" target="_blank">Python(Necessary and above 2.7.10 or python3.4)</a>     ,<a href="https://docs.docker.com/compose/" target="_blank">Compose(Recommend)</a>      ,<a href="https://docs.docker.com/" target="_blank">Docker(Recommend and 17.06 is better)</a>        
-  
+Docker(17.06~),Python2.7~python3.6,docker-compose or minikube in local. 
+
 Linux/mac/windows    
 
 ```
