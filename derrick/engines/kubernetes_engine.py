@@ -32,6 +32,6 @@ class KubernetesEngine(Engine):
             sys.exit(-1)
         status = os.system("kubectl apply -f kubernetes-deployment.yaml")
         if status == 0:
-            Logger.info("Your application has been up to running! You can run `kubelet get svc` to get exposed ports.")
+            Logger.info("Your application has been up to running! You can run `kubectl get svc` to get exposed ports.")
         else:
             Logger.error("Can not start your application.Have you installed kubelet in path?")
