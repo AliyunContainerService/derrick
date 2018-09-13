@@ -48,7 +48,7 @@ Here is the list of frameworks passed the tests.If you want more frameworks or c
 
 ## Installation
 Requirements:     
-Docker(17.06~),Python2.7~python3.6,docker-compose or minikube in local. 
+Docker(17.06~),Python2.7.9~python3.6,docker-compose or minikube in local. 
 
 Linux/mac/windows    
 
