@@ -3,7 +3,7 @@
 [![Platform](https://img.shields.io/badge/platform-Windows&Linux&Mac-green.svg)](https://github.com/alibaba/derrick)
 [![Orchestration](https://img.shields.io/badge/orchestration-swarm&kubernetes-green.svg)](https://github.com/alibaba/derrick)
 [![Language](https://img.shields.io/badge/language-NodeJs&PHP&Java&Python&Golang-red.svg)](https://github.com/alibaba/derrick)
-[![GitHub release](https://img.shields.io/badge/release-0.0.20-green.svg)](https://github.com/alibaba/derrick/releases)
+[![GitHub release](https://img.shields.io/badge/release-0.0.21-green.svg)](https://github.com/alibaba/derrick/releases)
 [![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
 [![Build Status](https://travis-ci.org/alibaba/derrick.svg?branch=master)](https://travis-ci.org/alibaba/derrick)
 [![Codecov](https://codecov.io/gh/alibaba/derrick/branch/master/graph/badge.svg)](https://codecov.io/gh/alibaba/derrick)
