@@ -30,6 +30,10 @@ class KubernetesEngine(Engine):
         if status != 0:
             Logger.info("Failed to build docker image, Have you installed docker in path?")
             sys.exit(-1)
+        status = os.system("docker push %s" % image_with_tag)
+        if status != 0:
+            Logger.info("Failed to push docker image %s" % image_with_tag)
+            sys.exit(-1)
         status = os.system("kubectl apply -f kubernetes-deployment.yaml")
         if status == 0:
             Logger.info("Your application has been up to running! You can run `kubectl get svc` to get exposed ports.")
