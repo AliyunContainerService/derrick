@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='python-derrick',
-    version='0.0.21',
+    version='0.0.23',
     description="An automation tool to help you dockerize App in seconds",
     keywords='Docker dockerize automation dockerfile docker-compose Jenkinsfile DevOps',
     author="ringtail",
@@ -20,6 +20,8 @@ setup(
         'idna>=2.6',
         'MarkupSafe>=1.0',
         'nose>=1.3',
+        'requests==2.20.0',
+        'requests-toolbelt==0.8.0',
         'pkginfo>=1.4.1',
         'prompt-toolkit==1.0.15',
         'Pygments>=2.2.0',
