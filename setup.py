@@ -29,6 +29,7 @@ setup(
         'tqdm>=4.9.12',
         'wcwidth>=0.1.7',
         'chardet==3.0.4',
+        'urllib3>=1.23',
     ],
     entry_points='''
         [console_scripts]
