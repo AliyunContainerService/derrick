@@ -15,7 +15,7 @@ simplejson==3.11.1
 six==1.11.0
 tqdm==4.19.2
 twine==1.9.1
-urllib3==1.22
+urllib3>=1.23
 wcwidth==0.1.7
 whaaaaat==0.5.2
 wheel==0.24.0
