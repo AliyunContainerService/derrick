@@ -1,4 +1,4 @@
-FROM maven:3-jdk-{{ version }} AS build-env
+FROM maven:3-jdk-{{ version }}-alpine AS build-env
 
 WORKDIR /app
 COPY . /app
