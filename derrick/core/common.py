@@ -61,11 +61,6 @@ def get_derrick_home():
 
 
 def get_rigging_home():
-    derrick_home = get_derrick_home()
-    return os.path.join(derrick_home, RIGGING_HOME)
-
-
-def get_rigging_home():
     return os.path.join(get_derrick_home(), RIGGING_HOME)
 
 
