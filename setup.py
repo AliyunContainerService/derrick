@@ -11,7 +11,7 @@ setup(
     py_modules=['derrick'],
     include_package_data=True,
     install_requires=[
-        'jinja2>=2.9',
+        'jinja2>=2.10.1',
         'docopt>=0.6.2',
         'whaaaaat>=0.5.2',
         'pychalk==1.1.0',
