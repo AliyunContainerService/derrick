@@ -20,7 +20,7 @@ setup(
         'idna>=2.6',
         'MarkupSafe>=1.0',
         'nose>=1.3',
-        'requests==2.20.0',
+        'requests==2.22.0',
         'requests-toolbelt==0.8.0',
         'pkginfo>=1.4.1',
         'prompt-toolkit==1.0.15',
