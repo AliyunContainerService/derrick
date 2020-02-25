@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='python-derrick',
-    version='0.1.1',
+    version='0.1.2',
     description="An automation tool to help you dockerize App in seconds",
     keywords='Docker dockerize automation dockerfile docker-compose Jenkinsfile DevOps',
     author="ringtail",
@@ -17,6 +17,7 @@ setup(
         'Jinja2==2.10',
         'chardet==3.0.4',
         'simplejson==3.13.2',
+        'prompt-toolkit==1.0.15',
     ],
     entry_points='''
         [console_scripts]

@@ -4,3 +4,4 @@ pychalk==1.1.0
 Jinja2==2.10
 chardet==3.0.4
 simplejson==3.13.2
+prompt-toolkit==1.0.15
