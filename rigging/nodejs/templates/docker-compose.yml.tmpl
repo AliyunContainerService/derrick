@@ -1,0 +1,9 @@
+version: "2"
+services:
+  web:
+    build:
+        context: .
+    image: {{ .ImageWithTag }}
+    ports:
+      - 3000
+    restart: always
