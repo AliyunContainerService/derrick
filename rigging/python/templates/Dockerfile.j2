@@ -1,0 +1,9 @@
+FROM python:{{ version }}-alpine
+
+WORKDIR /app
+
+{{ package_install_command }}
+
+ADD . /app
+
+CMD ["python"{% for command_args in commands_args %},"{{ command_args }}"{% endfor %}]
