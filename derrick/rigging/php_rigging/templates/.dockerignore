@@ -1,8 +1,0 @@
-node_modules
-.dockerignore
-Dockerfile
-npm-debug.log
-.composer.lock
-.git
-.hg
-.svn
