@@ -23,12 +23,12 @@ func (rig NodeJSRigging) Detect(workspace string) (bool, string) {
 	return false, ""
 }
 
-func (rig NodeJSRigging) Compile() (map[string]string, error) {
+func (rig NodeJSRigging) Compile(dockerImage string) (map[string]string, error) {
 	dr := &common.DetectorReport{
 		Nodes: map[string]common.DetectorReport{},
 		Store: map[string]string{},
 	}
-	if err := dr.RegisterDetector(general.ImageRepoDetector{}, common.Meta); err != nil {
+	if err := dr.RegisterDetector(general.ImageRepoDetector{DockerImage: dockerImage}, common.Meta); err != nil {
 		return nil, err
 	}
 	if err := dr.RegisterDetector(image.NodeJSVersionDetector{}, common.Dockerfile); err != nil {

@@ -12,11 +12,11 @@ func (dr *DetectorReport) RegisterDetector(d Detector, nodeName string) error {
 	if node.Store == nil {
 		node.Store = map[string]string{}
 	}
-	image, err := d.Execute()
+	result, err := d.Execute()
 	if err != nil {
 		return err
 	}
-	for k, v := range image {
+	for k, v := range result {
 		node.Store[k] = v
 		dr.Store[k] = v
 	}

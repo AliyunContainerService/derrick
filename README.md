@@ -63,7 +63,7 @@ $ cd golang-web-application
 - Compile the application
 
 ```shell
-$ derrick-go init
+$ derrick init
 ? Please input image name with tag (such as "registry.com/user/repo:tag"):  zzxwill/golang-web-application:latest
 Successfully detected your platform is Golang and compiled it successfully.
 ```
@@ -71,7 +71,7 @@ Successfully detected your platform is Golang and compiled it successfully.
 - Push the image and deploy it to Kubernetes
 
 ```shell
-$ derrick-go up -k
+$ derrick up -k
 #1 [internal] load .dockerignore
 #1 sha256:daa4b49e67a2b1678515c23e671c4892e448407d9879e991a96e123d9e26bc08
 #1 transferring context: 34B done
@@ -91,7 +91,7 @@ deployment.apps/golang-web-application unchanged
 Your application has been built and deployed to your Kubernetes cluster! You can run `kubectl get svc` to get exposed ports.
 ```
 
-`derrick-go up` will just build and push the image.
+`derrick up` will just build and push the image.
 
 - Visit the application
 
@@ -117,11 +117,11 @@ $ git clone git@github.com:zzxwill/nodejs-web-application.git
 
 $ cd nodejs-web-application
 
-$ derrick-go init
+$ derrick init
 ? Please input image name with tag (such as "registry.com/user/repo:tag"):  zzxwill/nodejs-web-application:latest
 Successfully detected your platform is NodeJS and compiled it successfully.
 
-$ derrick-go up -k
+$ derrick up -k
 #2 [internal] load build definition from Dockerfile
 #2 sha256:f3e51f771f9872e1cf625598754043730963fd48aff6936dc49dbdbafc2fb09d
 #2 transferring dockerfile: 535B done

@@ -11,9 +11,8 @@ import (
 	"strings"
 	"text/template"
 
-	"github.com/markbates/pkger"
-
 	"github.com/Masterminds/sprig/v3"
+	"github.com/markbates/pkger"
 	"github.com/mitchellh/mapstructure"
 	"github.com/spf13/cobra"
 
@@ -21,7 +20,7 @@ import (
 	"github.com/alibaba/derrick/core"
 )
 
-var projectPath string
+var projectPath, dockerImage string
 
 func Init() *cobra.Command {
 	cmd := &cobra.Command{
@@ -31,11 +30,12 @@ func Init() *cobra.Command {
 		Long:    "Detect application's platform and compile the application",
 		Example: `derrick init`,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			return execute(projectPath)
+			return execute(projectPath, dockerImage)
 		},
 	}
 	cmd.Flags().StringP("debug", "d", "", "debug mod")
-	cmd.Flags().StringVarP(&projectPath, "project-path", "p", "", "Path of a project which is about to detected its source code ")
+	cmd.Flags().StringVarP(&projectPath, "project-path", "p", "", "Path of a project which is about to be detected")
+	cmd.Flags().StringVarP(&dockerImage, "image", "i", "", "The image and its tag which will be built")
 	return cmd
 }
 
@@ -44,7 +44,7 @@ type SuitableRiggings struct {
 	ExtensionPoint core.ExtensionPoint
 }
 
-func execute(workspace string) error {
+func execute(workspace, dockerImage string) error {
 	var err error
 	if workspace == "" {
 		workspace, err = os.Getwd()
@@ -68,7 +68,7 @@ func execute(workspace string) error {
 
 	suitableRigging := suitableRiggings[0]
 	rig := suitableRigging.ExtensionPoint.Rigging
-	detectedContext, err := rig.Compile()
+	detectedContext, err := rig.Compile(dockerImage)
 	if err != nil {
 		return err
 	}
@@ -78,7 +78,7 @@ func execute(workspace string) error {
 	if err != nil {
 		return err
 	}
-	fmt.Println(fmt.Sprintf("Successfully detected your platform is %s and compiled it successfully.", suitableRigging.Platform))
+	fmt.Printf("Successfully detected your platform is %s and compiled it successfully.\n", suitableRigging.Platform)
 
 	// write configuration context to a file located in the application folder
 	data, err := json.Marshal(detectedContext)
@@ -144,7 +144,9 @@ func renderTemplates(rig common.Rigging, detectedContext map[string]string, dest
 
 func renderTemplate(templateDir, templateFile string, detectedContext map[string]string) (string, error) {
 	var ctx common.TemplateRenderContext
-	mapstructure.Decode(detectedContext, &ctx)
+	if err := mapstructure.Decode(detectedContext, &ctx); err != nil {
+		return "", err
+	}
 	f, err := pkger.Open(filepath.Join(templateDir, templateFile))
 	if err != nil {
 		return "", err

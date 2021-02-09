@@ -1,10 +1,11 @@
 package java
 
 import (
-	"github.com/alibaba/derrick/common"
 	"os/exec"
 	"regexp"
 	"strings"
+
+	"github.com/alibaba/derrick/common"
 )
 
 const (
@@ -29,7 +30,7 @@ func (detector JavaVersionDetector) Execute() (map[string]string, error) {
 	if matched == nil {
 		return map[string]string{version: DefaultVersion}, nil
 	}
-	majorVersion := strings.Split(strings.ReplaceAll(string(matched),"java ", ""), ".")[0]
+	majorVersion := strings.Split(strings.ReplaceAll(string(matched), "java ", ""), ".")[0]
 	return map[string]string{version: majorVersion}, nil
 }
 
