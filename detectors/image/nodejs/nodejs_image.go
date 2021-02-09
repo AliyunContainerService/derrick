@@ -1,6 +1,6 @@
 package nodejs
 
-import "github.com/cloud-native-application/derrick-go/common"
+import "github.com/alibaba/derrick/common"
 
 const DefaultVersion = "3.12"
 

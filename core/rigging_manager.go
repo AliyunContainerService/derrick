@@ -1,12 +1,12 @@
 package core
 
 import (
-	"github.com/cloud-native-application/derrick-go/common"
-	"github.com/cloud-native-application/derrick-go/rigging/golang"
-	"github.com/cloud-native-application/derrick-go/rigging/maven"
-	"github.com/cloud-native-application/derrick-go/rigging/nodejs"
-	"github.com/cloud-native-application/derrick-go/rigging/php"
-	"github.com/cloud-native-application/derrick-go/rigging/python"
+	"github.com/alibaba/derrick/common"
+	"github.com/alibaba/derrick/rigging/golang"
+	"github.com/alibaba/derrick/rigging/maven"
+	"github.com/alibaba/derrick/rigging/nodejs"
+	"github.com/alibaba/derrick/rigging/php"
+	"github.com/alibaba/derrick/rigging/python"
 )
 
 //type Rigging interface {

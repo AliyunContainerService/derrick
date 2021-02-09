@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/cloud-native-application/derrick-go/engine"
+	"github.com/alibaba/derrick/engine"
 
-	"github.com/cloud-native-application/derrick-go/common"
+	"github.com/alibaba/derrick/common"
 	"github.com/spf13/cobra"
 )
 

@@ -17,8 +17,8 @@ import (
 	"github.com/mitchellh/mapstructure"
 	"github.com/spf13/cobra"
 
-	"github.com/cloud-native-application/derrick-go/common"
-	"github.com/cloud-native-application/derrick-go/core"
+	"github.com/alibaba/derrick/common"
+	"github.com/alibaba/derrick/core"
 )
 
 var projectPath string
@@ -111,7 +111,7 @@ func detect(projectPath string) []*SuitableRiggings {
 }
 
 func renderTemplates(rig common.Rigging, detectedContext map[string]string, destDir string) error {
-	// TODO(zzxwill) PkgPath() returns github.com/cloud-native-application/derrick-go/rigging/golang/templates
+	// TODO(zzxwill) PkgPath() returns github.com/alibaba/derrick/rigging/golang/templates
 	// there might be a better solution get the direcotry of the templates
 	pkgPath := strings.Join(strings.Split(reflect.TypeOf(rig).PkgPath(), "/")[3:], "/")
 	absTemplateDir := filepath.Join("/", filepath.Clean(pkgPath))
