@@ -93,7 +93,7 @@ Your application has been built and deployed to your Kubernetes cluster! You can
 
 `derrick-go up` will just build and push the image.
 
-- Vist the application
+- Visit the application
 
 ```shell
 $ kubectl port-forward service/golang-web-application 8080:8080
@@ -111,7 +111,6 @@ Hi there, I love Golang!
 ```
 
 ### A NodeJS application
-
 
 ```shell
 $ git clone git@github.com:zzxwill/nodejs-web-application.git
@@ -146,5 +145,55 @@ Handling connection for 3000
 
 ![](./docs/resources/nodejs-web-appliation.jpg)
 
-### *License*
+### A Java application
+
+Clone a Java application, and build it.
+
+```shell
+$ git clone git@github.com:zzxwill/java-maven-web-application.git
+$ cd java-maven-web-application
+$ derrick init
+  ? Please input image name with tag (such as "registry.com/user/repo:tag"):  zzxwill/java-maven-web-application:latest
+  Successfully detected your platform is Maven and compiled it successfully.
+$ derrick up -k
+  #1 [internal] load .dockerignore
+  #1 sha256:6204ab6bc23d3b5044b63044856c095e175d5acb3c612c0625c67404b7d7358e
+  #1 transferring context: 2B 0.0s done
+  #1 DONE 0.0s
+  #10 [build-env 4/4] RUN mvn package
+  #10 sha256:cddfe94c971d47d10b23ebc6ecb148c9f463968497b65ac8247986e10fbfa699
+  #10 2.961 [INFO] Scanning for projects...
+  #10 3.133 [INFO]
+  #10 3.133 [INFO] --------------------------< JavaWeb:JavaWeb >---------------------------
+  #10 3.146 [INFO] Building JavaWeb Maven Webapp 0.0.1-SNAPSHOT
+  #10 3.156 [INFO] --------------------------------[ war ]---------------------------------
+  #10 3.716 Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-resources-plugin/2.6/maven-resources-plugin-2.6.pom
+  Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-resources-plugin/2.6/maven-resources-plugin-2.6.pom (8.1 kB at 3.9 kB/s)
+  #10 5.852 Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-plugins/23/maven-plugins-23.pom
+  Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-plugins/23/maven-plugins-23.pom (9.2 kB at 15 kB/s)
+  #10 6.484 Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/maven-parent/22/maven-parent-22.pom
+  ...
+  0c3170905795: Mounted from library/tomcat
+  latest: digest: sha256:242aa751a36310adbd6fc1af39dad06b974547bfadb8e6698d20edba2841989f size: 1782
+  service/java-maven-web-application created
+  deployment.apps/java-maven-web-application created
+  Your application has been built and deployed to your Kubernetes cluster! You can run `kubectl get svc` to get exposed ports.
+```
+
+Visit the application.
+
+```shell
+$ kubectl get svc
+NAME                         TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)          AGE
+java-maven-web-application   NodePort    172.21.6.80    <none>        8080:32168/TCP   29s
+
+$ kubectl port-forward svc/java-maven-web-application 8080:8080
+Forwarding from 127.0.0.1:8080 -> 8080
+Forwarding from [::1]:8080 -> 8080
+```
+
+![](./docs/resources/java-maven-web-appliation.jpg)
+
+
+## *License*
 This software is released under the Apache 2.0 license.
