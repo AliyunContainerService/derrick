@@ -1,0 +1,10 @@
+FROM maven:3.6.3-jdk-{{ .Version }} AS build-env
+WORKDIR /app
+COPY . /app
+RUN mvn package
+
+# base image should be based on Java version, while there is no version 11 tomcat
+FROM tomcat:8.0-alpine
+COPY --from=build-env /app/target/*.war /usr/local/tomcat/webapps/
+EXPOSE 8080
+CMD ["catalina.sh", "run"]
