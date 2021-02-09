@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os/exec"
 
-	"github.com/cloud-native-application/derrick-go/common"
+	"github.com/alibaba/derrick/common"
 )
 
 func BuildImage(workspace string) error {

@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/AlecAivazis/survey/v2"
-	"github.com/cloud-native-application/derrick-go/common"
+	"github.com/alibaba/derrick/common"
 )
 
 type ImageRepoDetector struct {

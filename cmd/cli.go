@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"runtime"
 
-	"github.com/cloud-native-application/derrick-go/core"
+	"github.com/alibaba/derrick/core"
 	"github.com/spf13/cobra"
 )
 

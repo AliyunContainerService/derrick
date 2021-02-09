@@ -6,10 +6,10 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/cloud-native-application/derrick-go/common"
-	"github.com/cloud-native-application/derrick-go/detectors/general"
-	image "github.com/cloud-native-application/derrick-go/detectors/image/golang"
-	platform "github.com/cloud-native-application/derrick-go/detectors/platform/golang"
+	"github.com/alibaba/derrick/common"
+	"github.com/alibaba/derrick/detectors/general"
+	image "github.com/alibaba/derrick/detectors/image/golang"
+	platform "github.com/alibaba/derrick/detectors/platform/golang"
 )
 
 const (

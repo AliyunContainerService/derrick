@@ -4,10 +4,10 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/cloud-native-application/derrick-go/common"
-	"github.com/cloud-native-application/derrick-go/detectors/general"
-	image "github.com/cloud-native-application/derrick-go/detectors/image/nodejs"
-	platform "github.com/cloud-native-application/derrick-go/detectors/platform/golang"
+	"github.com/alibaba/derrick/common"
+	"github.com/alibaba/derrick/detectors/general"
+	image "github.com/alibaba/derrick/detectors/image/nodejs"
+	platform "github.com/alibaba/derrick/detectors/platform/golang"
 )
 
 const Platform = "NodeJS"

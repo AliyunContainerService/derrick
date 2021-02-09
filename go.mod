@@ -1,4 +1,4 @@
-module github.com/cloud-native-application/derrick-go
+module github.com/alibaba/derrick
 
 go 1.14
 

@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/cloud-native-application/derrick-go/common"
-	"github.com/cloud-native-application/derrick-go/core"
+	"github.com/alibaba/derrick/common"
+	"github.com/alibaba/derrick/core"
 )
 
 func Run() {
