@@ -13,7 +13,7 @@ func Commands() *cobra.Command {
 	// ioStream := util.IOStreams{In: os.Stdin, Out: os.Stdout, ErrOut: os.Stderr}
 
 	cmd := &cobra.Command{
-		Use:   "derrick-go",
+		Use:   "derrick",
 		Short: "🐳 A tool to help you containerize application in seconds",
 		Long:  "🐳 A tool to help you containerize application in seconds",
 		//Run: func(cmd *cobra.Command, args []string) {

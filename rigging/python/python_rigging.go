@@ -21,6 +21,6 @@ func (rig PythonRigging) Detect(workspace string) (bool, string) {
 	return false, ""
 }
 
-func (rig PythonRigging) Compile() (map[string]string, error) {
+func (rig PythonRigging) Compile(dockerImage string) (map[string]string, error) {
 	return nil, nil
 }

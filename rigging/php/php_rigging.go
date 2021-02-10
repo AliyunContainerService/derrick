@@ -18,6 +18,6 @@ func (rig PHPRigging) Detect(workspace string) (bool, string) {
 	return false, ""
 }
 
-func (rig PHPRigging) Compile() (map[string]string, error) {
+func (rig PHPRigging) Compile(dockerImage string) (map[string]string, error) {
 	return nil, nil
 }
