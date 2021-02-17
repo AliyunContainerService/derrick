@@ -2,8 +2,10 @@ package cmd
 
 import (
 	"bytes"
+	"embed"
 	"encoding/json"
 	"fmt"
+	"io/fs"
 	"io/ioutil"
 	"os"
 	"path/filepath"
@@ -12,7 +14,6 @@ import (
 	"text/template"
 
 	"github.com/Masterminds/sprig/v3"
-	"github.com/markbates/pkger"
 	"github.com/mitchellh/mapstructure"
 	"github.com/spf13/cobra"
 
@@ -22,7 +23,7 @@ import (
 
 var projectPath, dockerImage string
 
-func Init() *cobra.Command {
+func Init(templateFS embed.FS) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:     "init",
 		Aliases: []string{"ini"},
@@ -30,7 +31,7 @@ func Init() *cobra.Command {
 		Long:    "Detect application's platform and compile the application",
 		Example: `derrick init`,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			return execute(projectPath, dockerImage)
+			return execute(projectPath, dockerImage, templateFS)
 		},
 	}
 	cmd.Flags().StringP("debug", "d", "", "debug mod")
@@ -44,7 +45,7 @@ type SuitableRiggings struct {
 	ExtensionPoint core.ExtensionPoint
 }
 
-func execute(workspace, dockerImage string) error {
+func execute(workspace, dockerImage string, templateFS embed.FS) error {
 	var err error
 	if workspace == "" {
 		workspace, err = os.Getwd()
@@ -72,10 +73,7 @@ func execute(workspace, dockerImage string) error {
 	if err != nil {
 		return err
 	}
-	if err := renderTemplates(rig, detectedContext, workspace); err != nil {
-		return err
-	}
-	if err != nil {
+	if err := renderTemplates(rig, detectedContext, workspace, templateFS); err != nil {
 		return err
 	}
 	fmt.Printf("Successfully detected your platform is %s and compiled it successfully.\n", suitableRigging.Platform)
@@ -110,15 +108,18 @@ func detect(projectPath string) []*SuitableRiggings {
 	return suitableRiggings
 }
 
-func renderTemplates(rig common.Rigging, detectedContext map[string]string, destDir string) error {
+func renderTemplates(rig common.Rigging, detectedContext map[string]string, destDir string, templateFS embed.FS) error {
 	// TODO(zzxwill) PkgPath() returns github.com/alibaba/derrick/rigging/golang/templates
 	// there might be a better solution get the direcotry of the templates
 	pkgPath := strings.Join(strings.Split(reflect.TypeOf(rig).PkgPath(), "/")[3:], "/")
-	absTemplateDir := filepath.Join("/", filepath.Clean(pkgPath))
-	templateDir := filepath.Join(absTemplateDir, "templates")
+	templateDir := filepath.Join(pkgPath, "templates")
 	var templates []string
-	err := pkger.Walk(absTemplateDir, func(path string, info os.FileInfo, err error) error {
-		if info != nil && strings.HasSuffix(info.Name(), ".tmpl") {
+	err := fs.WalkDir(templateFS, templateDir, func(path string, d fs.DirEntry, err error) error {
+		info, err := d.Info()
+		if err != nil {
+			return err
+		}
+		if d != nil && strings.HasSuffix(info.Name(), ".tmpl") {
 			templates = append(templates, info.Name())
 		}
 		return nil
@@ -127,7 +128,7 @@ func renderTemplates(rig common.Rigging, detectedContext map[string]string, dest
 		return err
 	}
 	for _, t := range templates {
-		renderedTemplate, err := renderTemplate(templateDir, t, detectedContext)
+		renderedTemplate, err := renderTemplate(templateDir, t, detectedContext, templateFS)
 		if err != nil {
 			return err
 		}
@@ -142,12 +143,12 @@ func renderTemplates(rig common.Rigging, detectedContext map[string]string, dest
 	return nil
 }
 
-func renderTemplate(templateDir, templateFile string, detectedContext map[string]string) (string, error) {
+func renderTemplate(templateDir, templateFile string, detectedContext map[string]string, templateFS embed.FS) (string, error) {
 	var ctx common.TemplateRenderContext
 	if err := mapstructure.Decode(detectedContext, &ctx); err != nil {
 		return "", err
 	}
-	f, err := pkger.Open(filepath.Join(templateDir, templateFile))
+	f, err := templateFS.Open(filepath.Join(templateDir, templateFile))
 	if err != nil {
 		return "", err
 	}
