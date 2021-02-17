@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"embed"
 	"fmt"
 	"runtime"
 
@@ -9,7 +10,7 @@ import (
 )
 
 // Commands will contain all commands
-func Commands() *cobra.Command {
+func Commands(templateFS embed.FS) *cobra.Command {
 	// ioStream := util.IOStreams{In: os.Stdin, Out: os.Stdout, ErrOut: os.Stderr}
 
 	cmd := &cobra.Command{
@@ -27,7 +28,7 @@ func Commands() *cobra.Command {
 
 	cmd.AddCommand(
 		NewVersionCommand(),
-		Init(),
+		Init(templateFS),
 		Up(),
 	)
 	return cmd

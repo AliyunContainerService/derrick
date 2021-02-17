@@ -1,7 +1,13 @@
 package main
 
-import "github.com/alibaba/derrick/cmd"
+import (
+	"embed"
+	"github.com/alibaba/derrick/cmd"
+)
+
+//go:embed rigging
+var templateFS embed.FS
 
 func main() {
-	cmd.Run()
+	cmd.Run(templateFS)
 }

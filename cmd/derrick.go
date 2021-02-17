@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"embed"
 	"fmt"
 	"os"
 
@@ -8,13 +9,13 @@ import (
 	"github.com/alibaba/derrick/core"
 )
 
-func Run() {
+func Run(templateFS embed.FS) {
 	if err := load(); err != nil {
 		fmt.Println(err)
 		os.Exit(1)
 	}
 
-	command := Commands()
+	command := Commands(templateFS)
 	if err := command.Execute(); err != nil {
 		fmt.Println(err)
 		os.Exit(1)
