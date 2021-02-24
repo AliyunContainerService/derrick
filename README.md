@@ -39,12 +39,29 @@ Here is the list of frameworks passed the tests.If you want more frameworks or c
 * NodeJs (npm)
   * Express
   * Sails
-
-## Documentation
-* <a href="https://github.com/alibaba/derrick/wiki">Documentation Home</a>
-* <a href="https://github.com/alibaba/derrick/wiki">Frequently Asked Questions</a>  
-
+  
 ## Installation
+
+Run `make build` to build an `derrick` binary in `./bin` and copy it to `/usr/local/bin`.
+
+```shell
+$ derrick -h
+🐳 A tool to help you containerize application in seconds
+
+Usage:
+  derrick [command]
+
+Available Commands:
+  help        Help about any command
+  init        Detect application's platform and compile the application
+  up          Build an image for your application
+  version     Prints out build version information
+
+Flags:
+  -h, --help   help for derrick
+
+Use "derrick [command] --help" for more information about a command.
+```
 
 
 ## Quick demos
