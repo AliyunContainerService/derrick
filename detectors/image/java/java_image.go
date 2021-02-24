@@ -1,6 +1,7 @@
 package java
 
 import (
+	"fmt"
 	"os/exec"
 	"regexp"
 	"strings"
@@ -17,7 +18,8 @@ type JavaVersionDetector struct {
 
 func (detector JavaVersionDetector) Execute() (map[string]string, error) {
 	cmd := exec.Command("bash", "-c", "java --version")
-	output, err := cmd.Output()
+	output, err := cmd.CombinedOutput()
+	fmt.Println(string(output))
 	if err != nil {
 		return nil, err
 	}

@@ -11,16 +11,17 @@ Derrick is a tool to help you dockerizing application in seconds. Derrick focus 
 <img src="http://container-service.oss-cn-beijing.aliyuncs.com/derrick.png" width=100%/>    
 
 Using Derrick is very simple:    
-1. `derrick init` to dockerize your application based on Derrick.    
-2. `derrick up` to build your application to a Docker image and run in local.        
-3. Use your favorite text editor to modify the Dockerfile or some others and run your application in local.        
-4. Integrate into your workflow and have fun.       
+1. `derrick init` to generate Dockerfile to containerize your application.
+2. `derrick up` to build your application to a Docker image and deploy it.
+3. Use your favorite text editor to modify the Dockerfile or some others and run your application in local.
+4. Integrate into your workflow and have fun.
 
 
 ## Language Support
 NodeJs, Python, Java, Golang, PHP.      
 
 ## Framework and Build tool Support
+
 Here is the list of frameworks passed the tests.If you want more frameworks or can not dockerize application,please submit a issue.
 * Java (maven)
   * springcloud
@@ -40,9 +41,18 @@ Here is the list of frameworks passed the tests.If you want more frameworks or c
   * Express
   * Sails
   
+## Quick Start
+
 ## Installation
 
-Run `make build` to build an `derrick` binary in `./bin` and copy it to `/usr/local/bin`.
+Build `derrick` binary: 
+
+```shell
+make build
+cp _bin/derrick /usr/local/bin/
+```
+
+Verify it in command line:
 
 ```shell
 $ derrick -h
@@ -63,10 +73,7 @@ Flags:
 Use "derrick [command] --help" for more information about a command.
 ```
 
-
-## Quick demos
-
-### A golang application
+### Build golang application
 
 - Clone a sample project
 
@@ -127,7 +134,7 @@ $ curl 127.0.0.1:8080/Golang
 Hi there, I love Golang!
 ```
 
-### A NodeJS application
+### Build NodeJS application
 
 ```shell
 $ git clone git@github.com:zzxwill/nodejs-web-application.git
@@ -162,7 +169,7 @@ Handling connection for 3000
 
 ![](./docs/resources/nodejs-web-appliation.jpg)
 
-### A Java application
+### Build Java application
 
 Clone a Java application, and build it.
 

@@ -26,9 +26,7 @@ var projectPath, dockerImage string
 func Init(templateFS embed.FS) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:     "init",
-		Aliases: []string{"ini"},
-		Short:   "Detect application's platform and compile the application",
-		Long:    "Detect application's platform and compile the application",
+		Short:   "Detect application's platform and generate Dockerfile",
 		Example: `derrick init`,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			return execute(projectPath, dockerImage, templateFS)
@@ -83,7 +81,7 @@ func execute(workspace, dockerImage string, templateFS embed.FS) error {
 	if err != nil {
 		return err
 	}
-	if err := ioutil.WriteFile(filepath.Join(workspace, common.DerrickApplicationConf), data, 0750); err != nil {
+	if err := ioutil.WriteFile(filepath.Join(workspace, common.DerrickApplicationConf), data, 0500); err != nil {
 		return err
 	}
 	return nil
@@ -110,7 +108,7 @@ func detect(projectPath string) []*SuitableRiggings {
 
 func renderTemplates(rig common.Rigging, detectedContext map[string]string, destDir string, templateFS embed.FS) error {
 	// TODO(zzxwill) PkgPath() returns github.com/alibaba/derrick/rigging/golang/templates
-	// there might be a better solution get the direcotry of the templates
+	// there might be a better solution get the directory of the templates
 	pkgPath := strings.Join(strings.Split(reflect.TypeOf(rig).PkgPath(), "/")[3:], "/")
 	templateDir := filepath.Join(pkgPath, "templates")
 	var templates []string
@@ -136,7 +134,7 @@ func renderTemplates(rig common.Rigging, detectedContext map[string]string, dest
 		if len(renderedTemplateName) != 2 {
 			return fmt.Errorf("template %s is not in the right format", t)
 		}
-		if err := ioutil.WriteFile(filepath.Join(destDir, renderedTemplateName[0]), []byte(renderedTemplate), 0750); err != nil {
+		if err := ioutil.WriteFile(filepath.Join(destDir, renderedTemplateName[0]), []byte(renderedTemplate), 0500); err != nil {
 			return err
 		}
 	}

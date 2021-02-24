@@ -20,7 +20,6 @@ func (dr *DetectorReport) RegisterDetector(d Detector, nodeName string) error {
 		node.Store[k] = v
 		dr.Store[k] = v
 	}
-	//dr.CacheStore.Store = map[string]interface{}{d.Name(): image}
 	dr.Nodes[nodeName] = node
 	return nil
 }
