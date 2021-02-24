@@ -1,4 +1,4 @@
 all: build
 
 build:
-	go build -o /usr/local/bin/derrick *.go
+	go build -o bin/derrick *.go
