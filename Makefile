@@ -1,4 +1,4 @@
 all: build
 
 build:
-	go build -o bin/derrick *.go
+	go build -o _bin/derrick main.go

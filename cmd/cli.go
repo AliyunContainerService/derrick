@@ -5,8 +5,9 @@ import (
 	"fmt"
 	"runtime"
 
-	"github.com/alibaba/derrick/core"
 	"github.com/spf13/cobra"
+
+	"github.com/alibaba/derrick/core"
 )
 
 // Commands will contain all commands
@@ -17,13 +18,6 @@ func Commands(templateFS embed.FS) *cobra.Command {
 		Use:   "derrick",
 		Short: "🐳 A tool to help you containerize application in seconds",
 		Long:  "🐳 A tool to help you containerize application in seconds",
-		//Run: func(cmd *cobra.Command, args []string) {
-		//
-		//	cmd.Println("Flags:")
-		//	cmd.Println("  -h, --help   help for derrick")
-		//	cmd.Println()
-		//	cmd.Println(`Use "derrick [command] --help" for more information about a command.`)
-		//},
 	}
 
 	cmd.AddCommand(

@@ -33,9 +33,6 @@ func (rig JavaRigging) Compile(dockerImage string) (map[string]string, error) {
 	if err := dr.RegisterDetector(image.JavaVersionDetector{}, common.Dockerfile); err != nil {
 		return nil, err
 	}
-	//if err := dr.RegisterDetector(platform.PackageNameDetector{}, common.Dockerfile); err != nil {
-	//	return nil, err
-	//}
 	if err := dr.RegisterDetector(general.DerrickDetector{}, common.KubernetesDeployment); err != nil {
 		return nil, err
 	}
