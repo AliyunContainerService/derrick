@@ -167,7 +167,7 @@ Handling connection for 3000
 Handling connection for 3000
 ```
 
-![](./docs/resources/nodejs-web-appliation.jpg)
+![](docs/resources/nodejs-web-appliation.jpg)
 
 ### Build Java application
 
@@ -216,7 +216,7 @@ Forwarding from 127.0.0.1:8080 -> 8080
 Forwarding from [::1]:8080 -> 8080
 ```
 
-![](./docs/resources/java-maven-web-appliation.jpg)
+![](docs/resources/java-maven-web-appliation.jpg)
 
 
 ## *License*
