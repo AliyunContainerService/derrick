@@ -1,10 +1,9 @@
 package common
 
 type DetectorReport struct {
-	CacheStore CacheStore
-	Name       string
-	Nodes      map[string]DetectorReport
-	Store      map[string]string
+	Name  string
+	Nodes map[string]DetectorReport
+	Store map[string]string
 }
 
 func (dr *DetectorReport) RegisterDetector(d Detector, nodeName string) error {
@@ -40,21 +39,6 @@ func (dr *DetectorReport) getNode(nodeName string) DetectorReport {
 }
 
 func (dr *DetectorReport) GenerateReport() map[string]string {
-	//return recursiveGenerateStore(*dr)
 	return dr.Store
 
-}
-
-func recursiveGenerateStore(dr DetectorReport) map[string]string {
-	nodes := dr.Nodes
-	store := dr.Store
-	if len(nodes) > 0 {
-		for _, v := range nodes {
-			s := recursiveGenerateStore(v)
-			for i, j := range s {
-				store[i] = j
-			}
-		}
-	}
-	return store
 }
