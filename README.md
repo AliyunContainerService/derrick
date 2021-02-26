@@ -1,24 +1,26 @@
 # Derrick
-[![Platform](https://img.shields.io/badge/platform-Windows&Linux&Mac-green.svg)](https://github.com/alibaba/derrick)
-[![Language](https://img.shields.io/badge/language-NodeJs&PHP&Java&Python&Golang-red.svg)](https://github.com/alibaba/derrick)
-[![GitHub release](https://img.shields.io/badge/release-0.1.2-green.svg)](https://github.com/alibaba/derrick/releases)
+
 [![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
+[![GitHub release](https://img.shields.io/badge/release-0.1.2-green.svg)](https://github.com/alibaba/derrick/releases)
 [![Build Status](https://travis-ci.org/alibaba/derrick.svg?branch=master)](https://travis-ci.org/alibaba/derrick)
 [![Codecov](https://codecov.io/gh/alibaba/derrick/branch/master/graph/badge.svg)](https://codecov.io/gh/alibaba/derrick)
 
-Derrick is a tool to help you dockerizing application in seconds. Derrick focus on the developer's workflow in local development environment. Derrick will inspect your workspace and generate Dockerfile, docker-compose.yml, Jenkinsfile, etc. You can simply use Derrick to set up your DevOps process in container way smoothly.
+Derrick is a tool to help you containerize application in seconds.
+Derrick focuses on developer workflow in local development environment.
+Derrick will inspect your workspace and generate Dockerfile and other manifests to achieve containerization.
+You can use Derrick to set up your DevOps processes in container-native way.
 
 <img src="http://container-service.oss-cn-beijing.aliyuncs.com/derrick.png" width=100%/>    
 
 Using Derrick is very simple:    
-1. `derrick init` to detect the language and generate the Dockerfile for your application.
-2. `derrick up` to build your application to a Docker image and deploy it.
-3. Use your favorite text editor to modify the Dockerfile or some others and run your application in local.
+1. `derrick gen` to automatically inspect the workspace and generate the Dockerfile for your application, or
+2. `derrick list` to show all available riggings and pick one via `derrick gen -r <rigging>` to generate the Dockerfile.
+3. Use your favorite text editor to modify the Dockerfile or other manifests before building and shipping the containers.
 4. Integrate into your workflow and have fun.
 
-
 ## Language Support
-NodeJs, Python, Java, Golang, PHP.      
+
+Java, Golang, NodeJs, Python, PHP.      
 
 ## Framework and Build tool Support
 
@@ -43,7 +45,7 @@ Here is the list of frameworks passed the tests.If you want more frameworks or c
   
 ## Quick Start
 
-## Installation
+### Installation
 
 Build `derrick` binary: 
 
@@ -220,4 +222,5 @@ Forwarding from [::1]:8080 -> 8080
 
 
 ## *License*
+
 This software is released under the Apache 2.0 license.
