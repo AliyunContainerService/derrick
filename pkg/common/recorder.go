@@ -16,7 +16,7 @@ type TemplateRenderContext struct {
 
 func GetBuildContext(workspace string) (*TemplateRenderContext, error) {
 	var ctx TemplateRenderContext
-	data, err := ioutil.ReadFile(filepath.Join(workspace, DerrickApplicationConf))
+	data, err := ioutil.ReadFile(filepath.Join(workspace, DerrickConf))
 	if err != nil {
 		return nil, err
 	}

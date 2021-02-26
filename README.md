@@ -90,7 +90,8 @@ $ cd golang-web-application
 ```shell
 $ derrick gen
 ? Please input image name with tag (such as "registry.com/user/repo:tag"):  zzxwill/golang-web-application:latest
-Successfully detected your platform is Golang and compiled it successfully.
+Successfully detected your platform is 'golang'.
+Successfully generated: Dockerfile, derrick.conf
 ```
 
 - Push the image and deploy it to Kubernetes

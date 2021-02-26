@@ -73,14 +73,14 @@ func execute(workspace, dockerImage string, templateFS embed.FS) error {
 	if err := renderTemplates(rig, detectedContext, workspace, templateFS); err != nil {
 		return err
 	}
-	fmt.Printf("Successfully detected your platform is %s and compiled it successfully.\n", suitableRigging.Platform)
+	fmt.Printf("Successfully detected your platform is '%s'\nSuccessfully generated: Dockerfile, derrick.conf\n", suitableRigging.Platform)
 
 	// write configuration context to a file located in the application folder
 	data, err := json.Marshal(detectedContext)
 	if err != nil {
 		return err
 	}
-	if err := ioutil.WriteFile(filepath.Join(workspace, common.DerrickApplicationConf), data, 0500); err != nil {
+	if err := ioutil.WriteFile(filepath.Join(workspace, common.DerrickConf), data, 0500); err != nil {
 		return err
 	}
 	return nil

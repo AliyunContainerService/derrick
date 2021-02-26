@@ -26,8 +26,7 @@ Derrick is a scaffold tool to migrate applications
 You can use Derrick to migrate your project simply.
 ===================================================
 `
-	DERRICK_VERSION        = "0.0.1"
-	DerrickApplicationConf = "derrick_conf"
+	DerrickConf = "derrickconf"
 )
 
 const (
@@ -134,7 +133,7 @@ func InitCommandsDir() error {
 }
 
 func CheckDerrickInitStep(workspace string) bool {
-	if _, err := os.Stat(filepath.Join(workspace, DerrickApplicationConf)); err == nil {
+	if _, err := os.Stat(filepath.Join(workspace, DerrickConf)); err == nil {
 		return true
 	}
 	return false

@@ -4,6 +4,7 @@ import (
 	"path/filepath"
 
 	"github.com/alibaba/derrick/pkg/common"
+	"github.com/alibaba/derrick/pkg/version"
 )
 
 type DerrickDetector struct {
@@ -27,7 +28,7 @@ func (detector DerrickDetector) Execute() (map[string]string, error) {
 		projectName = base
 	}
 	return map[string]string{
-		common.DerrickVersion: common.DERRICK_VERSION,
+		common.DerrickVersion: version.Version,
 		common.ProjectName:    projectName,
 	}, nil
 
