@@ -3,25 +3,34 @@ package python
 import (
 	"os"
 	"path/filepath"
+
+	"github.com/alibaba/derrick/pkg/rigging"
 )
 
-type PythonRigging struct {
+type pythonRigging struct {
 }
 
-func (rig PythonRigging) Name() string {
+func NewRigging() rigging.Rigging {
+	return &pythonRigging{}
+}
+
+func (rig *pythonRigging) Name() string {
 	return "python"
 }
-func (rig PythonRigging) Detect(workspace string) bool {
+func (rig *pythonRigging) Detect(workspace string) bool {
 	requirementsTxt := filepath.Join(workspace, "requirements.txt")
-	setupPy := filepath.Join(workspace, "setup.py")
-	if _, err := os.Stat(requirementsTxt); err == nil {
-		if _, err := os.Stat(setupPy); err == nil {
-			return true
-		}
+	if _, err := os.Stat(requirementsTxt); err != nil {
+		return false
 	}
-	return false
+
+	setupPy := filepath.Join(workspace, "setup.py")
+	if _, err := os.Stat(setupPy); err != nil {
+		return false
+	}
+
+	return true
 }
 
-func (rig PythonRigging) Compile(dockerImage string) (map[string]string, error) {
+func (rig *pythonRigging) Compile() (map[string]string, error) {
 	return nil, nil
 }

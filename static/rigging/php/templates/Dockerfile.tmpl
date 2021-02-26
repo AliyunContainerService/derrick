@@ -10,7 +10,7 @@ RUN composer install
 
 
 # Use apache alpine version to serve
-FROM php:{{ version }}-apache-jessie
+FROM php:{{ .Version }}-apache-jessie
 
 WORKDIR /var/www/html/
 

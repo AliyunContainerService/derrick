@@ -1,12 +1,12 @@
 package common
 
-type DetectorReport struct {
+type ParamReport struct {
 	Name  string
-	Nodes map[string]DetectorReport
+	Nodes map[string]ParamReport
 	Store map[string]string
 }
 
-func (dr *DetectorReport) RegisterDetector(d AutoParam, nodeName string) error {
+func (dr *ParamReport) RegisterAutoParam(d AutoParam, nodeName string) error {
 	node := dr.getNode(nodeName)
 	if node.Store == nil {
 		node.Store = map[string]string{}
@@ -23,13 +23,13 @@ func (dr *DetectorReport) RegisterDetector(d AutoParam, nodeName string) error {
 	return nil
 }
 
-func createNode(nodeName string) DetectorReport {
-	var report DetectorReport
+func createNode(nodeName string) ParamReport {
+	var report ParamReport
 	report.Name = nodeName
 	return report
 }
 
-func (dr *DetectorReport) getNode(nodeName string) DetectorReport {
+func (dr *ParamReport) getNode(nodeName string) ParamReport {
 	for _, i := range dr.Nodes {
 		if i.Name == nodeName {
 			return i
@@ -38,7 +38,7 @@ func (dr *DetectorReport) getNode(nodeName string) DetectorReport {
 	return createNode(nodeName)
 }
 
-func (dr *DetectorReport) GenerateReport() map[string]string {
+func (dr *ParamReport) GenerateReport() map[string]string {
 	return dr.Store
 
 }

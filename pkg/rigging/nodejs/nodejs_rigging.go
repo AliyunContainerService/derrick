@@ -8,16 +8,21 @@ import (
 	"github.com/alibaba/derrick/pkg/detectors/general"
 	image "github.com/alibaba/derrick/pkg/detectors/image/nodejs"
 	platform "github.com/alibaba/derrick/pkg/detectors/platform/golang"
+	"github.com/alibaba/derrick/pkg/rigging"
 )
 
-type NodeJSRigging struct {
+type nodeJSRigging struct {
 }
 
-func (rig NodeJSRigging) Name() string {
+func NewRigging() rigging.Rigging {
+	return &nodeJSRigging{}
+}
+
+func (rig *nodeJSRigging) Name() string {
 	return "nodejs"
 }
 
-func (rig NodeJSRigging) Detect(workspace string) bool {
+func (rig *nodeJSRigging) Detect(workspace string) bool {
 	packageJSON := filepath.Join(workspace, "package.json")
 	if _, err := os.Stat(packageJSON); err == nil {
 		return true
@@ -25,21 +30,18 @@ func (rig NodeJSRigging) Detect(workspace string) bool {
 	return false
 }
 
-func (rig NodeJSRigging) Compile(dockerImage string) (map[string]string, error) {
-	dr := &common.DetectorReport{
-		Nodes: map[string]common.DetectorReport{},
+func (rig *nodeJSRigging) Compile() (map[string]string, error) {
+	dr := &common.ParamReport{
+		Nodes: map[string]common.ParamReport{},
 		Store: map[string]string{},
 	}
-	if err := dr.RegisterDetector(general.ImageRepoDetector{DockerImage: dockerImage}, common.Meta); err != nil {
+	if err := dr.RegisterAutoParam(image.NodeJSVersionDetector{}, common.Dockerfile); err != nil {
 		return nil, err
 	}
-	if err := dr.RegisterDetector(image.NodeJSVersionDetector{}, common.Dockerfile); err != nil {
+	if err := dr.RegisterAutoParam(platform.PackageNameDetector{}, common.Dockerfile); err != nil {
 		return nil, err
 	}
-	if err := dr.RegisterDetector(platform.PackageNameDetector{}, common.Dockerfile); err != nil {
-		return nil, err
-	}
-	if err := dr.RegisterDetector(general.DerrickDetector{}, common.KubernetesDeployment); err != nil {
+	if err := dr.RegisterAutoParam(general.DerrickDetector{}, common.KubernetesDeployment); err != nil {
 		return nil, err
 	}
 	return dr.GenerateReport(), nil

@@ -7,7 +7,7 @@ import (
 
 	"github.com/alibaba/derrick/pkg/commands"
 	"github.com/alibaba/derrick/pkg/common"
-	"github.com/alibaba/derrick/pkg/rigging"
+	"github.com/alibaba/derrick/pkg/runtime"
 )
 
 //go:embed static/rigging
@@ -41,6 +41,6 @@ func load() error {
 		}
 	}
 
-	rigging.Load()
+	runtime.LoadRiggings()
 	return nil
 }

@@ -3,9 +3,9 @@ package commands
 import (
 	"fmt"
 
-	"github.com/spf13/cobra"
+	"github.com/alibaba/derrick/pkg/runtime"
 
-	"github.com/alibaba/derrick/pkg/rigging"
+	"github.com/spf13/cobra"
 )
 
 type listOption struct {
@@ -29,7 +29,7 @@ func NewListCommand() *cobra.Command {
 }
 
 func (o *listOption) Run() error {
-	rl := rigging.GetAll()
+	rl := runtime.GetRiggings()
 	fmt.Println("Available riggings:")
 	for _, r := range rl {
 		fmt.Printf("\t%s\n", r.Name())

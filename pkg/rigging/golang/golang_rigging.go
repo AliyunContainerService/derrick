@@ -10,16 +10,21 @@ import (
 	"github.com/alibaba/derrick/pkg/detectors/general"
 	image "github.com/alibaba/derrick/pkg/detectors/image/golang"
 	platform "github.com/alibaba/derrick/pkg/detectors/platform/golang"
+	"github.com/alibaba/derrick/pkg/rigging"
 )
 
-type GolangRigging struct {
+type golangRigging struct {
 }
 
-func (rig GolangRigging) Name() string {
+func NewRigging() rigging.Rigging {
+	return &golangRigging{}
+}
+
+func (rig *golangRigging) Name() string {
 	return "golang"
 }
 
-func (rig GolangRigging) Detect(workspace string) bool {
+func (rig *golangRigging) Detect(workspace string) bool {
 	var detected bool
 	err := filepath.Walk(workspace, func(workspace string, info os.FileInfo, err error) error {
 		if strings.HasSuffix(info.Name(), ".go") {
@@ -34,23 +39,20 @@ func (rig GolangRigging) Detect(workspace string) bool {
 	return false
 }
 
-func (rig GolangRigging) Compile(dockerImage string) (map[string]string, error) {
-	dr := &common.DetectorReport{
-		Nodes: map[string]common.DetectorReport{},
+func (rig *golangRigging) Compile() (map[string]string, error) {
+	dr := &common.ParamReport{
+		Nodes: map[string]common.ParamReport{},
 		Store: map[string]string{},
 	}
 
-	if err := dr.RegisterDetector(general.ImageRepoDetector{DockerImage: dockerImage}, common.Meta); err != nil {
+	if err := dr.RegisterAutoParam(image.GolangVersionDetector{}, common.Dockerfile); err != nil {
 		return nil, err
 	}
-	if err := dr.RegisterDetector(image.GolangVersionDetector{}, common.Dockerfile); err != nil {
-		return nil, err
-	}
-	if err := dr.RegisterDetector(platform.PackageNameDetector{}, common.Dockerfile); err != nil {
+	if err := dr.RegisterAutoParam(platform.PackageNameDetector{}, common.Dockerfile); err != nil {
 		return nil, err
 	}
 
-	if err := dr.RegisterDetector(general.DerrickDetector{}, common.KubernetesDeployment); err != nil {
+	if err := dr.RegisterAutoParam(general.DerrickDetector{}, common.KubernetesDeployment); err != nil {
 		return nil, err
 	}
 	return dr.GenerateReport(), nil

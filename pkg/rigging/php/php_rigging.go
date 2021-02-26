@@ -3,15 +3,21 @@ package php
 import (
 	"os"
 	"path/filepath"
+
+	"github.com/alibaba/derrick/pkg/rigging"
 )
 
-type PHPRigging struct {
+type phpRigging struct {
 }
 
-func (rig PHPRigging) Name() string {
+func NewRigging() rigging.Rigging {
+	return &phpRigging{}
+}
+
+func (rig *phpRigging) Name() string {
 	return "php"
 }
-func (rig PHPRigging) Detect(workspace string) bool {
+func (rig *phpRigging) Detect(workspace string) bool {
 	composer := filepath.Join(workspace, "composer.json")
 	if _, err := os.Stat(composer); err == nil {
 		return true
@@ -19,6 +25,6 @@ func (rig PHPRigging) Detect(workspace string) bool {
 	return false
 }
 
-func (rig PHPRigging) Compile(dockerImage string) (map[string]string, error) {
+func (rig *phpRigging) Compile() (map[string]string, error) {
 	return nil, nil
 }
