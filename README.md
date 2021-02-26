@@ -22,23 +22,12 @@ Using Derrick is very simple:
 ## Language Support
 
 Here is the list of frameworks passed the tests. If you want to support more languages and frameworks, please submit an issue.
-* Java (maven)
-  * SpringCloud
-  * SpringBoot
-* PHP (composer)
-  * Laravel
-  * Lumen
-  * ThinkPHP
-  * Symfony
-* PYTHON (pip or setup)
-  * flask
-  * Django
-* Golang (tools by vendor)
-  * Gin
-  * Beego
-* NodeJs (npm)
-  * Express
-  * Sails
+
+* Java
+* PHP
+* PYTHON
+* Golang
+* NodeJs
   
 ## Quick Start
 
