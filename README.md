@@ -94,6 +94,12 @@ Successfully generated: Dockerfile
 Successfully generated: derrick.conf
 ```
 
+- (Optional) You can also manually specify to use golang rigging:
+
+```shell
+$ derrick gen -r golang
+```
+
 ### Build NodeJS application
 
 ```shell
@@ -111,7 +117,6 @@ $ git clone git@github.com:zzxwill/java-maven-web-application.git
 $ cd java-maven-web-application
 $ derrick gen
 ```
-
 
 ## *License*
 

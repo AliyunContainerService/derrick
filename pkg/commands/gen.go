@@ -23,7 +23,7 @@ import (
 
 type genOption struct {
 	Path       string
-	Image      string
+	ChosenRig  string
 	TemplateFS embed.FS
 }
 
@@ -40,7 +40,8 @@ func NewGenCommand(templateFS embed.FS) *cobra.Command {
 		},
 	}
 	cmd.Flags().StringVarP(&o.Path, "path", "p", "", "Path of a project which is about to be detected")
-	cmd.Flags().StringVarP(&o.Image, "image", "i", "", "The image and its tag which will be built")
+	cmd.Flags().StringVarP(&o.ChosenRig, "rig", "r", "", "Manually pick a rigging to generate Dockerfile")
+
 	return cmd
 }
 
@@ -65,17 +66,23 @@ func (o *genOption) Run() error {
 		return err
 	}
 
-	suitableRiggings := detect(workspace)
+	var suitableRigging rigging.Rigging
+	if o.ChosenRig == "" {
+		suitableRiggings := detect(workspace)
 
-	if len(suitableRiggings) == 0 {
-		fmt.Println("Failed to detect your application's platform.\nMaybe you can upgrade Derrick to get more platforms supported.")
-		return nil
-	} else if len(suitableRiggings) > 1 {
-		// ask users to choose from one of them
-		fmt.Println("More than one rigging can handle the application: %v", printRiggingNames(suitableRiggings))
+		if len(suitableRiggings) == 0 {
+			fmt.Println("Failed to detect your application's platform.\nMaybe you can upgrade Derrick to get more platforms supported.")
+			return nil
+		} else if len(suitableRiggings) > 1 {
+			// ask users to choose from one of them
+			fmt.Println("More than one rigging can handle the application: %v", printRiggingNames(suitableRiggings))
+		}
+
+		suitableRigging = suitableRiggings[0]
+	} else {
+		suitableRigging = pickRigging(o.ChosenRig)
 	}
 
-	suitableRigging := suitableRiggings[0]
 	detectedParam, err := suitableRigging.Compile()
 	if err != nil {
 		return err
@@ -121,6 +128,17 @@ func detect(projectPath string) []rigging.Rigging {
 		suitableRiggings = append(suitableRiggings, rig)
 	}
 	return suitableRiggings
+}
+
+func pickRigging(name string) rigging.Rigging {
+	allRiggings := runtime.GetRiggings()
+	for _, rig := range allRiggings {
+		if rig.Name() != name {
+			continue
+		}
+		return rig
+	}
+	return nil
 }
 
 func renderTemplates(rig rigging.Rigging, detectedParam map[string]string, destDir string, templateFS embed.FS) error {
