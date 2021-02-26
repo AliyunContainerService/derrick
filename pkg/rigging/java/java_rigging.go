@@ -12,14 +12,15 @@ import (
 type JavaRigging struct {
 }
 
-const Platform = "Maven"
-
-func (rig JavaRigging) Detect(workspace string) (bool, string) {
+func (rig JavaRigging) Name() string {
+	return "java"
+}
+func (rig JavaRigging) Detect(workspace string) bool {
 	pom := filepath.Join(workspace, "pom.xml")
 	if _, err := os.Stat(pom); err == nil {
-		return true, Platform
+		return true
 	}
-	return false, ""
+	return false
 }
 
 func (rig JavaRigging) Compile(dockerImage string) (map[string]string, error) {

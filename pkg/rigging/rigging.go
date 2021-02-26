@@ -1,7 +1,6 @@
-package core
+package rigging
 
 import (
-	"github.com/alibaba/derrick/pkg/common"
 	"github.com/alibaba/derrick/pkg/rigging/golang"
 	"github.com/alibaba/derrick/pkg/rigging/java"
 	"github.com/alibaba/derrick/pkg/rigging/nodejs"
@@ -9,17 +8,27 @@ import (
 	"github.com/alibaba/derrick/pkg/rigging/python"
 )
 
-func LoadRiggings() []ExtensionPoint {
-	riggings := []common.Rigging{
+var storedRiggings []Rigging
+
+func GetAll() []Rigging {
+	return storedRiggings
+}
+
+func Load() {
+	storedRiggings = []Rigging{
 		golang.GolangRigging{},
 		java.JavaRigging{},
 		nodejs.NodeJSRigging{},
 		php.PHPRigging{},
 		python.PythonRigging{},
 	}
-	extensionPoints := make([]ExtensionPoint, len(riggings))
-	for i, rig := range riggings {
-		extensionPoints[i] = Register(rig)
-	}
-	return extensionPoints
+}
+
+type Rigging interface {
+	Name() string
+
+	// returns true if it matches, false if not.
+	Detect(workspace string) bool
+
+	Compile(dockerImage string) (map[string]string, error)
 }

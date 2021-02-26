@@ -10,17 +10,19 @@ import (
 	platform "github.com/alibaba/derrick/pkg/detectors/platform/golang"
 )
 
-const Platform = "NodeJS"
-
 type NodeJSRigging struct {
 }
 
-func (rig NodeJSRigging) Detect(workspace string) (bool, string) {
+func (rig NodeJSRigging) Name() string {
+	return "nodejs"
+}
+
+func (rig NodeJSRigging) Detect(workspace string) bool {
 	packageJSON := filepath.Join(workspace, "package.json")
 	if _, err := os.Stat(packageJSON); err == nil {
-		return true, Platform
+		return true
 	}
-	return false, ""
+	return false
 }
 
 func (rig NodeJSRigging) Compile(dockerImage string) (map[string]string, error) {

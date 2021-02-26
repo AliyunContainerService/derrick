@@ -18,16 +18,13 @@ Using Derrick is very simple:
 3. Use your favorite text editor to modify the Dockerfile or other manifests before building and shipping the containers.
 4. Integrate into your workflow and have fun.
 
+
 ## Language Support
 
-Java, Golang, NodeJs, Python, PHP.      
-
-## Framework and Build tool Support
-
-Here is the list of frameworks passed the tests.If you want more frameworks or can not dockerize application,please submit a issue.
+Here is the list of frameworks passed the tests. If you want to support more languages and frameworks, please submit an issue.
 * Java (maven)
-  * springcloud
-  * springboot
+  * SpringCloud
+  * SpringBoot
 * PHP (composer)
   * Laravel
   * Lumen
@@ -58,21 +55,34 @@ Verify it in command line:
 
 ```shell
 $ derrick -h
-🐳 A tool to help you containerize application in seconds
+🐳 A tool to help you containerize applications in seconds
 
 Usage:
   derrick [command]
 
 Available Commands:
+  gen         Inspect the application and generate Dockerfile
   help        Help about any command
-  init        Detect application's platform and compile the application
-  up          Build an image for your application
+  list        List all available riggings to inspect the applications
   version     Prints out build version information
 
 Flags:
   -h, --help   help for derrick
 
 Use "derrick [command] --help" for more information about a command.
+```
+
+### Show available riggings
+
+```shell
+$ derrick list
+
+Available riggings:
+	golang
+	java
+	nodejs
+	php
+	python
 ```
 
 ### Build golang application

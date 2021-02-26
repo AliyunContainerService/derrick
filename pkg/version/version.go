@@ -1,4 +1,4 @@
-package core
+package version
 
 // GitRevision is the commit of repo
 var GitRevision = "UNKNOWN"

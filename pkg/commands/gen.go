@@ -18,29 +18,28 @@ import (
 	"github.com/spf13/cobra"
 
 	"github.com/alibaba/derrick/pkg/common"
-	"github.com/alibaba/derrick/pkg/core"
+	"github.com/alibaba/derrick/pkg/rigging"
 )
 
 var projectPath, dockerImage string
 
-func Gen(templateFS embed.FS) *cobra.Command {
+func NewGenCommand(templateFS embed.FS) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:     "gen",
-		Short:   "Detect application's platform and generate Dockerfile",
+		Short:   "Inspect the application and generate Dockerfile",
 		Example: `derrick gen`,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			return execute(projectPath, dockerImage, templateFS)
 		},
 	}
-	cmd.Flags().StringP("debug", "d", "", "debug mod")
-	cmd.Flags().StringVarP(&projectPath, "project-path", "p", "", "Path of a project which is about to be detected")
+	cmd.Flags().StringVarP(&projectPath, "path", "p", "", "Path of a project which is about to be detected")
 	cmd.Flags().StringVarP(&dockerImage, "image", "i", "", "The image and its tag which will be built")
 	return cmd
 }
 
 type SuitableRiggings struct {
-	Platform       string
-	ExtensionPoint core.ExtensionPoint
+	Platform string
+	Rigging  rigging.Rigging
 }
 
 func execute(workspace, dockerImage string, templateFS embed.FS) error {
@@ -66,7 +65,7 @@ func execute(workspace, dockerImage string, templateFS embed.FS) error {
 	}
 
 	suitableRigging := suitableRiggings[0]
-	rig := suitableRigging.ExtensionPoint.Rigging
+	rig := suitableRigging.Rigging
 	detectedContext, err := rig.Compile(dockerImage)
 	if err != nil {
 		return err
@@ -88,25 +87,25 @@ func execute(workspace, dockerImage string, templateFS embed.FS) error {
 }
 
 func detect(projectPath string) []*SuitableRiggings {
-	allRigging := core.LoadRiggings()
+	allRigging := rigging.GetAll()
 	if projectPath == "" {
 		projectPath = "./"
 	}
 	var suitableRiggings []*SuitableRiggings
 	for _, rig := range allRigging {
-		success, platform := rig.Rigging.Detect(projectPath)
+		success := rig.Detect(projectPath)
 		if success {
 			suitableRiggings = append(suitableRiggings,
 				&SuitableRiggings{
-					Platform:       platform,
-					ExtensionPoint: core.ExtensionPoint{Rigging: rig.Rigging},
+					Platform: rig.Name(),
+					Rigging:  rig,
 				})
 		}
 	}
 	return suitableRiggings
 }
 
-func renderTemplates(rig common.Rigging, detectedContext map[string]string, destDir string, templateFS embed.FS) error {
+func renderTemplates(rig rigging.Rigging, detectedContext map[string]string, destDir string, templateFS embed.FS) error {
 	// TODO(zzxwill) PkgPath() returns something like: github.com/alibaba/derrick/pkg/rigging/golang
 	// Need to convert it to something like: static/rigging/golang/templates
 	pkgPath := strings.Join(strings.Split(reflect.TypeOf(rig).PkgPath(), "/")[4:], "/")

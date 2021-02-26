@@ -7,7 +7,7 @@ import (
 
 	"github.com/alibaba/derrick/pkg/commands"
 	"github.com/alibaba/derrick/pkg/common"
-	"github.com/alibaba/derrick/pkg/core"
+	"github.com/alibaba/derrick/pkg/rigging"
 )
 
 //go:embed static/rigging
@@ -19,8 +19,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	command := commands.New(templateFS)
-	if err := command.Execute(); err != nil {
+	if err := commands.Run(templateFS); err != nil {
 		fmt.Println(err)
 		os.Exit(1)
 	}
@@ -42,6 +41,6 @@ func load() error {
 		}
 	}
 
-	core.LoadRiggings()
+	rigging.Load()
 	return nil
 }

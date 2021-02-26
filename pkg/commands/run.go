@@ -7,25 +7,26 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/alibaba/derrick/pkg/core"
+	"github.com/alibaba/derrick/pkg/version"
 )
 
 // New will contain all commands
-func New(templateFS embed.FS) *cobra.Command {
+func Run(templateFS embed.FS) error {
 	// ioStream := util.IOStreams{In: os.Stdin, Out: os.Stdout, ErrOut: os.Stderr}
 
 	cmd := &cobra.Command{
 		Use:   "derrick",
-		Short: "🐳 A tool to help you containerize application in seconds",
-		Long:  "🐳 A tool to help you containerize application in seconds",
+		Short: "🐳 A tool to help you containerize applications in seconds",
+		Long:  "🐳 A tool to help you containerize applications in seconds",
 	}
 
 	cmd.AddCommand(
 		NewVersionCommand(),
-		Gen(templateFS),
+		NewListCommand(),
+		NewGenCommand(templateFS),
 		Up(),
 	)
-	return cmd
+	return cmd.Execute()
 }
 
 // NewVersionCommand print client version
@@ -39,8 +40,8 @@ func NewVersionCommand() *cobra.Command {
 GitRevision: %v
 GolangVersion: %v
 `,
-				core.Version,
-				core.GitRevision,
+				version.Version,
+				version.GitRevision,
 				runtime.Version())
 		},
 	}

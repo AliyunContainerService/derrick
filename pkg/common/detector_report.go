@@ -6,7 +6,7 @@ type DetectorReport struct {
 	Store map[string]string
 }
 
-func (dr *DetectorReport) RegisterDetector(d Detector, nodeName string) error {
+func (dr *DetectorReport) RegisterDetector(d AutoParam, nodeName string) error {
 	node := dr.getNode(nodeName)
 	if node.Store == nil {
 		node.Store = map[string]string{}

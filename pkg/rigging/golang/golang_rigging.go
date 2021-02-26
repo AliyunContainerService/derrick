@@ -12,14 +12,14 @@ import (
 	platform "github.com/alibaba/derrick/pkg/detectors/platform/golang"
 )
 
-const (
-	Platform = "Golang"
-)
-
 type GolangRigging struct {
 }
 
-func (rig GolangRigging) Detect(workspace string) (bool, string) {
+func (rig GolangRigging) Name() string {
+	return "golang"
+}
+
+func (rig GolangRigging) Detect(workspace string) bool {
 	var detected bool
 	err := filepath.Walk(workspace, func(workspace string, info os.FileInfo, err error) error {
 		if strings.HasSuffix(info.Name(), ".go") {
@@ -29,9 +29,9 @@ func (rig GolangRigging) Detect(workspace string) (bool, string) {
 		return nil
 	})
 	if err == io.EOF && detected {
-		return true, Platform
+		return true
 	}
-	return false, ""
+	return false
 }
 
 func (rig GolangRigging) Compile(dockerImage string) (map[string]string, error) {
@@ -50,16 +50,6 @@ func (rig GolangRigging) Compile(dockerImage string) (map[string]string, error) 
 		return nil, err
 	}
 
-	//if err := dr.RegisterDetector(general.ImageRepoDetector{}, Jenkinsfile); err != nil {
-	//	return nil, err
-	//}
-
-	//if err := dr.RegisterDetector(general.ImageRepoDetector{}, common.DockerCompose); err != nil {
-	//	return nil, err
-	//}
-	//if err := dr.RegisterDetector(general.ImageRepoDetector{}, common.KubernetesDeployment); err != nil {
-	//	return nil, err
-	//}
 	if err := dr.RegisterDetector(general.DerrickDetector{}, common.KubernetesDeployment); err != nil {
 		return nil, err
 	}
