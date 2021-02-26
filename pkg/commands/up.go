@@ -16,6 +16,7 @@ var deployToKubernetes bool
 
 func Up() *cobra.Command {
 	cmd := &cobra.Command{
+		Hidden:  true,
 		Use:     "up",
 		Short:   "Build an image for your application",
 		Long:    "Build an image for your application",
@@ -31,11 +32,11 @@ func Up() *cobra.Command {
 
 func build(workspace string) error {
 	if !common.CheckDerrickInitStep(workspace) {
-		fmt.Println("Your application hasn't been initialized, please run `derrick init` first.")
+		fmt.Println("Your application hasn't been initialized, please run `derrick gen` first.")
 		os.Exit(1)
 	}
 	if !common.CheckDockerFileExisted(workspace) {
-		fmt.Println("Dockerfile doesn't exist. Please rerun `derrick init`.")
+		fmt.Println("Dockerfile doesn't exist. Please rerun `derrick gen`.")
 	}
 	if err := engine.BuildImage(workspace); err != nil {
 		return err

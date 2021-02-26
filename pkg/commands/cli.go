@@ -22,7 +22,7 @@ func New(templateFS embed.FS) *cobra.Command {
 
 	cmd.AddCommand(
 		NewVersionCommand(),
-		Init(templateFS),
+		Gen(templateFS),
 		Up(),
 	)
 	return cmd

@@ -22,6 +22,4 @@ func LoadRiggings() []ExtensionPoint {
 		extensionPoints[i] = Register(rig)
 	}
 	return extensionPoints
-
-	//TODO(zzxwill) Load developer's custom rigging
 }

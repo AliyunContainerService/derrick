@@ -23,11 +23,11 @@ import (
 
 var projectPath, dockerImage string
 
-func Init(templateFS embed.FS) *cobra.Command {
+func Gen(templateFS embed.FS) *cobra.Command {
 	cmd := &cobra.Command{
-		Use:     "init",
+		Use:     "gen",
 		Short:   "Detect application's platform and generate Dockerfile",
-		Example: `derrick init`,
+		Example: `derrick gen`,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			return execute(projectPath, dockerImage, templateFS)
 		},

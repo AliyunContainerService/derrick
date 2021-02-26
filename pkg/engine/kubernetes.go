@@ -14,7 +14,7 @@ func BuildImage(workspace string) error {
 	}
 	dockerImage := buildContext.ImageWithTag
 	if dockerImage == "" {
-		return fmt.Errorf("could not find the imaage you set before, please run `derrick init` again")
+		return fmt.Errorf("could not find the imaage you set before, please run `derrick gen` again")
 	}
 	cmd := exec.Command("bash", "-c", fmt.Sprintf("docker build -t %s .", dockerImage))
 	if err := common.RealtimePrintCommandOutput(cmd, ""); err != nil {
@@ -32,7 +32,7 @@ func DeployToKubernetes(workspace string) error {
 	}
 	dockerImage := buildContext.ImageWithTag
 	if dockerImage == "" {
-		return fmt.Errorf("could not find the imaage you set before, please run `derrick init` again")
+		return fmt.Errorf("could not find the imaage you set before, please run `derrick gen` again")
 	}
 
 	cmd := exec.Command("bash", "-c", fmt.Sprintf("docker push %s", buildContext.ImageWithTag))

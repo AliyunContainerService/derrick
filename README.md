@@ -89,7 +89,7 @@ $ cd golang-web-application
 - Compile the application
 
 ```shell
-$ derrick init
+$ derrick gen
 ? Please input image name with tag (such as "registry.com/user/repo:tag"):  zzxwill/golang-web-application:latest
 Successfully detected your platform is Golang and compiled it successfully.
 ```
@@ -143,7 +143,7 @@ $ git clone git@github.com:zzxwill/nodejs-web-application.git
 
 $ cd nodejs-web-application
 
-$ derrick init
+$ derrick gen
 ? Please input image name with tag (such as "registry.com/user/repo:tag"):  zzxwill/nodejs-web-application:latest
 Successfully detected your platform is NodeJS and compiled it successfully.
 
@@ -178,7 +178,7 @@ Clone a Java application, and build it.
 ```shell
 $ git clone git@github.com:zzxwill/java-maven-web-application.git
 $ cd java-maven-web-application
-$ derrick init
+$ derrick gen
   ? Please input image name with tag (such as "registry.com/user/repo:tag"):  zzxwill/java-maven-web-application:latest
   Successfully detected your platform is Maven and compiled it successfully.
 $ derrick up -k
