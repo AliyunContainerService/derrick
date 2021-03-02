@@ -1,22 +1,18 @@
-# start with the official Composer image and name it
-FROM composer:1.5.2 AS build
+FROM composer:1.9.3 as vendor
 
-ENV COMPOSER_ALLOW_SUPERUSER 1
+WORKDIR /tmp/
 
-ADD . /app
-WORKDIR /app
+COPY composer.json composer.json
+COPY composer.lock composer.lock
 
-RUN composer install
+RUN composer install \
+    --ignore-platform-reqs \
+    --no-interaction \
+    --no-plugins \
+    --no-scripts \
+    --prefer-dist
 
+FROM php:7.2-apache-stretch
 
-# Use apache alpine version to serve
-FROM php:{{ .Version }}-apache-jessie
-
-WORKDIR /var/www/html/
-
-
-COPY . /var/www/html/app
-
-RUN chown -R www-data:www-data /var/www/html/app
-
-COPY --from=build /app/vendor  /var/www/html/app/vendor
+COPY . /var/www/html
+COPY --from=vendor /tmp/vendor/ /var/www/html/vendor/
