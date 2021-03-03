@@ -18,6 +18,12 @@ Using Derrick is very simple:
 3. Use your favorite text editor to modify the Dockerfile or other manifests before building and shipping the containers.
 4. Integrate into your workflow and have fun.
 
+## Architecture
+
+Derrick has basically the following processing layers:
+
+- **Rigging**: It bundles language specific logic into a package and hooks into derrick's lifecycle to detect the codebase and generate the Dockerfile.
+- **AutoParam**: This is called and reused by Riggings to detect dev environment and fill template with detected parameters like Go version, package name, etc.
 
 ## Language Support
 
