@@ -1,14 +1,17 @@
 package engine
 
 import (
+	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"os/exec"
+	"path/filepath"
 
 	"github.com/alibaba/derrick/pkg/common"
 )
 
 func BuildImage(workspace string) error {
-	buildContext, err := common.GetBuildContext(workspace)
+	buildContext, err := GetBuildContext(workspace)
 	if err != nil {
 		return err
 	}
@@ -26,7 +29,7 @@ func BuildImage(workspace string) error {
 }
 
 func DeployToKubernetes(workspace string) error {
-	buildContext, err := common.GetBuildContext(workspace)
+	buildContext, err := GetBuildContext(workspace)
 	if err != nil {
 		return err
 	}
@@ -46,4 +49,16 @@ func DeployToKubernetes(workspace string) error {
 	}
 	fmt.Println("Your application has been built and deployed to your Kubernetes cluster! You can run `kubectl get svc` to get exposed ports.")
 	return nil
+}
+
+func GetBuildContext(workspace string) (*common.TemplateRenderContext, error) {
+	var ctx common.TemplateRenderContext
+	data, err := ioutil.ReadFile(filepath.Join(workspace, common.DerrickConf))
+	if err != nil {
+		return nil, err
+	}
+	if err := json.Unmarshal(data, &ctx); err != nil {
+		return nil, err
+	}
+	return &ctx, nil
 }

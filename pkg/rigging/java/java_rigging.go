@@ -30,7 +30,6 @@ func (rig *javaRigging) Detect(workspace string) bool {
 
 func (rig *javaRigging) Compile() (map[string]string, error) {
 	dr := &common.ParamReport{
-		Nodes: map[string]common.ParamReport{},
 		Store: map[string]string{},
 	}
 	if err := dr.RegisterAutoParam(image.JavaVersionDetector{}, common.Dockerfile); err != nil {

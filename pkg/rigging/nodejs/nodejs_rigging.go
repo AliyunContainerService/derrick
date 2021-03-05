@@ -32,7 +32,6 @@ func (rig *nodeJSRigging) Detect(workspace string) bool {
 
 func (rig *nodeJSRigging) Compile() (map[string]string, error) {
 	dr := &common.ParamReport{
-		Nodes: map[string]common.ParamReport{},
 		Store: map[string]string{},
 	}
 	if err := dr.RegisterAutoParam(image.NodeJSVersionDetector{}, common.Dockerfile); err != nil {

@@ -106,21 +106,21 @@ Successfully generated: derrick.conf
 $ derrick gen -r golang
 ```
 
-### Build NodeJS application
-
-```shell
-$ git clone git@github.com:zzxwill/nodejs-web-application.git
-$ cd nodejs-web-application
-$ derrick gen
-```
-
 ### Build Java application
 
 Clone a Java application, and build it.
 
 ```shell
-$ git clone git@github.com:zzxwill/java-maven-web-application.git
-$ cd java-maven-web-application
+$ git clone https://github.com/hongchaodeng/simple-java-maven-app.git
+$ cd simple-java-maven-app
+$ derrick gen
+```
+
+### Build NodeJS application
+
+```shell
+$ git clone git@github.com:zzxwill/nodejs-web-application.git
+$ cd nodejs-web-application
 $ derrick gen
 ```
 

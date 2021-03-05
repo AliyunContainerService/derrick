@@ -41,7 +41,6 @@ func (rig *golangRigging) Detect(workspace string) bool {
 
 func (rig *golangRigging) Compile() (map[string]string, error) {
 	dr := &common.ParamReport{
-		Nodes: map[string]common.ParamReport{},
 		Store: map[string]string{},
 	}
 

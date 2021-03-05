@@ -4,6 +4,13 @@ type AutoParam interface {
 	Execute() (map[string]string, error)
 	Name() string
 }
+type TemplateRenderContext struct {
+	ImageWithTag   string
+	Version        string
+	ProjectFolder  string
+	DerrickVersion string
+	ProjectName    string
+}
 
 const (
 	ImageWithTag   string = "ImageWithTag"
