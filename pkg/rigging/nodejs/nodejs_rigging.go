@@ -34,13 +34,13 @@ func (rig *nodeJSRigging) Compile() (map[string]string, error) {
 	dr := &common.ParamReport{
 		Store: map[string]string{},
 	}
-	if err := dr.RegisterAutoParam(image.NodeJSVersionDetector{}, common.Dockerfile); err != nil {
+	if err := dr.RegisterAutoParam(image.NodeJSVersionDetector{}); err != nil {
 		return nil, err
 	}
-	if err := dr.RegisterAutoParam(platform.PackageNameDetector{}, common.Dockerfile); err != nil {
+	if err := dr.RegisterAutoParam(platform.PackageNameDetector{}); err != nil {
 		return nil, err
 	}
-	if err := dr.RegisterAutoParam(general.DerrickDetector{}, common.KubernetesDeployment); err != nil {
+	if err := dr.RegisterAutoParam(general.DerrickDetector{}); err != nil {
 		return nil, err
 	}
 	return dr.GenerateReport(), nil

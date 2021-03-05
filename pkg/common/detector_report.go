@@ -4,7 +4,7 @@ type ParamReport struct {
 	Store map[string]string
 }
 
-func (dr *ParamReport) RegisterAutoParam(d AutoParam, nodeName string) error {
+func (dr *ParamReport) RegisterAutoParam(d AutoParam) error {
 	result, err := d.Execute()
 	if err != nil {
 		return err

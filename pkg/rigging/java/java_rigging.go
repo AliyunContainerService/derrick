@@ -32,10 +32,10 @@ func (rig *javaRigging) Compile() (map[string]string, error) {
 	dr := &common.ParamReport{
 		Store: map[string]string{},
 	}
-	if err := dr.RegisterAutoParam(image.JavaVersionDetector{}, common.Dockerfile); err != nil {
+	if err := dr.RegisterAutoParam(image.JavaVersionDetector{}); err != nil {
 		return nil, err
 	}
-	if err := dr.RegisterAutoParam(general.DerrickDetector{}, common.KubernetesDeployment); err != nil {
+	if err := dr.RegisterAutoParam(general.DerrickDetector{}); err != nil {
 		return nil, err
 	}
 	return dr.GenerateReport(), nil
