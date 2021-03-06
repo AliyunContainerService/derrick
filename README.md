@@ -114,7 +114,38 @@ Clone a Java application, and build it.
 $ git clone https://github.com/hongchaodeng/simple-java-maven-app.git
 $ cd simple-java-maven-app
 $ derrick gen
+Successfully detected your platform is 'java'
+Successfully generated: Dockerfile
+Successfully generated: derrick.conf
+
+$ cat Dockerfile
+# First stage: build environment
+FROM maven:3.5.0-jdk-8-alpine AS builder
+
+# To resolve dependencies first without re-download everytime
+ADD ./pom.xml pom.xml
+# By default mvn use '~/.m2' which could be cleaned up, change to use './.m2'
+RUN mvn install -Dmaven.repo.local=./.m2
+
+ADD ./src src/
+# package jar
+RUN mvn install -Dmaven.test.skip=true -Dmaven.repo.local=./.m2
+
+# Second stage: runtime environment
+From openjdk:8
+
+# copy jar from the first stage
+COPY --from=builder target/my-app-1.0-SNAPSHOT.jar my-app-1.0-SNAPSHOT.jar
+
+CMD ["java", "-jar", "my-app-1.0-SNAPSHOT.jar"]
 ```
+
+We can see the Dockerfile that:
+
+- It separates build and runtime stages.
+  It uses `openjdk` which is the popular and standard base for runtime environment.
+- It has optimized caching of dependencies.
+- It automatically parses artifact name from `pom.xml` .
 
 ### Build NodeJS application
 
