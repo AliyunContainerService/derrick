@@ -1,15 +1,12 @@
-package common
+package template
 
-type AutoParam interface {
-	Execute() (map[string]string, error)
-	Name() string
-}
-type TemplateRenderContext struct {
+type TemplateContext struct {
 	ImageWithTag   string
 	Version        string
 	ProjectFolder  string
 	DerrickVersion string
 	ProjectName    string
+	ArtifactName   string
 }
 
 const (
@@ -18,4 +15,5 @@ const (
 	ProjectFolder  string = "ProjectFolder"
 	DerrickVersion string = "DerrickVersion"
 	ProjectName    string = "ProjectName"
+	ArtifactName   string = "ArtifactName"
 )

@@ -19,6 +19,7 @@ import (
 	"github.com/alibaba/derrick/pkg/common"
 	"github.com/alibaba/derrick/pkg/rigging"
 	"github.com/alibaba/derrick/pkg/runtime"
+	template2 "github.com/alibaba/derrick/pkg/template"
 )
 
 type genOption struct {
@@ -176,7 +177,7 @@ func renderTemplates(rig rigging.Rigging, detectedParam map[string]string, destD
 }
 
 func renderTemplate(templateDir, templateFile string, detectedParam map[string]string, templateFS embed.FS) (string, error) {
-	var tctx common.TemplateRenderContext
+	var tctx template2.TemplateContext
 	if err := mapstructure.Decode(detectedParam, &tctx); err != nil {
 		return "", err
 	}

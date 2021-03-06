@@ -6,7 +6,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/alibaba/derrick/pkg/common"
+	"github.com/alibaba/derrick/pkg/detectors"
 	"github.com/alibaba/derrick/pkg/detectors/general"
 	image "github.com/alibaba/derrick/pkg/detectors/image/golang"
 	platform "github.com/alibaba/derrick/pkg/detectors/platform/golang"
@@ -40,7 +40,7 @@ func (rig *golangRigging) Detect(workspace string) bool {
 }
 
 func (rig *golangRigging) Compile() (map[string]string, error) {
-	dr := &common.ParamReport{
+	dr := &detectors.ParamReport{
 		Store: map[string]string{},
 	}
 

@@ -1,4 +1,4 @@
-package common
+package detectors
 
 type ParamReport struct {
 	Store map[string]string

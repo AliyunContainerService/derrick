@@ -6,7 +6,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/alibaba/derrick/pkg/common"
+	"github.com/alibaba/derrick/pkg/template"
 )
 
 const SrcTag = "/src/"
@@ -27,7 +27,7 @@ func (detector PackageNameDetector) Execute() (map[string]string, error) {
 	if len(result) == 0 {
 		return nil, fmt.Errorf("the source code is not in GOPATH")
 	}
-	return map[string]string{common.ProjectFolder: strings.ReplaceAll(result[0], SrcTag, "")}, nil
+	return map[string]string{template.ProjectFolder: strings.ReplaceAll(result[0], SrcTag, "")}, nil
 }
 
 func (detector PackageNameDetector) Name() string {

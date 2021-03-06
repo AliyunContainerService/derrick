@@ -6,7 +6,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/alibaba/derrick/pkg/common"
+	"github.com/alibaba/derrick/pkg/template"
 )
 
 const (
@@ -28,7 +28,7 @@ func (detector JavaVersionDetector) Execute() (map[string]string, error) {
 		return nil, err
 	}
 	matched := re.Find(output)
-	version := common.Version
+	version := template.Version
 	if matched == nil {
 		return map[string]string{version: DefaultVersion}, nil
 	}

@@ -4,7 +4,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/alibaba/derrick/pkg/common"
+	"github.com/alibaba/derrick/pkg/detectors"
 	"github.com/alibaba/derrick/pkg/detectors/general"
 	image "github.com/alibaba/derrick/pkg/detectors/image/nodejs"
 	platform "github.com/alibaba/derrick/pkg/detectors/platform/golang"
@@ -31,7 +31,7 @@ func (rig *nodeJSRigging) Detect(workspace string) bool {
 }
 
 func (rig *nodeJSRigging) Compile() (map[string]string, error) {
-	dr := &common.ParamReport{
+	dr := &detectors.ParamReport{
 		Store: map[string]string{},
 	}
 	if err := dr.RegisterAutoParam(image.NodeJSVersionDetector{}); err != nil {

@@ -5,7 +5,7 @@ import (
 
 	"github.com/AlecAivazis/survey/v2"
 
-	"github.com/alibaba/derrick/pkg/common"
+	"github.com/alibaba/derrick/pkg/template"
 )
 
 type ImageRepoDetector struct {
@@ -24,7 +24,7 @@ func (detector ImageRepoDetector) Execute() (map[string]string, error) {
 		}
 	}
 	result := map[string]string{
-		common.ImageWithTag: image,
+		template.ImageWithTag: image,
 	}
 	return result, nil
 }

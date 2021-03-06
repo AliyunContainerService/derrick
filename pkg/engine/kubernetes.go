@@ -8,6 +8,7 @@ import (
 	"path/filepath"
 
 	"github.com/alibaba/derrick/pkg/common"
+	"github.com/alibaba/derrick/pkg/template"
 )
 
 func BuildImage(workspace string) error {
@@ -51,8 +52,8 @@ func DeployToKubernetes(workspace string) error {
 	return nil
 }
 
-func GetBuildContext(workspace string) (*common.TemplateRenderContext, error) {
-	var ctx common.TemplateRenderContext
+func GetBuildContext(workspace string) (*template.TemplateContext, error) {
+	var ctx template.TemplateContext
 	data, err := ioutil.ReadFile(filepath.Join(workspace, common.DerrickConf))
 	if err != nil {
 		return nil, err

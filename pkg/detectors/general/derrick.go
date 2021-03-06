@@ -3,7 +3,7 @@ package general
 import (
 	"path/filepath"
 
-	"github.com/alibaba/derrick/pkg/common"
+	"github.com/alibaba/derrick/pkg/template"
 	"github.com/alibaba/derrick/pkg/version"
 )
 
@@ -28,8 +28,8 @@ func (detector DerrickDetector) Execute() (map[string]string, error) {
 		projectName = base
 	}
 	return map[string]string{
-		common.DerrickVersion: version.Version,
-		common.ProjectName:    projectName,
+		template.DerrickVersion: version.Version,
+		template.ProjectName:    projectName,
 	}, nil
 
 }
