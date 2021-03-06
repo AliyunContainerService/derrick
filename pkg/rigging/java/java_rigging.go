@@ -6,7 +6,6 @@ import (
 
 	"github.com/alibaba/derrick/pkg/common"
 	"github.com/alibaba/derrick/pkg/detectors/general"
-	image "github.com/alibaba/derrick/pkg/detectors/image/java"
 	"github.com/alibaba/derrick/pkg/rigging"
 )
 
@@ -31,9 +30,6 @@ func (rig *javaRigging) Detect(workspace string) bool {
 func (rig *javaRigging) Compile() (map[string]string, error) {
 	dr := &common.ParamReport{
 		Store: map[string]string{},
-	}
-	if err := dr.RegisterAutoParam(image.JavaVersionDetector{}); err != nil {
-		return nil, err
 	}
 	if err := dr.RegisterAutoParam(general.DerrickDetector{}); err != nil {
 		return nil, err
