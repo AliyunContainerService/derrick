@@ -190,7 +190,11 @@ spec:
         livenessProbe:
           tcpSocket:
             port: 8080
-          ...
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          timeoutSeconds: 2
+          failureThreshold: 1
+          successThreshold: 1
         readinessProbe:
           ...
         env:
