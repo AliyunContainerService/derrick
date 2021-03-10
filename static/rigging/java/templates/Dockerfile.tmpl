@@ -16,4 +16,10 @@ From openjdk:8
 # copy jar from the first stage
 COPY --from=builder target/{{ .ArtifactName }}.jar {{ .ArtifactName }}.jar
 
-CMD ["java", "-jar", "{{ .ArtifactName }}.jar"]
+# MY_CPU_LIMIT could be imported via downward API automatically in Kubernetes Deployment.
+CMD ["java", \
+  "-XX:InitialRAMPercentage=75", \
+  "-XX:MaxRAMPercentage=75", \
+  "-XX:MinRAMPercentage=25", \
+  "-XX:ActiveProcessorCount=$MY_CPU_LIMIT:", \
+  "-jar", "{{ .ArtifactName }}.jar"]

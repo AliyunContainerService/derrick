@@ -117,7 +117,11 @@ $ derrick gen
 Successfully detected your platform is 'java'
 Successfully generated: Dockerfile
 Successfully generated: derrick.conf
+```
 
+Check the Dockerfile:
+
+```shell
 $ cat Dockerfile
 # First stage: build environment
 FROM maven:3.5.0-jdk-8-alpine AS builder
@@ -137,7 +141,13 @@ From openjdk:8
 # copy jar from the first stage
 COPY --from=builder target/my-app-1.0-SNAPSHOT.jar my-app-1.0-SNAPSHOT.jar
 
-CMD ["java", "-jar", "my-app-1.0-SNAPSHOT.jar"]
+# MY_CPU_LIMIT could be imported via downward API automatically in Kubernetes Deployment.
+CMD ["java", \
+  "-XX:InitialRAMPercentage=75", \
+  "-XX:MaxRAMPercentage=75", \
+  "-XX:MinRAMPercentage=25", \
+  "-XX:ActiveProcessorCount=$MY_CPU_LIMIT:", \
+  "-jar", "my-app-1.0-SNAPSHOT.jar"]
 ```
 
 We can see the Dockerfile that:
@@ -146,6 +156,7 @@ We can see the Dockerfile that:
   It uses `openjdk` which is the popular and standard base for runtime environment.
 - It has optimized caching of dependencies.
 - It automatically parses artifact name from `pom.xml` .
+- It 
 
 ### Build NodeJS application
 
