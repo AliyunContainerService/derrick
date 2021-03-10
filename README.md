@@ -146,7 +146,7 @@ CMD ["java", \
   "-XX:InitialRAMPercentage=75", \
   "-XX:MaxRAMPercentage=75", \
   "-XX:MinRAMPercentage=25", \
-  "-XX:ActiveProcessorCount=$MY_CPU_LIMIT:", \
+  "-XX:ActiveProcessorCount=$MY_CPU_LIMIT", \
   "-jar", "my-app-1.0-SNAPSHOT.jar"]
 ```
 
