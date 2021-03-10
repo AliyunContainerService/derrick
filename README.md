@@ -184,7 +184,21 @@ spec:
             memory: 1500M
           limits:
             cpu: 2
-            memory: 1500M
+            memory: 1500M        
+        ports:
+        - containerPort: 8080
+        livenessProbe:
+          tcpSocket:
+            port: 8080
+          ...
+        readinessProbe:
+          ...
+        env:
+        - name: MY_CPU_LIMIT
+          valueFrom:
+            resourceFieldRef:
+              containerName: java-app
+              resource: limits.cpu
         ...
 ```
 

@@ -23,6 +23,24 @@ spec:
           limits:
             cpu: 2
             memory: 1500M
+        ports:
+        - containerPort: 8080
+        readinessProbe:
+          tcpSocket:
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          timeoutSeconds: 2
+          failureThreshold: 1
+          successThreshold: 1
+        livenessProbe:
+          tcpSocket:
+            port: 8080
+          initialDelaySeconds: 15
+          periodSeconds: 20
+          timeoutSeconds: 2
+          failureThreshold: 1
+          successThreshold: 1
         env:
         - name: MY_CPU_REQUEST
           valueFrom:
