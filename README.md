@@ -156,7 +156,39 @@ We can see the Dockerfile that:
   It uses `openjdk` which is the popular and standard base for runtime environment.
 - It has optimized caching of dependencies.
 - It automatically parses artifact name from `pom.xml` .
-- It 
+
+Check Kubernetes Deployment yaml:
+
+```shell
+$ cat Deployment.yaml
+kind: Deployment
+metadata:
+  name: simple-java-maven-app
+  labels:
+    app: simple-java-maven-app
+spec:
+  selector:
+    matchLabels:
+      app: simple-java-maven-app
+  template:
+    metadata:
+      labels:
+        app: simple-java-maven-app
+    spec:
+      containers:
+      - name: java-app
+        image: <your-image-name>
+        resources:
+          requests:
+            cpu: 1
+            memory: 1500M
+          limits:
+            cpu: 2
+            memory: 1500M
+        ...
+```
+
+Note that the image name field needs to be filled with the image you build.
 
 ### Build NodeJS application
 
