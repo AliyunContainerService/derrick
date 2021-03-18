@@ -9,11 +9,9 @@ import (
 )
 
 const (
-	GOLANG_1_13 = "1.13"
-	GOLANG_1_14 = "1.14"
 	GOLANG_1_15 = "1.15"
 
-	DEFAULT_VERSION = GOLANG_1_14
+	DEFAULT_VERSION = GOLANG_1_15
 )
 
 type GolangVersionDetector struct {

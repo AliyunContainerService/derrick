@@ -1,4 +1,4 @@
-package general
+package java
 
 import (
 	"encoding/xml"

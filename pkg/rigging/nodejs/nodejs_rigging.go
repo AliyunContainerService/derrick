@@ -4,10 +4,10 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/alibaba/derrick/pkg/detectors"
-	"github.com/alibaba/derrick/pkg/detectors/general"
-	image "github.com/alibaba/derrick/pkg/detectors/image/nodejs"
-	platform "github.com/alibaba/derrick/pkg/detectors/platform/golang"
+	"github.com/alibaba/derrick/pkg/autoparam"
+	"github.com/alibaba/derrick/pkg/autoparam/general"
+	image "github.com/alibaba/derrick/pkg/autoparam/image/nodejs"
+	platform "github.com/alibaba/derrick/pkg/autoparam/platform/golang"
 	"github.com/alibaba/derrick/pkg/rigging"
 )
 
@@ -31,17 +31,15 @@ func (rig *nodeJSRigging) Detect(workspace string) bool {
 }
 
 func (rig *nodeJSRigging) Compile() (map[string]string, error) {
-	dr := &detectors.ParamReport{
-		Store: map[string]string{},
-	}
-	if err := dr.RegisterAutoParam(image.NodeJSVersionDetector{}); err != nil {
+	dr := autoparam.NewParamReport()
+	if err := dr.AddAutoParam(image.NodeJSVersionDetector{}); err != nil {
 		return nil, err
 	}
-	if err := dr.RegisterAutoParam(platform.PackageNameDetector{}); err != nil {
+	if err := dr.AddAutoParam(platform.PackageNameDetector{}); err != nil {
 		return nil, err
 	}
-	if err := dr.RegisterAutoParam(general.DerrickDetector{}); err != nil {
+	if err := dr.AddAutoParam(general.DerrickDetector{}); err != nil {
 		return nil, err
 	}
-	return dr.GenerateReport(), nil
+	return dr.TemplateData(), nil
 }

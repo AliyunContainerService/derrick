@@ -4,8 +4,9 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/alibaba/derrick/pkg/detectors"
-	"github.com/alibaba/derrick/pkg/detectors/general"
+	"github.com/alibaba/derrick/pkg/autoparam"
+	"github.com/alibaba/derrick/pkg/autoparam/general"
+	"github.com/alibaba/derrick/pkg/autoparam/java"
 	"github.com/alibaba/derrick/pkg/rigging"
 )
 
@@ -28,14 +29,15 @@ func (rig *javaRigging) Detect(workspace string) bool {
 }
 
 func (rig *javaRigging) Compile() (map[string]string, error) {
-	dr := &detectors.ParamReport{
-		Store: map[string]string{},
-	}
-	if err := dr.RegisterAutoParam(&general.MvnArtifactAutoParam{}); err != nil {
+	dr := autoparam.NewParamReport()
+	if err := dr.AddAutoParam(&java.ToolOptionsAutoParam{}); err != nil {
 		return nil, err
 	}
-	if err := dr.RegisterAutoParam(general.DerrickDetector{}); err != nil {
+	if err := dr.AddAutoParam(&java.MvnArtifactAutoParam{}); err != nil {
 		return nil, err
 	}
-	return dr.GenerateReport(), nil
+	if err := dr.AddAutoParam(general.DerrickDetector{}); err != nil {
+		return nil, err
+	}
+	return dr.TemplateData(), nil
 }

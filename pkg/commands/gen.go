@@ -19,7 +19,7 @@ import (
 	"github.com/alibaba/derrick/pkg/common"
 	"github.com/alibaba/derrick/pkg/rigging"
 	"github.com/alibaba/derrick/pkg/runtime"
-	template2 "github.com/alibaba/derrick/pkg/template"
+	pkgtemplate "github.com/alibaba/derrick/pkg/template"
 )
 
 type genOption struct {
@@ -84,18 +84,18 @@ func (o *genOption) Run() error {
 		suitableRigging = pickRigging(o.ChosenRig)
 	}
 
-	detectedParam, err := suitableRigging.Compile()
+	templateData, err := suitableRigging.Compile()
 	if err != nil {
 		return err
 	}
 
 	fmt.Printf("Successfully detected your platform is '%s'\n", suitableRigging.Name())
-	if err := renderTemplates(suitableRigging, detectedParam, workspace, o.TemplateFS); err != nil {
+	if err := renderTemplates(suitableRigging, templateData, workspace, o.TemplateFS); err != nil {
 		return err
 	}
 
 	// write configuration context to a file located in the application folder
-	data, err := json.Marshal(detectedParam)
+	data, err := json.Marshal(templateData)
 	if err != nil {
 		return err
 	}
@@ -142,7 +142,7 @@ func pickRigging(name string) rigging.Rigging {
 	return nil
 }
 
-func renderTemplates(rig rigging.Rigging, detectedParam map[string]string, destDir string, templateFS embed.FS) error {
+func renderTemplates(rig rigging.Rigging, templateData map[string]string, destDir string, templateFS embed.FS) error {
 	templateDir := filepath.Join("static", "rigging", rig.Name(), "templates")
 	var templates []string
 	err := fs.WalkDir(templateFS, templateDir, func(path string, d fs.DirEntry, err error) error {
@@ -159,7 +159,7 @@ func renderTemplates(rig rigging.Rigging, detectedParam map[string]string, destD
 		return err
 	}
 	for _, t := range templates {
-		renderedTemplate, err := renderTemplate(templateDir, t, detectedParam, templateFS)
+		renderedTemplate, err := renderTemplate(templateDir, t, templateData, templateFS)
 		if err != nil {
 			return err
 		}
@@ -176,9 +176,9 @@ func renderTemplates(rig rigging.Rigging, detectedParam map[string]string, destD
 	return nil
 }
 
-func renderTemplate(templateDir, templateFile string, detectedParam map[string]string, templateFS embed.FS) (string, error) {
-	var tctx template2.TemplateContext
-	if err := mapstructure.Decode(detectedParam, &tctx); err != nil {
+func renderTemplate(templateDir, templateFile string, templateData map[string]string, templateFS embed.FS) (string, error) {
+	var tctx pkgtemplate.TemplateContext
+	if err := mapstructure.Decode(templateData, &tctx); err != nil {
 		return "", err
 	}
 	f, err := templateFS.Open(filepath.Join(templateDir, templateFile))

@@ -42,10 +42,13 @@ spec:
           failureThreshold: 1
           successThreshold: 1
         env:
+        {{- if .JavaToolOptions}}
+        - name: JAVA_TOOL_OPTIONS
+          value: "{{.JavaToolOptions}}"{{end}}
         - name: MY_CPU_REQUEST
           valueFrom:
             resourceFieldRef:
-              containerName: test-container
+              containerName: java-app
               resource: requests.cpu
         - name: MY_CPU_LIMIT
           valueFrom:
@@ -55,10 +58,10 @@ spec:
         - name: MY_MEM_REQUEST
           valueFrom:
             resourceFieldRef:
-              containerName: test-container
+              containerName: java-app
               resource: requests.memory
         - name: MY_MEM_LIMIT
           valueFrom:
             resourceFieldRef:
-              containerName: test-container
+              containerName: java-app
               resource: limits.memory
