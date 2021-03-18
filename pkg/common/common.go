@@ -26,7 +26,7 @@ Derrick is a scaffold tool to migrate applications
 You can use Derrick to migrate your project simply.
 ===================================================
 `
-	DerrickConf = "derrick.conf"
+	DerrickConf = "derrick.json"
 )
 
 const (

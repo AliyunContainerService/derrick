@@ -40,13 +40,12 @@ func NewGenCommand(templateFS embed.FS) *cobra.Command {
 			return o.Run()
 		},
 	}
-	cmd.Flags().StringVarP(&o.Path, "path", "p", "", "Path of a project which is about to be detected")
 	cmd.Flags().StringVarP(&o.ChosenRig, "rig", "r", "", "Manually pick a rigging to generate Dockerfile")
 
 	return cmd
 }
 
-func (o *genOption) checkWorkspace() (string, error) {
+func (o *genOption) getWorkspace() (string, error) {
 	workspace := o.Path
 	if workspace == "" {
 		wd, err := os.Getwd()
@@ -62,7 +61,7 @@ func (o *genOption) checkWorkspace() (string, error) {
 }
 
 func (o *genOption) Run() error {
-	workspace, err := o.checkWorkspace()
+	workspace, err := o.getWorkspace()
 	if err != nil {
 		return err
 	}
@@ -95,7 +94,7 @@ func (o *genOption) Run() error {
 	}
 
 	// write configuration context to a file located in the application folder
-	data, err := json.Marshal(templateData)
+	data, err := json.MarshalIndent(templateData, "", "  ")
 	if err != nil {
 		return err
 	}
@@ -142,46 +141,48 @@ func pickRigging(name string) rigging.Rigging {
 	return nil
 }
 
-func renderTemplates(rig rigging.Rigging, templateData map[string]string, destDir string, templateFS embed.FS) error {
+func renderTemplates(rig rigging.Rigging, templateData map[string]string, workspace string, templateFS embed.FS) error {
 	templateDir := filepath.Join("static", "rigging", rig.Name(), "templates")
-	var templates []string
-	err := fs.WalkDir(templateFS, templateDir, func(path string, d fs.DirEntry, err error) error {
-		info, err := d.Info()
+
+	return fs.WalkDir(templateFS, templateDir, func(originPath string, entry fs.DirEntry, err error) error {
+		if originPath == templateDir {
+			return nil
+		}
+		// originPath is like "static/.../templates/..."
+		path := removeTemplateDirPrefix(originPath, templateDir)
+
+		if entry.IsDir() {
+			return os.MkdirAll(path, 0700)
+		}
+
+		templateNameSplits := strings.Split(entry.Name(), ".tmpl")
+		if len(templateNameSplits) != 2 {
+			return fmt.Errorf("template %s is not in the right format", entry.Name())
+		}
+
+		renderedTemplate, err := renderTemplate(originPath, templateData, templateFS)
 		if err != nil {
 			return err
 		}
-		if d != nil && strings.HasSuffix(info.Name(), ".tmpl") {
-			templates = append(templates, info.Name())
+		fname := filepath.Join(filepath.Dir(path), templateNameSplits[0])
+		if err := ioutil.WriteFile(filepath.Join(workspace, fname), []byte(renderedTemplate), 0600); err != nil {
+			return err
 		}
+		fmt.Printf("Successfully generated: %s\n", fname)
 		return nil
 	})
-	if err != nil {
-		return err
-	}
-	for _, t := range templates {
-		renderedTemplate, err := renderTemplate(templateDir, t, templateData, templateFS)
-		if err != nil {
-			return err
-		}
-		renderedTemplateName := strings.Split(t, ".tmpl")
-		if len(renderedTemplateName) != 2 {
-			return fmt.Errorf("template %s is not in the right format", t)
-		}
-		fname := filepath.Join(destDir, renderedTemplateName[0])
-		if err := ioutil.WriteFile(fname, []byte(renderedTemplate), 0600); err != nil {
-			return err
-		}
-		fmt.Printf("Successfully generated: %s\n", renderedTemplateName[0])
-	}
-	return nil
 }
 
-func renderTemplate(templateDir, templateFile string, templateData map[string]string, templateFS embed.FS) (string, error) {
+func removeTemplateDirPrefix(path string, dir string) string {
+	return path[len(dir)+1:]
+}
+
+func renderTemplate(templatePath string, templateData map[string]string, templateFS embed.FS) (string, error) {
 	var tctx pkgtemplate.TemplateContext
 	if err := mapstructure.Decode(templateData, &tctx); err != nil {
 		return "", err
 	}
-	f, err := templateFS.Open(filepath.Join(templateDir, templateFile))
+	f, err := templateFS.Open(templatePath)
 	if err != nil {
 		return "", err
 	}
@@ -190,7 +191,7 @@ func renderTemplate(templateDir, templateFile string, templateData map[string]st
 		return "", err
 	}
 
-	tmpl, err := template.New(templateFile).Funcs(template.FuncMap(sprig.FuncMap())).Parse(string(data))
+	tmpl, err := template.New(templatePath).Funcs(template.FuncMap(sprig.FuncMap())).Parse(string(data))
 	if err != nil {
 		return "", err
 	}
