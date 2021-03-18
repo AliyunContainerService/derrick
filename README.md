@@ -116,8 +116,20 @@ $ git clone https://github.com/hongchaodeng/simple-java-maven-app.git
 $ cd simple-java-maven-app
 $ derrick gen
 Successfully detected your platform is 'java'
+Successfully generated: Deployment.yaml
 Successfully generated: Dockerfile
-Successfully generated: derrick.conf
+Successfully generated: chart/Chart.yaml
+Successfully generated: chart/.helmignore
+Successfully generated: chart/templates/NOTES.txt
+Successfully generated: chart/templates/deployment.yaml
+Successfully generated: chart/templates/_helpers.tpl
+Successfully generated: chart/templates/hpa.yaml
+Successfully generated: chart/templates/ingress.yaml
+Successfully generated: chart/templates/service.yaml
+Successfully generated: chart/templates/serviceaccount.yaml
+Successfully generated: chart/templates/tests/test-connection.yaml
+Successfully generated: chart/values.yaml
+Successfully generated: derrick.json
 ```
 
 Check the Dockerfile:
@@ -158,58 +170,67 @@ We can see the Dockerfile that:
 - It has optimized caching of dependencies.
 - It automatically parses artifact name from `pom.xml` .
 
-Check Kubernetes Deployment yaml:
+It also generates a Helm Chart. Check this [sample output](https://github.com/hongchaodeng/simple-java-maven-app/tree/master/chart).
+
+We can see the deployment manifests by running the following comand:
 
 ```shell
-$ cat Deployment.yaml
+$ cd chart/
+$ helm template test .
+...
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: simple-java-maven-app
+  name: test-simple-java-maven-app
   labels:
-    app: simple-java-maven-app
+    helm.sh/chart: simple-java-maven-app-0.1.0
+    app.kubernetes.io/name: simple-java-maven-app
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
 spec:
+  replicas: 1
   selector:
     matchLabels:
-      app: simple-java-maven-app
+      app.kubernetes.io/name: simple-java-maven-app
+      app.kubernetes.io/instance: test
   template:
     metadata:
       labels:
-        app: simple-java-maven-app
+        app.kubernetes.io/name: simple-java-maven-app
+        app.kubernetes.io/instance: test
     spec:
+      serviceAccountName: test-simple-java-maven-app
       containers:
-      - name: java-app
-        image: <your-image-name>
-        resources:
-          requests:
-            cpu: 1
-            memory: 1500M
-          limits:
-            cpu: 2
-            memory: 1500M        
-        ports:
-        - containerPort: 8080
-        livenessProbe:
-          tcpSocket:
-            port: 8080
-          initialDelaySeconds: 5
-          periodSeconds: 10
-          timeoutSeconds: 2
-          failureThreshold: 1
-          successThreshold: 1
-        readinessProbe:
-          ...
-        env:
-        - name: MY_CPU_LIMIT
-          valueFrom:
-            resourceFieldRef:
-              containerName: java-app
-              resource: limits.cpu
-        ...
+        - name: simple-java-maven-app
+          image: "nginx:1.16.0"
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: MY_CPU_REQUEST
+              valueFrom:
+                resourceFieldRef:
+                  containerName: java-app
+                  resource: requests.cpu
+            ...
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          livenessProbe:
+            tcpSocket:
+              port: 80
+            ...
+          readinessProbe:
+            ...
+          resources:
+            limits:
+              cpu: 2
+              memory: 1500M
+            requests:
+              cpu: 1
+              memory: 1500M
 ```
 
-It also render out a Helm Chart. Check this [sample output](https://github.com/hongchaodeng/simple-java-maven-app/tree/master/chart).
-
-Note that the image name field needs to be filled with the image you build.
 
 ### Build NodeJS application
 
