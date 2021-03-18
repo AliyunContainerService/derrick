@@ -207,6 +207,8 @@ spec:
         ...
 ```
 
+It also render out a Helm Chart. Check this [sample output](https://github.com/hongchaodeng/simple-java-maven-app/tree/master/chart).
+
 Note that the image name field needs to be filled with the image you build.
 
 ### Build NodeJS application

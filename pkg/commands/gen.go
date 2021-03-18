@@ -144,31 +144,32 @@ func pickRigging(name string) rigging.Rigging {
 func renderTemplates(rig rigging.Rigging, templateData map[string]string, workspace string, templateFS embed.FS) error {
 	templateDir := filepath.Join("static", "rigging", rig.Name(), "templates")
 
-	return fs.WalkDir(templateFS, templateDir, func(originPath string, entry fs.DirEntry, err error) error {
-		if originPath == templateDir {
+	return fs.WalkDir(templateFS, templateDir, func(templatePath string, entry fs.DirEntry, err error) error {
+		if templatePath == templateDir {
 			return nil
 		}
 		// originPath is like "static/.../templates/..."
-		path := removeTemplateDirPrefix(originPath, templateDir)
+		path := removeTemplateDirPrefix(templatePath, templateDir)
 
 		if entry.IsDir() {
 			return os.MkdirAll(path, 0700)
 		}
 
-		templateNameSplits := strings.Split(entry.Name(), ".tmpl")
-		if len(templateNameSplits) != 2 {
-			return fmt.Errorf("template %s is not in the right format", entry.Name())
+		if !strings.HasSuffix(entry.Name(), ".tmpl") {
+			return copyOriginFile(templateFS, templatePath, path)
 		}
 
-		renderedTemplate, err := renderTemplate(originPath, templateData, templateFS)
+		renderedTemplate, err := renderTemplate(templateFS, templatePath, templateData)
 		if err != nil {
 			return err
 		}
-		fname := filepath.Join(filepath.Dir(path), templateNameSplits[0])
-		if err := ioutil.WriteFile(filepath.Join(workspace, fname), []byte(renderedTemplate), 0600); err != nil {
+
+		templateBaseName := entry.Name()[0 : len(entry.Name())-len(".tmpl")]
+		finalName := filepath.Join(filepath.Dir(path), templateBaseName)
+		if err := ioutil.WriteFile(filepath.Join(workspace, finalName), []byte(renderedTemplate), 0600); err != nil {
 			return err
 		}
-		fmt.Printf("Successfully generated: %s\n", fname)
+		fmt.Printf("Successfully generated: %s\n", finalName)
 		return nil
 	})
 }
@@ -177,12 +178,41 @@ func removeTemplateDirPrefix(path string, dir string) string {
 	return path[len(dir)+1:]
 }
 
-func renderTemplate(templatePath string, templateData map[string]string, templateFS embed.FS) (string, error) {
+func convertSpecialFiles(path string) string {
+	// go embed excludes files whose names begin with "." or "_"
+	switch filepath.Base(path) {
+	case "helm_helpers":
+		return filepath.Join(filepath.Dir(path), "_helpers.tpl")
+	case "helm_ignore":
+		return filepath.Join(filepath.Dir(path), ".helmignore")
+	default:
+		return path
+	}
+}
+
+func copyOriginFile(templateFS embed.FS, path2read, path2write string) error {
+	f, err := templateFS.Open(path2read)
+	if err != nil {
+		return err
+	}
+	b, err := ioutil.ReadAll(f)
+	if err != nil {
+		return err
+	}
+	finalpath := convertSpecialFiles(path2write)
+	if err := ioutil.WriteFile(finalpath, b, 0600); err != nil {
+		return err
+	}
+	fmt.Printf("Successfully generated: %s\n", finalpath)
+	return nil
+}
+
+func renderTemplate(templateFS embed.FS, path string, templateData map[string]string) (string, error) {
 	var tctx pkgtemplate.TemplateContext
 	if err := mapstructure.Decode(templateData, &tctx); err != nil {
 		return "", err
 	}
-	f, err := templateFS.Open(templatePath)
+	f, err := templateFS.Open(path)
 	if err != nil {
 		return "", err
 	}
@@ -191,7 +221,7 @@ func renderTemplate(templatePath string, templateData map[string]string, templat
 		return "", err
 	}
 
-	tmpl, err := template.New(templatePath).Funcs(template.FuncMap(sprig.FuncMap())).Parse(string(data))
+	tmpl, err := template.New(path).Funcs(template.FuncMap(sprig.FuncMap())).Parse(string(data))
 	if err != nil {
 		return "", err
 	}
