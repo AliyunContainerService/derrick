@@ -15,14 +15,6 @@ spec:
     spec:
       containers:
       - name: java-app
-        image: <your-image-name>
-        resources:
-          requests:
-            cpu: 1
-            memory: 1500M
-          limits:
-            cpu: 2
-            memory: 1500M
         ports:
         - containerPort: 8080
         readinessProbe:

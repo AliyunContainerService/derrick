@@ -1,0 +1,7 @@
+namePrefix: prod-
+commonLabels:
+  tier: production
+bases:
+  - ../../base
+patchesStrategicMerge:
+  - deployment.yaml

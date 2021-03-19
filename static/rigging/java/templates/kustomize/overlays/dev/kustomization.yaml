@@ -1,0 +1,7 @@
+namePrefix: dev-
+commonLabels:
+  tier: dev
+bases:
+  - ../../base
+patchesStrategicMerge:
+  - deployment.yaml

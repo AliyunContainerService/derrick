@@ -116,7 +116,6 @@ $ git clone https://github.com/hongchaodeng/simple-java-maven-app.git
 $ cd simple-java-maven-app
 $ derrick gen
 Successfully detected your platform is 'java'
-Successfully generated: Deployment.yaml
 Successfully generated: Dockerfile
 Successfully generated: chart/Chart.yaml
 Successfully generated: chart/.helmignore
@@ -128,7 +127,15 @@ Successfully generated: chart/templates/ingress.yaml
 Successfully generated: chart/templates/service.yaml
 Successfully generated: chart/templates/serviceaccount.yaml
 Successfully generated: chart/templates/tests/test-connection.yaml
+Successfully generated: chart/values-production.yaml
+Successfully generated: chart/values-staging.yaml
 Successfully generated: chart/values.yaml
+Successfully generated: kubernetes/deployment.yaml
+Successfully generated: kustomize/base/deployment.yaml
+Successfully generated: kustomize/overlays/production/deployment.yaml
+Successfully generated: kustomize/overlays/production/kustomization.yaml
+Successfully generated: kustomize/overlays/staging/deployment.yaml
+Successfully generated: kustomize/overlays/staging/kustomization.yaml
 Successfully generated: derrick.json
 ```
 
@@ -170,9 +177,21 @@ We can see the Dockerfile that:
 - It has optimized caching of dependencies.
 - It automatically parses artifact name from `pom.xml` .
 
-It also generates a Helm Chart. Check this [sample output](https://github.com/hongchaodeng/simple-java-maven-app/tree/master/chart).
+It also generates a couple of Kubernetes deployment manifests:
 
-We can see the deployment manifests by running the following comand:
+```shell
+kubernetes/
+chart/
+kustomize/
+```
+
+You can check sample outputs here:
+- [chart](https://github.com/hongchaodeng/simple-java-maven-app/tree/master/chart).
+- [kustomize](https://github.com/hongchaodeng/simple-java-maven-app/tree/master/kustomize).
+- [kubernetes](https://github.com/hongchaodeng/simple-java-maven-app/tree/master/kubernetes).
+
+Let's take a look at the helm chart it generates.
+We can see the final deployment manifests by running the following command:
 
 ```shell
 $ cd chart/
@@ -231,6 +250,55 @@ spec:
               memory: 1500M
 ```
 
+Let's take a look at the kustomize directories it generates.
+We can see the final deployment manifests by running the following command:
+
+```shell
+$ kustomize build kustomize/overlays/prod
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: simple-java-maven-app
+    tier: production
+  name: prod-simple-java-maven-app
+spec:
+  selector:
+    matchLabels:
+      app: simple-java-maven-app
+      tier: production
+  template:
+    metadata:
+      labels:
+        app: simple-java-maven-app
+        tier: production
+    spec:
+      containers:
+      - env:
+        - name: MY_CPU_REQUEST
+          valueFrom:
+            resourceFieldRef:
+              containerName: java-app
+              resource: requests.cpu
+        ...
+        image: <your-image>
+        livenessProbe:
+          ...
+        name: java-app
+        ports:
+        - containerPort: 8080
+        readinessProbe:
+          ...
+        resources:
+          limits:
+            cpu: 2
+            memory: 1500M
+          requests:
+            cpu: 1
+            memory: 1500M
+```
+
+Note that you need to modify image field in kustomize/overlays/prod/deployment.yaml (same for dev/ directory). 
 
 ### Build NodeJS application
 
