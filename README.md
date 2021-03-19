@@ -186,9 +186,9 @@ kustomize/
 ```
 
 You can check sample outputs here:
-- [chart](https://github.com/hongchaodeng/simple-java-maven-app/tree/master/chart).
-- [kustomize](https://github.com/hongchaodeng/simple-java-maven-app/tree/master/kustomize).
-- [kubernetes](https://github.com/hongchaodeng/simple-java-maven-app/tree/master/kubernetes).
+- [chart](https://github.com/hongchaodeng/simple-java-maven-app/tree/master/chart)
+- [kustomize](https://github.com/hongchaodeng/simple-java-maven-app/tree/master/kustomize)
+- [kubernetes](https://github.com/hongchaodeng/simple-java-maven-app/tree/master/kubernetes)
 
 Let's take a look at the helm chart it generates.
 We can see the final deployment manifests by running the following command:
