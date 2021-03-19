@@ -277,21 +277,9 @@ spec:
         tier: production
     spec:
       containers:
-      - env:
-        - name: MY_CPU_REQUEST
-          valueFrom:
-            resourceFieldRef:
-              containerName: java-app
-              resource: requests.cpu
-        ...
+      - ...
         image: <your-image>
-        livenessProbe:
-          ...
         name: java-app
-        ports:
-        - containerPort: 8080
-        readinessProbe:
-          ...
         resources:
           limits:
             cpu: 2
