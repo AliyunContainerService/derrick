@@ -25,12 +25,12 @@ serviceAccount:
 
 podAnnotations:
   armsPilotAutoEnable: "on"
-  armsPilotCreateAppName: {{ .ProjectName }}
+  armsPilotCreateAppName: "your-app-name"
   ahasPilotAutoEnable: "on"
-  ahasAppName: "K8sFooTest"
+  ahasAppName: "your-app-name"
   ahasNamespace: "default"
-  msePilotAutoEnable: 'on'
-  msePilotCreateAppName: productserivce
+  msePilotAutoEnable: "on"
+  msePilotCreateAppName: "your-app-name"
 
 service:
   type: ClusterIP

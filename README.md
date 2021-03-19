@@ -289,7 +289,9 @@ spec:
             memory: 1500M
 ```
 
-Note that you need to modify image field in kustomize/overlays/prod/deployment.yaml (same for dev/ directory). 
+Note that the above deployment manifests are samples for you to quickly bootstrap.
+To make it work you still need to build the actual image, fill the image name.
+Additionally, if you deploy it on Alibaba cloud and want to integrate with AHAS/ARMS/MSE middlewares, you also need to fill your app name in the annotations.
 
 ### Build NodeJS application
 
