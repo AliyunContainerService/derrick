@@ -23,7 +23,14 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name: ""
 
-podAnnotations: {}
+podAnnotations:
+  armsPilotAutoEnable: "on"
+  armsPilotCreateAppName: {{ .ProjectName }}
+  ahasPilotAutoEnable: "on"
+  ahasAppName: "K8sFooTest"
+  ahasNamespace: "default"
+  msePilotAutoEnable: 'on'
+  msePilotCreateAppName: productserivce
 
 service:
   type: ClusterIP

@@ -12,6 +12,14 @@ spec:
     metadata:
       labels:
         app: {{ .ProjectName }}
+      annotations:
+        armsPilotAutoEnable: "on"
+        armsPilotCreateAppName: {{ .ProjectName }}
+        ahasPilotAutoEnable: "on"
+        ahasAppName: "K8sFooTest"
+        ahasNamespace: "default"
+        msePilotAutoEnable: 'on'
+        msePilotCreateAppName: productserivce
     spec:
       containers:
       - name: java-app
