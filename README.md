@@ -139,6 +139,14 @@ Successfully generated: kustomize/overlays/staging/kustomization.yaml
 Successfully generated: derrick.json
 ```
 
+
+You can check sample outputs here:
+- [Dockerfile](https://github.com/hongchaodeng/simple-java-maven-app/blob/master/Dockerfile)
+- [chart](https://github.com/hongchaodeng/simple-java-maven-app/tree/master/chart)
+- [kustomize](https://github.com/hongchaodeng/simple-java-maven-app/tree/master/kustomize)
+- [kubernetes](https://github.com/hongchaodeng/simple-java-maven-app/tree/master/kubernetes)
+
+
 Check the Dockerfile:
 
 ```shell
@@ -184,11 +192,6 @@ kubernetes/
 chart/
 kustomize/
 ```
-
-You can check sample outputs here:
-- [chart](https://github.com/hongchaodeng/simple-java-maven-app/tree/master/chart)
-- [kustomize](https://github.com/hongchaodeng/simple-java-maven-app/tree/master/kustomize)
-- [kubernetes](https://github.com/hongchaodeng/simple-java-maven-app/tree/master/kubernetes)
 
 Let's take a look at the helm chart it generates.
 We can see the final deployment manifests by running the following command:
