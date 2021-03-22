@@ -8,7 +8,7 @@
 
 Derrick is a tool to help you containerize application in seconds.
 Derrick focuses on developer workflow in local development environment.
-Derrick will inspect your workspace first, then generate definitions and templates to boost your journey to run apps as containerized services. This includes generating Dockerfile for your app, k8s definitions to deploy it, Terraform templates to bootstrap your infrastructure environment, CI/CD pipelines to build, test and deploy the whole thing continuoulsy.
+Derrick will inspect your workspace first, then generate definitions and templates to boost your journey to run apps as containerized services. This includes generating Dockerfile for your app, k8s definitions to deploy it, Helm Chart or Kustomize folders for multi-environment setup, Terraform templates to bootstrap your infrastructure resources, CI/CD pipelines to build/test/deploy the whole thing continously.
 You can use Derrick to set up your DevOps processes in cloud-native way.
 
 <img src="http://container-service.oss-cn-beijing.aliyuncs.com/derrick.png" width=100%/>
