@@ -8,12 +8,13 @@
 
 Derrick is a tool to help you containerize application in seconds.
 Derrick focuses on developer workflow in local development environment.
-Derrick will inspect your workspace and generate Dockerfile and other manifests to achieve containerization.
-You can use Derrick to set up your DevOps processes in container-native way.
+Derrick will inspect your workspace first, then generate definitions and templates to boost your journey to run apps as containerized services. This includes generating Dockerfile for your app, k8s definitions to deploy it, Terraform templates to bootstrap your infrastructure environment, CI/CD pipelines to build, test and deploy the whole thing continuoulsy.
+You can use Derrick to set up your DevOps processes in cloud-native way.
 
-<img src="http://container-service.oss-cn-beijing.aliyuncs.com/derrick.png" width=100%/>    
+<img src="http://container-service.oss-cn-beijing.aliyuncs.com/derrick.png" width=100%/>
 
-Using Derrick is very simple:    
+Using Derrick is very simple:
+
 1. `derrick gen` to automatically inspect the workspace and generate the Dockerfile for your application, or
 2. `derrick list` to show all available riggings and pick one via `derrick gen -r <rigging>` to generate the Dockerfile.
 3. Use your favorite text editor to modify the Dockerfile or other manifests before building and shipping the containers.
@@ -30,17 +31,17 @@ Derrick has basically the following processing layers:
 
 Here is the list of frameworks passed the tests. If you want to support more languages and frameworks, please submit an issue.
 
-* Java
-* PHP
-* PYTHON
-* Golang
-* NodeJs
-  
+- Java
+- PHP
+- PYTHON
+- Golang
+- NodeJs
+
 ## Quick Start
 
 ### Installation
 
-Build `derrick` binary: 
+Build `derrick` binary:
 
 ```shell
 make build
@@ -139,13 +140,12 @@ Successfully generated: kustomize/overlays/staging/kustomization.yaml
 Successfully generated: derrick.json
 ```
 
-
 You can check sample outputs here:
+
 - [Dockerfile](https://github.com/hongchaodeng/simple-java-maven-app/blob/master/Dockerfile)
 - [chart](https://github.com/hongchaodeng/simple-java-maven-app/tree/master/chart)
 - [kustomize](https://github.com/hongchaodeng/simple-java-maven-app/tree/master/kustomize)
 - [kubernetes](https://github.com/hongchaodeng/simple-java-maven-app/tree/master/kubernetes)
-
 
 Check the Dockerfile:
 
@@ -301,6 +301,6 @@ $ cd nodejs-web-application
 $ derrick gen
 ```
 
-## *License*
+## _License_
 
 This software is released under the Apache 2.0 license.
