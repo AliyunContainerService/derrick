@@ -13,17 +13,17 @@ spec:
       labels:
         app: {{ .ProjectName }}
       annotations:
-        armsPilotAutoEnable: "on"
+        armsPilotAutoEnable: "off"
         armsPilotCreateAppName: "your-app-name"
-        ahasPilotAutoEnable: "on"
+        ahasPilotAutoEnable: "off"
         ahasAppName: "your-app-name"
         ahasNamespace: "default"
-        msePilotAutoEnable: "on"
+        msePilotAutoEnable: "off"
         msePilotCreateAppName: "your-app-name"
     spec:
       containers:
       - name: java-app
-        image: <your-image>
+        image: your-image
         resources:
           requests:
             cpu: 1
@@ -32,10 +32,10 @@ spec:
             cpu: 2
             memory: 1500M
         ports:
-        - containerPort: 8080
+        - containerPort: 80
         readinessProbe:
           tcpSocket:
-            port: 8080
+            port: 80
           initialDelaySeconds: 5
           periodSeconds: 10
           timeoutSeconds: 2
@@ -43,12 +43,17 @@ spec:
           successThreshold: 1
         livenessProbe:
           tcpSocket:
-            port: 8080
+            port: 80
           initialDelaySeconds: 15
           periodSeconds: 20
           timeoutSeconds: 2
           failureThreshold: 1
           successThreshold: 1
+        startupProbe:
+          tcpSocket:
+            port: 80
+          periodSeconds: 10
+          failureThreshold: 30
         env:
         {{- if .JavaToolOptions}}
         - name: JAVA_TOOL_OPTIONS

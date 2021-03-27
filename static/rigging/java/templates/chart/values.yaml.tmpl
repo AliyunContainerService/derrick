@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: nginx
+  repository: your-image
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
@@ -24,12 +24,12 @@ serviceAccount:
   name: ""
 
 podAnnotations:
-  armsPilotAutoEnable: "on"
+  armsPilotAutoEnable: "off"
   armsPilotCreateAppName: "your-app-name"
-  ahasPilotAutoEnable: "on"
+  ahasPilotAutoEnable: "off"
   ahasAppName: "your-app-name"
   ahasNamespace: "default"
-  msePilotAutoEnable: "on"
+  msePilotAutoEnable: "off"
   msePilotCreateAppName: "your-app-name"
 
 service:
@@ -52,6 +52,11 @@ livenessProbe:
   timeoutSeconds: 2
   failureThreshold: 1
   successThreshold: 1
+startupProbe:
+  tcpSocket:
+    port: 80
+  periodSeconds: 10
+  failureThreshold: 30
 
 env:
   {{- if .JavaToolOptions}}

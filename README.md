@@ -225,7 +225,7 @@ spec:
       serviceAccountName: test-simple-java-maven-app
       containers:
         - name: simple-java-maven-app
-          image: "nginx:1.16.0"
+          image: "your-image"
           imagePullPolicy: IfNotPresent
           env:
             - name: MY_CPU_REQUEST
@@ -278,7 +278,7 @@ spec:
     spec:
       containers:
       - ...
-        image: <your-image>
+        image: your-image
         name: java-app
         resources:
           limits:
