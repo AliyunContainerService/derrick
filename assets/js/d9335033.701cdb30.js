@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[27],{97:function(e){e.exports=JSON.parse('{"title":"Recent posts","items":[{"title":"\u6b22\u8fce\u524d\u6765\u4f7f\u7528 Derrick","permalink":"/derrick/blog/2021/03/28/welcome"}]}')}}]);
