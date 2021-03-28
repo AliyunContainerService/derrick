@@ -1,43 +1,33 @@
 module.exports = {
-  docs: [
-    {
-      type: "category",
-      label: "Docusaurus Tutorial",
-      items: [
-        "getting-started",
-        "create-a-page",
-        "create-a-document",
-        "create-a-blog-post",
-        "markdown-features",
-        "thank-you",
-      ],
-    },
-  ],
   // docs: [
   //   {
   //     type: "category",
-  //     label: "Derrick",
-  //     items: ["introduction", "design"],
-  //   },
-  //   {
-  //     type: "category",
-  //     label: "Getting started",
+  //     label: "Docusaurus Tutorial",
   //     items: [
-  //       "installation",
-  //       "guides/java",
-  //       "guides/go",
-  //       "guides/python",
+  //       "old/getting-started",
+  //       "old/create-a-page",
+  //       "old/create-a-document",
+  //       "old/create-a-blog-post",
+  //       "old/markdown-features",
   //     ],
   //   },
-  //   // {
-  //   //   type: "category",
-  //   //   label: "Advanced guides",
-  //   //   items: ["guides/multi-env", "guides/helm-chart", "guides/kustomize",  "guides/aliyun-ahas", "guides/aliyun-mse", "guides/aliyun-arms"],
-  //   // },
-  //   {
-  //     type: "category",
-  //     label: "Community",
-  //     items: ["contribution", "contact"],
-  //   },
   // ],
+  docs: [
+    {
+      type: "category",
+      label: "Derrick",
+      items: ["introduction", "design"],
+    },
+    {
+      type: "category",
+      label: "Getting started",
+      items: ["installation", "quickstart"],
+    },
+    // {
+    //   type: "category",
+    //   label: "Advanced guides",
+    //   items: ["guides/multi-env", "guides/helm-chart", "guides/kustomize",  "guides/aliyun-ahas", "guides/aliyun-mse", "guides/aliyun-arms"],
+    // },
+    "community",
+  ],
 };

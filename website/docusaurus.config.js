@@ -11,7 +11,7 @@ module.exports = {
   projectName: "derrick", // Usually your repo name.
   themeConfig: {
     navbar: {
-      title: "Derrick 文档",
+      title: "Derrick 官方文档",
       logo: {
         alt: "My Site Logo",
         src: "img/logo.svg",
@@ -23,7 +23,7 @@ module.exports = {
         //   label: "Docs",
         //   position: "left",
         // },
-        { to: "blog", label: "Blog", position: "left" },
+        // { to: "blog", label: "Blog", position: "left" },
         {
           href: "https://github.com/alibaba/derrick",
           label: "GitHub",
@@ -63,10 +63,10 @@ module.exports = {
         {
           title: "More",
           items: [
-            // {
-            //   label: "Blog",
-            //   to: "blog",
-            // },
+            {
+              label: "Blog",
+              to: "blog",
+            },
             {
               label: "GitHub",
               href: "https://github.com/alibaba/derrick",
@@ -83,6 +83,7 @@ module.exports = {
       {
         docs: {
           routeBasePath: "/",
+
           sidebarPath: require.resolve("./sidebars.js"),
           // Please change this to your repo.
           editUrl: "https://github.com/alibaba/derrick/edit/master/website/",
