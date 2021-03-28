@@ -1,7 +1,7 @@
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 module.exports = {
-  title: "My Site",
-  tagline: "The tagline of my site",
+  title: "Derrick",
+  tagline: "一个帮助你快速容器化应用的工具",
   url: "https://alibaba.github.io/",
   baseUrl: "/derrick/",
   onBrokenLinks: "throw",
@@ -11,19 +11,19 @@ module.exports = {
   projectName: "derrick", // Usually your repo name.
   themeConfig: {
     navbar: {
-      title: "Derrick 官方文档",
+      title: "Derrick 官网",
       logo: {
         alt: "My Site Logo",
         src: "img/logo.svg",
       },
       items: [
-        // {
-        //   to: "docs/",
-        //   activeBasePath: "docs",
-        //   label: "Docs",
-        //   position: "left",
-        // },
-        // { to: "blog", label: "Blog", position: "left" },
+        {
+          to: "docs/",
+          activeBasePath: "docs",
+          label: "Docs",
+          position: "left",
+        },
+        { to: "blog", label: "Blog", position: "left" },
         {
           href: "https://github.com/alibaba/derrick",
           label: "GitHub",
@@ -38,8 +38,12 @@ module.exports = {
           title: "Docs",
           items: [
             {
-              label: "Getting Started",
+              label: "Introduction",
               to: "docs/",
+            },
+            {
+              label: "Design",
+              to: "docs/design",
             },
           ],
         },
@@ -47,16 +51,16 @@ module.exports = {
           title: "Community",
           items: [
             {
-              label: "Stack Overflow",
-              href: "https://stackoverflow.com/questions/tagged/docusaurus",
+              label: "GitHub",
+              href: "https://github.com/alibaba/derrick",
             },
             {
-              label: "Discord",
-              href: "https://discordapp.com/invite/docusaurus",
+              label: "Wechat",
+              href: "https://github.com/alibaba/derrick",
             },
             {
-              label: "Twitter",
-              href: "https://twitter.com/docusaurus",
+              label: "DingTalk",
+              href: "https://github.com/alibaba/derrick",
             },
           ],
         },
@@ -67,10 +71,10 @@ module.exports = {
               label: "Blog",
               to: "blog",
             },
-            {
-              label: "GitHub",
-              href: "https://github.com/alibaba/derrick",
-            },
+            // {
+            //   label: "GitHub",
+            //   href: "https://github.com/alibaba/derrick",
+            // },
           ],
         },
       ],
@@ -82,8 +86,6 @@ module.exports = {
       "@docusaurus/preset-classic",
       {
         docs: {
-          routeBasePath: "/",
-
           sidebarPath: require.resolve("./sidebars.js"),
           // Please change this to your repo.
           editUrl: "https://github.com/alibaba/derrick/edit/master/website/",
