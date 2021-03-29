@@ -20,10 +20,10 @@ module.exports = {
         {
           to: "docs/",
           activeBasePath: "docs",
-          label: "Docs",
+          label: "文档",
           position: "left",
         },
-        { to: "blog", label: "Blog", position: "left" },
+        { to: "blog", label: "博客", position: "left" },
         {
           href: "https://github.com/alibaba/derrick",
           label: "GitHub",
@@ -51,10 +51,6 @@ module.exports = {
           title: "Community",
           items: [
             {
-              label: "GitHub",
-              href: "https://github.com/alibaba/derrick",
-            },
-            {
               label: "Wechat",
               href: "https://github.com/alibaba/derrick",
             },
@@ -71,10 +67,10 @@ module.exports = {
               label: "Blog",
               to: "blog",
             },
-            // {
-            //   label: "GitHub",
-            //   href: "https://github.com/alibaba/derrick",
-            // },
+            {
+              label: "GitHub",
+              href: "https://github.com/alibaba/derrick",
+            },
           ],
         },
       ],
