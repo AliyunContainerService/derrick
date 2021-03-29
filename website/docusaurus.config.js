@@ -42,8 +42,8 @@ module.exports = {
               to: "docs/",
             },
             {
-              label: "Design",
-              to: "docs/design",
+              label: "Getting started",
+              to: "docs/quickstart",
             },
           ],
         },

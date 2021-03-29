@@ -20,14 +20,14 @@ module.exports = {
     },
     {
       type: "category",
-      label: "Getting started",
+      label: "Getting Started",
       items: ["installation", "quickstart"],
     },
-    // {
-    //   type: "category",
-    //   label: "Advanced guides",
-    //   items: ["guides/multi-env", "guides/helm-chart", "guides/kustomize",  "guides/aliyun-ahas", "guides/aliyun-mse", "guides/aliyun-arms"],
-    // },
+    {
+      type: "category",
+      label: "Advanced Guides",
+      items: ["advanced/multi-env", "advanced/middleware"],
+    },
     "community",
   ],
 };
