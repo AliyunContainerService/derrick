@@ -11,7 +11,7 @@ ADD ./src src/
 RUN mvn install -Dmaven.test.skip=true -Dmaven.repo.local=./.m2
 
 # Second stage: runtime environment
-From openjdk:8
+From openjdk:15
 
 # copy jar from the first stage
 COPY --from=builder target/{{ .ArtifactName }}.jar {{ .ArtifactName }}.jar

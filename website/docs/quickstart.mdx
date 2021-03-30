@@ -89,7 +89,7 @@ ADD ./src src/
 RUN mvn install -Dmaven.test.skip=true -Dmaven.repo.local=./.m2
 
 # Second stage: runtime environment
-From openjdk:8
+From openjdk:15
 
 # copy jar from the first stage
 COPY --from=builder target/my-app-1.0-SNAPSHOT.jar my-app-1.0-SNAPSHOT.jar
