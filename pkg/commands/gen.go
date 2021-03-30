@@ -75,7 +75,7 @@ func (o *genOption) Run() error {
 			return nil
 		} else if len(suitableRiggings) > 1 {
 			// ask users to choose from one of them
-			fmt.Println("More than one rigging can handle the application: %v", printRiggingNames(suitableRiggings))
+			fmt.Printf("More than one rigging can handle the application: %v\n", printRiggingNames(suitableRiggings))
 		}
 
 		suitableRigging = suitableRiggings[0]
