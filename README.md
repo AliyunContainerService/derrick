@@ -6,7 +6,9 @@
 [![Codecov](https://codecov.io/gh/alibaba/derrick/branch/master/graph/badge.svg)](https://codecov.io/gh/alibaba/derrick)
 [![Go Reference](https://pkg.go.dev/badge/github.com/alibaba/derrick.svg)](https://pkg.go.dev/github.com/alibaba/derrick)
 
-[Derrick](https://alibaba.github.io/derrick/) is a tool to help you containerize application in seconds.
+Homepage: https://alibaba.github.io/derrick/
+
+Derrick is a tool to help you containerize application in seconds.
 Derrick focuses on developer workflow in local development environment.
 Derrick will inspect your workspace first, then generate definitions and templates to boost your journey to run apps as containerized services. This includes generating Dockerfile for your app, k8s definitions to deploy it, Helm Chart or Kustomize folders for multi-environment setup, Terraform templates to bootstrap your infrastructure resources, CI/CD pipelines to build/test/deploy the whole thing continously.
 You can use Derrick to set up your DevOps processes in cloud-native way.
