@@ -10,8 +10,9 @@ jobs:
   publish-cli:
     runs-on: ubuntu-latest
     env:
-      VELA_VERSION: ${{ github.ref }}
+      # https://docs.github.com/en/actions/reference/authentication-in-a-workflow
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
     steps:
       - name: Set up Go 1.16
         uses: actions/setup-go@v1
