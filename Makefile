@@ -17,7 +17,7 @@ build:
 	go build -o _bin/derrick main.go
 
 cross-build:
-	GO111MODULE=on CGO_ENABLED=0 $(GOX) -ldflags $(LDFLAGS) -parallel=2 -output="_bin/{{.OS}}-{{.Arch}}/derrick" -osarch='$(TARGETS)' main.go
+	GO111MODULE=on CGO_ENABLED=0 $(GOX) -ldflags $(LDFLAGS) -parallel=2 -output="_bin/{{.OS}}-{{.Arch}}/derrick" -osarch='$(TARGETS)' ./
 
 compress:
 	( \
