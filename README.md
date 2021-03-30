@@ -22,7 +22,8 @@ Using Derrick is very simple:
 
 ## Documentation
 
-- 
+- [Installation](https://alibaba.github.io/derrick/docs/installation)
+- [Getting started](https://alibaba.github.io/derrick/docs/quickstart)
 
 ## Language Support
 
