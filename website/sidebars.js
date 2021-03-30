@@ -4,7 +4,6 @@ module.exports = {
   //     type: "category",
   //     label: "Docusaurus Tutorial",
   //     items: [
-  //       "old/getting-started",
   //       "old/create-a-page",
   //       "old/create-a-document",
   //       "old/create-a-blog-post",
@@ -25,8 +24,12 @@ module.exports = {
     },
     {
       type: "category",
-      label: "Advanced Guides",
-      items: ["advanced/multi-env", "advanced/middleware"],
+      label: "Features",
+      items: [
+        "guides/supported-languages",
+        "guides/multi-env",
+        "guides/middleware",
+      ],
     },
     "community",
   ],

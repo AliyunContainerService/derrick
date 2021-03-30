@@ -1,5 +1,5 @@
 ---
-title: QuickStart
+title: 快速上手
 ---
 
 怎么样使用？
