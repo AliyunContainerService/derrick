@@ -27,7 +27,6 @@ module.exports = {
       label: "Features",
       items: [
         "guides/supported-languages",
-        "guides/multi-env",
         "guides/middleware",
       ],
     },

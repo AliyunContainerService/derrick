@@ -181,7 +181,7 @@ CMD ["java", \
 We can see the Dockerfile that:
 
 - It separates build and runtime stages.
-  It uses `openjdk` which is the popular and standard base for runtime environment.
+- It uses `openjdk` which is the popular and standard base for runtime environment.
 - It has optimized caching of dependencies.
 - It automatically parses artifact name from `pom.xml` .
 
