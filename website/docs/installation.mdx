@@ -1,0 +1,50 @@
+---
+title: 安装指南
+---
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
+
+每一次 <a href="https://github.com/alibaba/derrick/releases">Derrick 发布 </a> 都提供了已经构建好的、对不同 OS 都有支持的安装包。
+这些包文件可以从 <a href="https://github.com/alibaba/derrick/releases"> Github release </a> 中去下载：
+
+<Tabs
+  className="unique-tabs"
+  defaultValue="macos"
+  values={[
+    { label: "MacOS", value: "macos" },
+    { label: " Linux", value: "linux" },
+    { label: "Windows", value: "windows" },
+  ]}>
+
+  <TabItem value="macos">
+
+  ```bash
+  curl -LO https://github.com/alibaba/derrick/releases/download/v0.2.1/derrick-v0.2.1-darwin-amd64.tar.gz
+  tar zxvf derrick-v0.2.1-darwin-amd64.tar.gz
+  export PATH=$PWD/darwin-amd64/derrick:$PATH
+  ```
+
+  </TabItem>
+
+  <TabItem value="linux">
+
+  ```bash
+  curl -LO https://github.com/alibaba/derrick/releases/download/v0.2.1/derrick-v0.2.1-linux-amd64.tar.gz
+  tar zxvf derrick-v0.2.1-linux-amd64.tar.gz
+  export PATH=$PWD/linux-amd64/derrick:$PATH
+  ```
+
+  </TabItem>
+
+  <TabItem value="windows">
+
+  ```bash
+  curl -LO https://github.com/alibaba/derrick/releases/download/v0.2.1/derrick-v0.2.1-windows-amd64.tar.gz
+  tar zxvf derrick-v0.2.1-windows-amd64.tar.gz
+  export PATH=$PWD/windows-amd64/derrick:$PATH
+  ```
+
+  </TabItem>
+</Tabs>
