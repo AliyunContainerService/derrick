@@ -6,7 +6,7 @@
 [![Codecov](https://codecov.io/gh/alibaba/derrick/branch/master/graph/badge.svg)](https://codecov.io/gh/alibaba/derrick)
 [![Go Reference](https://pkg.go.dev/badge/github.com/alibaba/derrick.svg)](https://pkg.go.dev/github.com/alibaba/derrick)
 
-Homepage: https://alibaba.github.io/derrick/
+Homepage: [alibaba.github.io/derrick](https://alibaba.github.io/derrick/)
 
 ## Overview
 
