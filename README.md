@@ -31,13 +31,13 @@ Using Derrick is very simple:
 
 ## Language Support
 
-Here is the list of frameworks passed the tests. If you want to support more languages and frameworks, please submit an issue.
+Here is the list of supported languages and frameworks. If you want to support more languages and frameworks, please submit an issue.
 
 - Java
 - PHP
-- PYTHON
+- Python
 - Golang
-- NodeJs
+- NodeJS
 
 ## _License_
 
