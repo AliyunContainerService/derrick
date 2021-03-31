@@ -1,8 +1,8 @@
 # Derrick
 
 [![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
-[![GitHub release](https://img.shields.io/badge/release-0.1.2-green.svg)](https://github.com/alibaba/derrick/releases)
 [![Build Status](https://travis-ci.org/alibaba/derrick.svg?branch=master)](https://travis-ci.org/alibaba/derrick)
+[![Github Action](https://github.com/alibaba/derrick/actions/workflows/go.yml/badge.svg)](https://github.com/alibaba/derrick/actions/workflows/go.yml)
 [![Codecov](https://codecov.io/gh/alibaba/derrick/branch/master/graph/badge.svg)](https://codecov.io/gh/alibaba/derrick)
 [![Go Reference](https://pkg.go.dev/badge/github.com/alibaba/derrick.svg)](https://pkg.go.dev/github.com/alibaba/derrick)
 
