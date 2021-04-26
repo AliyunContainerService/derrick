@@ -15,7 +15,7 @@ module.exports = {
     {
       type: "category",
       label: "Derrick",
-      items: ["introduction", "design"],
+      items: ["introduction", "design", "comparison"],
     },
     {
       type: "category",
@@ -25,10 +25,7 @@ module.exports = {
     {
       type: "category",
       label: "Features",
-      items: [
-        "guides/supported-languages",
-        "guides/middleware",
-      ],
+      items: ["guides/supported-languages", "guides/middleware"],
     },
     "community",
   ],
