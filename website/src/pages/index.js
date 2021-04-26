@@ -12,18 +12,23 @@ const features = [
     imageUrl: "img/undraw_docusaurus_mountain.svg",
     description: (
       <>
-        Derrick was designed from the ground up to be easily installed and used
-        to get your website up and running quickly.
+        Derrick allows you to containerize your applications easily without
+        writing complex configuration files. Derrick lets you focus on your app,
+        and we will do the chores. Go ahead and containerize your app using
+        Derrick.
       </>
     ),
   },
   {
-    title: "Focus on What Matters",
+    title: "Accelerates Application Modernization",
     imageUrl: "img/undraw_docusaurus_tree.svg",
     description: (
       <>
-        Derrick lets you focus on your app, and we&apos;ll do the chores. Go
-        ahead and containerize your app using Derrick.
+        Containerizing applications allows you to streamline the application
+        deployment and operations experience while providing better cost-savings
+        and security. Derrick analyzes your applications and automatically
+        generates configurations that are configured with the correct
+        dependencies, Dockerfiles, and deployment manifests for Kubernetes.
       </>
     ),
   },
